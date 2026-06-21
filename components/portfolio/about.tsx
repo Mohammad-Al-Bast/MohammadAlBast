@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import { Github } from 'lucide-react'
 import { CodeHeading } from '@/components/code-heading'
+import { BrandGlyph } from '@/components/brand-glyph'
 import { OutlineButton } from '@/components/primitives'
 import { aboutDetails } from './data'
 
@@ -31,7 +31,7 @@ export function About() {
               href="#"
               className="mt-6 inline-flex items-center gap-2 font-mono text-sm text-primary transition-opacity hover:opacity-80"
             >
-              Follow me on Github <Github className="size-4" />
+              Follow me on Github <BrandGlyph src="/logos/github.svg" label="GitHub" className="size-4" />
             </a>
           </div>
 

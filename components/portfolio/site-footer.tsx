@@ -1,4 +1,4 @@
-import { Github, Linkedin } from 'lucide-react'
+import { BrandGlyph } from '@/components/brand-glyph'
 import { Logo } from '@/components/logo'
 import { navLinks } from './data'
 
@@ -28,14 +28,14 @@ export function SiteFooter() {
                 aria-label="GitHub"
                 className="text-foreground transition-colors hover:text-primary"
               >
-                <Github className="size-5" />
+                <BrandGlyph src="/logos/github.svg" label="GitHub" className="size-5" />
               </a>
               <a
                 href="#"
                 aria-label="LinkedIn"
                 className="text-primary transition-opacity hover:opacity-80"
               >
-                <Linkedin className="size-5" />
+                <BrandGlyph src="/logos/linkedin.svg" label="LinkedIn" className="size-5" />
               </a>
             </div>
             <a

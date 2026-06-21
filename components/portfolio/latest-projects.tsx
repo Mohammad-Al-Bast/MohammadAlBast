@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Github } from 'lucide-react'
+import { BrandGlyph } from '@/components/brand-glyph'
 import { CodeHeading } from '@/components/code-heading'
 import { ArrowLink, ArrowPillButton, Tag } from '@/components/primitives'
 import { projects } from './data'
@@ -50,7 +50,7 @@ export function LatestProjects() {
                   href="#"
                   className="inline-flex items-center gap-2 font-mono text-sm text-foreground transition-colors hover:text-primary"
                 >
-                  See code <Github className="size-4" />
+                  See code <BrandGlyph src="/logos/github.svg" label="GitHub" className="size-4" />
                 </a>
                 <ArrowLink>View Project</ArrowLink>
               </div>
