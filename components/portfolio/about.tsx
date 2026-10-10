@@ -14,7 +14,7 @@ export function About() {
 
         <div className="mt-16 grid gap-10 lg:grid-cols-[1fr_1.1fr_1.2fr] lg:gap-12">
           {/* Bio */}
-          <div>
+          <div className="flex flex-col">
             <h3 className="font-sans text-xl font-semibold text-foreground">
               Mohammad Al Bast:
             </h3>
@@ -29,9 +29,9 @@ export function About() {
             </p>
             <a
               href="#"
-              className="mt-6 inline-flex items-center gap-2 font-mono text-sm text-primary transition-opacity hover:opacity-80"
+              className="mt-auto inline-flex items-center gap-2 font-mono text-sm text-primary transition-opacity hover:opacity-80"
             >
-              Follow me on Github <BrandGlyph src="/logos/github.svg" label="GitHub" className="size-4" />
+              Follow me on GitHub <BrandGlyph src="/logos/github.svg" label="GitHub" className="size-4" />
             </a>
           </div>
 
@@ -57,7 +57,7 @@ export function About() {
                 </div>
               ))}
             </dl>
-            <div className="mt-8">
+            <div className="mt-auto">
               <OutlineButton className="w-full justify-center">
                 Contact Me
               </OutlineButton>
