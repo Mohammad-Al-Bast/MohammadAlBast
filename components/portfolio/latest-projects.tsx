@@ -8,7 +8,7 @@ export function LatestProjects() {
   return (
     <section id="portfolio" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
       <div className="mb-10 flex items-center justify-between gap-4">
-        <CodeHeading className="text-3xl md:text-4xl">
+        <CodeHeading className="text-3xl md:text-4xl [&>span:last-of-type]:text-[#79f29f80]">
           Latest Projects
         </CodeHeading>
         <ArrowPillButton variant="outline" className="hidden sm:inline-flex">
