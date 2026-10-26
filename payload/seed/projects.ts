@@ -93,6 +93,22 @@ export const seedProjects: SeedProject[] = [
     featured: true,
     order: 3,
   },
+  {
+    name: 'Auto Parts Catalog',
+    description:
+      'Webflow site for a UAE auto parts wholesaler that supplies European parts, with an emphasis on BMW and Mercedes-Benz. The catalog is built on the Webflow CMS: 56 brands across 13 part categories that reference each other, so buyers can start from either side. Each brand, category and model page carries its own search metadata, quote requests are one click from every page, and a blog of 190 posts supports search traffic. The team adds brands, categories and articles without a developer.',
+    category: 'Webflow',
+    tags: ['Webflow', 'CMS', 'SEO'],
+    technologies: ['Webflow', 'Webflow CMS', 'Custom code', 'Structured SEO fields'],
+    about:
+      'A marketing and catalog site for an auto parts wholesaler based in Sharjah that supplies European parts, with an emphasis on BMW and Mercedes-Benz. Buyers look up a brand or a part category, then ask for a quote. The site is built and maintained in Webflow, and the team adds brands, categories and blog posts without a developer.',
+    challenges:
+      'The catalog is wide: 56 brands across 13 part categories, and each brand supplies several categories. Buyers arrive from search looking for one thing, such as BMW parts in Sharjah, so every brand, category and model page needs its own search metadata. The business also publishes regularly, and a flat page-per-item build would have meant editing the site by hand for every new brand or article.',
+    solutions:
+      'The content is modelled as Webflow CMS collections: Products for the 13 categories, Brands for the 56 manufacturers, Blog Posts with Blog Categories, plus Features and General Information. Brands and categories reference each other with multi-reference fields, so one brand page lists the categories it supplies and each category lists its brands. Brands have an order field for the listing, a logo, a description and certificate images. Every collection carries meta title and meta description fields that feed the template pages, so new items ship with their own search metadata. Dedicated pages cover the BMW and Mercedes-Benz lines, services, FAQ and contact, with a quote path from each. The blog has 190 posts in categories, which gives search engines a large body of useful content tied back to the catalog.',
+    featured: false,
+    order: 4,
+  },
 ]
 
 type SeedImage = { file: string; alt: string }
@@ -109,6 +125,12 @@ export const seedImages: Record<string, SeedImage[]> = {
     { file: 'eduadmin/02-students.png', alt: 'Student records table with campus, school, major and semester' },
     { file: 'eduadmin/03-change-grade.png', alt: 'Grade change form with student details filled in from the student ID' },
     { file: 'eduadmin/04-courses.png', alt: 'Course catalog table with instructor, section, credits and room' },
+  ],
+  'Auto Parts Catalog': [
+    { file: 'auto-parts-catalog/01-home.png', alt: 'Auto parts wholesale home page with a category filter and a vehicle image' },
+    { file: 'auto-parts-catalog/02-brands.png', alt: 'Brands page listing manufacturers with logos' },
+    { file: 'auto-parts-catalog/03-brand-detail.png', alt: 'Brand page with description and related product categories' },
+    { file: 'auto-parts-catalog/04-home-mobile.png', alt: 'Home page on a phone' },
   ],
   'Reactive Store': [
     { file: 'reactive-store/01-home.png', alt: 'Reactive Store home page with featured equipment and call to action' },

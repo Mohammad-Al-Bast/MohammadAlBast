@@ -37,10 +37,12 @@ export function ProjectRow({ project, priority = false }: { project: Project; pr
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselDots className="absolute bottom-6 left-6" />
-        <div className="absolute right-6 bottom-4 flex gap-2">
-          <CarouselPrevious className="bg-white/20 hover:bg-white/30" />
-          <CarouselNext className="bg-white/20 hover:bg-white/30" />
+        <div className="absolute inset-x-6 bottom-4 flex items-center justify-between">
+          <CarouselDots className="rounded-full bg-background px-3 py-3" />
+          <div className="flex gap-2">
+            <CarouselPrevious className="bg-background text-foreground hover:bg-card" />
+            <CarouselNext className="bg-background text-foreground hover:bg-card" />
+          </div>
         </div>
       </Carousel>
 

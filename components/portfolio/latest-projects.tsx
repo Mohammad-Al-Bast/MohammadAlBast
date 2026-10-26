@@ -1,11 +1,13 @@
 import { CodeHeading } from '@/components/code-heading'
 import { ArrowButton } from '@/components/primitives'
 import { getLatestProjects } from '@/lib/projects'
+import { ProjectCard } from './project-card'
 import { ProjectRow } from './project-row'
 
 export async function LatestProjects() {
   const projects = await getLatestProjects(3)
   if (projects.length === 0) return null
+  const [lead, ...rest] = projects
 
   return (
     <section id="portfolio" className="section-y">
@@ -18,9 +20,14 @@ export async function LatestProjects() {
         </div>
 
         <div className="mt-10 flex flex-col gap-8 md:mt-12">
-          {projects.map((p, i) => (
-            <ProjectRow key={p.slug} project={p} priority={i === 0} />
-          ))}
+          <ProjectRow project={lead} priority />
+          {rest.length > 0 && (
+            <div className="grid gap-2 lg:grid-cols-2">
+              {rest.map((p) => (
+                <ProjectCard key={p.slug} project={p} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

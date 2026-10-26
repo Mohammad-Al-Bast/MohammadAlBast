@@ -6,23 +6,35 @@ import { type ReactNode, useEffect, useRef, useState } from 'react'
 import { about, contact, services, site, stack } from '@/components/portfolio/data'
 import { useContact } from '@/components/portfolio/contact-dialog'
 import { HeroPanel } from './panel'
+import { logOutput, nowOutput, statusOutput, type TerminalProject } from './terminal-commands'
 
 type Line = { id: number; kind: 'cmd' | 'out'; content: ReactNode }
 
 const PROMPT = 'guest@mb:~$'
-const CHIPS = ['whoami', 'stack', 'services', 'projects', ...(site.cv ? ['cv'] : []), 'contact', 'help']
+const CHIPS = ['status', 'now', 'log', 'whoami', 'stack', 'services', ...(site.cv ? ['cv'] : []), 'contact', 'help']
 // typed automatically on first load so the window is never empty
-const INTRO = ['whoami', 'help']
+const INTRO = ['status', 'git log --oneline']
 const TYPE_MS = 55
 
 const linkClass = 'text-primary underline underline-offset-4'
 
-function respond(cmd: string, openContact: () => void): ReactNode | 'clear' {
+function respond(cmd: string, openContact: () => void, projects: TerminalProject[]): ReactNode | 'clear' {
   switch (cmd) {
+    case 'status':
+      return statusOutput()
+    case 'now':
+      return nowOutput()
+    case 'log':
+    case 'git log':
+    case 'git log --oneline':
+      return logOutput(projects)
     case 'help':
       return (
         <>
           Available commands:{'\n'}
+          {'  '}status{'    '}availability and reply time{'\n'}
+          {'  '}now{'       '}what I am working on{'\n'}
+          {'  '}log{'       '}latest projects{'\n'}
           {'  '}whoami{'    '}who I am{'\n'}
           {'  '}stack{'     '}what I build with{'\n'}
           {'  '}services{'  '}what I offer{'\n'}
@@ -126,7 +138,7 @@ function respond(cmd: string, openContact: () => void): ReactNode | 'clear' {
   }
 }
 
-export function Terminal() {
+export function Terminal({ projects }: { projects: TerminalProject[] }) {
   const [lines, setLines] = useState<Line[]>([])
   const [input, setInput] = useState('')
   const idRef = useRef(0)
@@ -136,7 +148,7 @@ export function Terminal() {
 
   const run = (raw: string) => {
     const cmd = raw.trim().toLowerCase()
-    const out = respond(cmd, () => openContact())
+    const out = respond(cmd, () => openContact(), projects)
     if (out === 'clear') {
       setLines([])
       return

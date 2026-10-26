@@ -51,6 +51,16 @@ export function Services() {
                       <p className="mt-4 max-w-[420px] font-mono text-sm leading-relaxed md:text-base">
                         {s.description}
                       </p>
+                      <ul className="mt-5 flex max-w-[420px] flex-col gap-1.5 font-mono text-xs text-paper-foreground/75 md:text-sm">
+                        {s.builds.map((b) => (
+                          <li key={b} className="flex gap-2">
+                            <span aria-hidden className="text-paper-accent">
+                              +
+                            </span>
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
                       <ContactArrowButton projectType={s.contactType} className="mt-8">
                         {s.cta}
                       </ContactArrowButton>

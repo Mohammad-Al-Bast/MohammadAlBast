@@ -65,13 +65,24 @@ export const legalLinks = [
 ];
 
 export const hero = {
-	titleStart: "Build ",
-	titleHighlight: "Something",
-	titleEnd: " That Matters",
-	greeting: "<HI, I\u2019M MOHAMMAD AL BAST/>",
-	intro: "Full-Stack Web Developer & Webflow Expert. I build fast Webflow sites and production web apps in TypeScript with React, Next.js & NestJS.",
+	titleStart: "Webflow sites ",
+	titleHighlight: "your team can run.",
+	titleEnd: " Web apps that hold up.",
+	intro: "Freelance full-stack developer and Webflow specialist based in Lebanon. I work in TypeScript, React, Next.js and NestJS.",
 	primaryCta: { label: "View My Work", href: "/projects" },
 	secondaryCta: { label: "Contact Me", href: "#contact" },
+	// Shown by the terminal `status` command.
+	status: {
+		availability: "freelance, agency and full-time",
+		replyTime: "within one working day",
+		place: "Zahl\u00e9, Lebanon",
+		timeZone: "Asia/Beirut",
+	},
+	// Shown by the terminal `now` command. Keep to one or two short lines and update them each month.
+	now: [
+		"Building this portfolio on Next.js and Payload CMS",
+		"Webflow client sites with structured CMS collections",
+	],
 };
 
 export const techLogos = [
@@ -148,6 +159,7 @@ export const services = {
 			titleAfter: " Implementation",
 			description:
 				"Client-First Webflow builds with structured CMS collections, reusable components, interactions and custom code, handed off so your team can edit content without breaking the layout.",
+			builds: ["Marketing and portfolio sites", "Landing pages built to convert", "Client sites your team edits in the CMS"],
 			cta: "Start a Webflow Project",
 			visual: "cms" as const,
 			contactType: "Webflow site",
@@ -161,6 +173,7 @@ export const services = {
 			titleAfter: " Development",
 			description:
 				"Full-stack TypeScript apps with React or Next.js on the front and NestJS or Laravel behind them: authentication, role-based access, PostgreSQL and clean APIs, from schema to deployment.",
+			builds: ["Learning platforms and admin suites", "Dashboards with server-driven tables", "Bilingual EN and AR interfaces"],
 			cta: "Build a Web App",
 			visual: "code" as const,
 			contactType: "Web application",
@@ -174,6 +187,7 @@ export const services = {
 			titleAfter: " & Automation",
 			description:
 				"Connect your site to the tools you already run: POS and inventory syncs into Webflow, third-party APIs, CMS bulk imports and AI-assisted workflows that remove manual updates.",
+			builds: ["POS and inventory syncs into Webflow", "Third-party API connections", "CMS bulk imports"],
 			cta: "Automate a Workflow",
 			visual: "integrations" as const,
 			contactType: "Integration or automation",
@@ -187,6 +201,7 @@ export const services = {
 			titleAfter: "",
 			description:
 				"Product catalogs, brand directories and multi-site CMS schemas with bulk imports, data audits and filtering that stays fast as the content grows.",
+			builds: ["Online stores with WhatsApp checkout", "Large catalogs with fast filtering", "Brand directories and multi-site schemas"],
 			cta: "Plan a Catalog Build",
 			visual: "catalog" as const,
 			contactType: "CMS or product catalog",
@@ -200,6 +215,7 @@ export const services = {
 			titleAfter: "",
 			description:
 				"A monthly plan for the site after launch: content and CMS updates, fixes, small features, performance checks and a short report, so you always have a developer on call.",
+			builds: ["Content and CMS updates", "Fixes and small features", "Performance checks and a monthly report"],
 			cta: "Start a Care Plan",
 			visual: "care" as const,
 			contactType: "Care plan",
@@ -207,46 +223,6 @@ export const services = {
 		},
 	],
 };
-
-/** `icon` maps to a lucide icon in what-i-build.tsx */
-export const buildItems = [
-	{
-		icon: "webflow",
-		title: "Production-Ready Webflow Development",
-		description:
-			"Client-First Webflow builds with structured CMS, reusable components and native interactions, ready for your marketing team on day one.",
-	},
-	{
-		icon: "site",
-		title: "Modern Marketing & Portfolio Sites",
-		description:
-			"Fast-loading websites in Webflow or Next.js that clearly present your product or brand, with clean code and SEO built in from day one.",
-	},
-	{
-		icon: "landing",
-		title: "High-Converting Landing Pages",
-		description:
-			"Focused landing pages engineered for conversion, with crisp copy hierarchy, strong calls to action and quick load times.",
-	},
-	{
-		icon: "frontend",
-		title: "Full-Stack Web Applications",
-		description:
-			"Learning platforms, admin suites and business tools with secure authentication, multi-role access and end-to-end TypeScript types shared between front and back end.",
-	},
-	{
-		icon: "dashboard",
-		title: "Data Dashboards & Admin Panels",
-		description:
-			"Server-driven TypeScript tables with search, filters and pagination, plus bilingual (EN/AR) interfaces that turn dense data into clear, actionable views.",
-	},
-	{
-		icon: "store",
-		title: "Online Stores & Product Catalogs",
-		description:
-			"Storefronts and large product catalogs with category filtering, brand pages and simple ordering flows such as WhatsApp checkout.",
-	},
-] as const;
 
 export const projectCategories = ["Webflow", "Next.js", "React", "NestJS", "Laravel", "Full-Stack"] as const;
 export type ProjectCategory = (typeof projectCategories)[number];
