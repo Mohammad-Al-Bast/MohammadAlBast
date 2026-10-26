@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
-import { Check, Search } from 'lucide-react'
+import { ArrowRight, Check, Search } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
-export type VisualId = 'cms' | 'code' | 'lighthouse' | 'catalog'
+export type VisualId = 'cms' | 'code' | 'integrations' | 'catalog' | 'care'
 
 /** Dark app-window frame shared by every visual. */
 function Window({ title, children, className }: { title: string; children: ReactNode; className?: string }) {
@@ -140,7 +140,7 @@ function CodeVisual() {
   )
 }
 
-function Ring({ label }: { label: string }) {
+function Ring({ label, score = 100 }: { label: string; score?: number }) {
   const r = 26
   const c = 2 * Math.PI * r
   return (
@@ -156,13 +156,13 @@ function Ring({ label }: { label: string }) {
             stroke="currentColor"
             strokeWidth="5"
             strokeDasharray={c}
-            strokeDashoffset={0}
+            strokeDashoffset={c * (1 - score / 100)}
             strokeLinecap="round"
             className="text-primary"
           />
         </svg>
         <span className="absolute inset-0 flex items-center justify-center font-sans text-lg text-primary tabular-nums">
-          100
+          {score}
         </span>
       </div>
       <span className="text-[10px] leading-tight text-foreground/60 md:text-[11px]">{label}</span>
@@ -170,31 +170,81 @@ function Ring({ label }: { label: string }) {
   )
 }
 
-function LighthouseVisual() {
+function CareVisual() {
+  const done = [
+    ['Updated 14 CMS items', 'Content'],
+    ['Fixed mobile menu overlap', 'Bug'],
+    ['Added pricing FAQ section', 'Feature'],
+    ['Compressed hero images', 'Speed'],
+  ]
   return (
-    <Window title="Lighthouse · landing page">
-      <div className="flex flex-col gap-6 p-4 md:p-6">
-        <div className="grid grid-cols-4 gap-2">
-          {['Performance', 'Accessibility', 'Best Practices', 'SEO'].map((l) => (
-            <Ring key={l} label={l} />
-          ))}
+    <Window title="Monthly care report · October">
+      <div className="flex flex-col gap-5 p-4 md:p-5">
+        <div className="grid grid-cols-3 gap-2">
+          <Ring label="Performance" score={98} />
+          <Ring label="SEO" score={100} />
+          <div className="flex flex-col items-center justify-center gap-1 text-center">
+            <span className="font-sans text-xl text-primary tabular-nums md:text-2xl">99.9%</span>
+            <span className="text-[10px] text-foreground/60 md:text-[11px]">Uptime</span>
+          </div>
         </div>
         <ul className="space-y-2 border-t border-white/10 pt-4">
-          {[
-            ['Largest Contentful Paint', '0.9 s'],
-            ['Total Blocking Time', '0 ms'],
-            ['Cumulative Layout Shift', '0'],
-          ].map(([k, v]) => (
-            <li key={k} className="flex items-center justify-between gap-3">
-              <span className="flex items-center gap-2 truncate">
+          {done.map(([task, kind]) => (
+            <li key={task} className="flex items-center justify-between gap-3">
+              <span className="flex min-w-0 items-center gap-2">
                 <Check className="size-3 shrink-0 text-primary" aria-hidden />
-                {k}
+                <span className="truncate">{task}</span>
               </span>
-              <span className="text-foreground/90 tabular-nums">{v}</span>
+              <span className="shrink-0 rounded-sm bg-white/10 px-1.5 py-0.5 text-[10px] text-foreground/60">{kind}</span>
             </li>
           ))}
         </ul>
-        <p className="text-[10px] text-foreground/40">The target on every launch</p>
+      </div>
+    </Window>
+  )
+}
+
+function Node({ title, sub, accent = false }: { title: string; sub: string; accent?: boolean }) {
+  return (
+    <div
+      className={cn(
+        'flex min-w-0 flex-1 flex-col gap-0.5 rounded border px-2 py-2 text-center',
+        accent ? 'border-primary/60 bg-primary/10' : 'border-white/15 bg-white/[0.03]',
+      )}
+    >
+      <span className={cn('truncate', accent ? 'text-primary' : 'text-foreground/90')}>{title}</span>
+      <span className="truncate text-[10px] text-foreground/45">{sub}</span>
+    </div>
+  )
+}
+
+function IntegrationsVisual() {
+  const log = [
+    ['12:00:04', 'pulled 1,240 products from POS'],
+    ['12:00:06', 'mapped prices and stock'],
+    ['12:00:09', 'updated 37 Webflow CMS items'],
+    ['12:00:09', 'published · next sync in 15 min'],
+  ]
+  return (
+    <Window title="sync · pos → webflow">
+      <div className="flex flex-col gap-5 p-4 md:p-5">
+        <div className="flex items-center gap-1.5">
+          <Node title="POS" sub="inventory" />
+          <ArrowRight className="size-3.5 shrink-0 text-primary" aria-hidden />
+          <Node title="API" sub="NestJS" accent />
+          <ArrowRight className="size-3.5 shrink-0 text-primary" aria-hidden />
+          <Node title="Webflow" sub="CMS" />
+        </div>
+        <ol className="space-y-2 border-t border-white/10 pt-4">
+          {log.map(([time, msg], i) => (
+            <li key={i} className="flex gap-3">
+              <span className="shrink-0 text-foreground/40 tabular-nums">{time}</span>
+              <span className={cn('min-w-0 truncate', i === log.length - 1 ? 'text-primary' : 'text-foreground/85')}>
+                {msg}
+              </span>
+            </li>
+          ))}
+        </ol>
       </div>
     </Window>
   )
@@ -252,8 +302,9 @@ function CatalogVisual() {
 const VISUALS: Record<VisualId, () => ReactNode> = {
   cms: CmsVisual,
   code: CodeVisual,
-  lighthouse: LighthouseVisual,
+  integrations: IntegrationsVisual,
   catalog: CatalogVisual,
+  care: CareVisual,
 }
 
 /** Decorative, coded illustration for a service; hidden from assistive tech. */

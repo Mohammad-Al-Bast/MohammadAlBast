@@ -46,14 +46,6 @@ export const hero = {
   secondaryCta: { label: 'Contact Me', href: '#contact' },
 }
 
-// Coded service visuals until real project screenshots come from the CMS
-export const heroSlides = [
-  { visual: 'code' as const, title: 'Full-stack web apps', subtitle: 'TypeScript from database to UI' },
-  { visual: 'cms' as const, title: 'Webflow builds', subtitle: 'Structured CMS your team can edit' },
-  { visual: 'catalog' as const, title: 'Product catalogs', subtitle: 'Fast filtering at scale' },
-  { visual: 'lighthouse' as const, title: 'Landing pages', subtitle: 'Built to load fast and convert' },
-]
-
 export const techLogos = [
   { src: '/logos/typescript.svg', name: 'TypeScript' },
   { src: '/logos/react.svg', name: 'React' },
@@ -120,6 +112,7 @@ export const services = {
   title: 'Services I Offer',
   intro:
     'From Webflow builds to full-stack web applications, I take projects from design to deployment and keep them maintainable after launch.',
+  bilingualLabel: 'EN / AR ready',
   items: [
     {
       number: '01',
@@ -131,6 +124,7 @@ export const services = {
         'Client-First Webflow builds with structured CMS collections, reusable components, interactions and custom code, handed off so your team can edit content without breaking the layout.',
       cta: 'Start a Webflow Project',
       visual: 'cms' as const,
+      bilingual: true,
     },
     {
       number: '02',
@@ -142,17 +136,19 @@ export const services = {
         'Full-stack TypeScript apps with React or Next.js on the front and NestJS or Laravel behind them: authentication, role-based access, PostgreSQL and clean APIs, from schema to deployment.',
       cta: 'Build a Web App',
       visual: 'code' as const,
+      bilingual: true,
     },
     {
       number: '03',
-      tag: 'Landing',
-      titleBefore: 'High-Converting ',
-      highlight: 'Landing Pages',
-      titleAfter: '',
+      tag: 'Integrations',
+      titleBefore: '',
+      highlight: 'Integrations',
+      titleAfter: ' & Automation',
       description:
-        'Campaign and product pages with sharp messaging hierarchy, fast load times and a clear path to action, in Webflow or code.',
-      cta: 'Launch a Landing Page',
-      visual: 'lighthouse' as const,
+        'Connect your site to the tools you already run: POS and inventory syncs into Webflow, third-party APIs, CMS bulk imports and AI-assisted workflows that remove manual updates.',
+      cta: 'Automate a Workflow',
+      visual: 'integrations' as const,
+      bilingual: false,
     },
     {
       number: '04',
@@ -164,6 +160,19 @@ export const services = {
         'Product catalogs, brand directories and multi-site CMS schemas with bulk imports, data audits and filtering that stays fast as the content grows.',
       cta: 'Plan a Catalog Build',
       visual: 'catalog' as const,
+      bilingual: true,
+    },
+    {
+      number: '05',
+      tag: 'Retainer',
+      titleBefore: 'Website ',
+      highlight: 'Care & Retainers',
+      titleAfter: '',
+      description:
+        'A monthly plan for the site after launch: content and CMS updates, fixes, small features, performance checks and a short report, so you always have a developer on call.',
+      cta: 'Start a Care Plan',
+      visual: 'care' as const,
+      bilingual: false,
     },
   ],
 }
@@ -345,6 +354,6 @@ export const testimonials = {
 
 export const cta = {
   title: 'Ready To Build Something Real?',
-  body: "Whether you need a Webflow site your team can run, a full-stack web app, or a second pair of hands on an existing codebase, I'm open to freelance projects, agency collaborations and full-time roles. Let's talk.",
+  body: "Whether you need a Webflow site your team can run, a full-stack web app, or a second pair of hands on an existing codebase, I'm open to freelance projects and full-time roles. Agencies: I also build white-label, under your brand.",
   button: { label: 'LET\u2019S TALK', href: 'mailto:mohammadbast4@gmail.com' },
 }

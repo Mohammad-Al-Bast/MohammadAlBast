@@ -1,67 +1,49 @@
 import Image from 'next/image'
 
 import { BrandGlyph } from '@/components/brand-glyph'
-import { ServiceVisual } from './service-visuals'
+import { Terminal } from './hero-options/terminal'
 import { ArrowButton, ButtonLink } from '@/components/primitives'
-import { Carousel, CarouselContent, CarouselDots, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
-import { hero, heroSlides, site, techLogos } from './data'
+import { hero, site, techLogos } from './data'
+
+export function HeroIntro() {
+  return (
+    <div className="flex flex-col items-center justify-between gap-10 rounded-lg bg-card px-5 py-10 text-center md:min-h-[560px] md:gap-12 md:px-12 md:py-14 lg:h-[770px] lg:py-24">
+      <h1 className="max-w-[560px] text-[44px] leading-[1.15] text-balance md:text-[72px]">
+        {hero.titleStart}
+        <span className="text-[#d6ffcc]">{hero.titleHighlight}</span>
+        {hero.titleEnd}
+      </h1>
+
+      <div className="flex flex-col items-center">
+        <Image
+          src={site.portrait}
+          alt={site.name}
+          width={64}
+          height={64}
+          className="size-16 rounded-full object-cover grayscale"
+        />
+        <p className="mt-4 font-sans text-base uppercase md:text-lg">{hero.greeting}</p>
+        <p className="mt-4 max-w-[480px] font-mono text-sm leading-relaxed text-foreground/85 md:text-base">
+          {hero.intro}
+        </p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <ArrowButton href={hero.primaryCta.href}>{hero.primaryCta.label}</ArrowButton>
+          <ButtonLink href={hero.secondaryCta.href} variant="outline" className="min-w-[180px]">
+            {hero.secondaryCta.label}
+          </ButtonLink>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function Hero() {
   return (
     <section className="container-page pt-4 pb-4 md:pt-10 md:pb-8">
       <div className="grid gap-2 lg:grid-cols-2">
-        {/* Intro card */}
-        <div className="flex flex-col items-center justify-between gap-10 rounded-lg bg-card px-5 py-10 text-center md:min-h-[560px] md:gap-12 md:px-12 md:py-14 lg:h-[770px] lg:py-24">
-          <h1 className="max-w-[560px] text-[44px] leading-[1.15] text-balance md:text-[72px]">
-            {hero.titleStart}
-            <span className="text-[#d6ffcc]">{hero.titleHighlight}</span>
-            {hero.titleEnd}
-          </h1>
+        <HeroIntro />
 
-          <div className="flex flex-col items-center">
-            <Image
-              src={site.portrait}
-              alt={site.name}
-              width={64}
-              height={64}
-              className="size-16 rounded-full object-cover grayscale"
-            />
-            <p className="mt-4 font-sans text-base uppercase md:text-lg">{hero.greeting}</p>
-            <p className="mt-4 max-w-[480px] font-mono text-sm leading-relaxed text-foreground/85 md:text-base">
-              {hero.intro}
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <ArrowButton href={hero.primaryCta.href}>{hero.primaryCta.label}</ArrowButton>
-              <ButtonLink href={hero.secondaryCta.href} variant="outline" className="min-w-[180px]">
-                {hero.secondaryCta.label}
-              </ButtonLink>
-            </div>
-          </div>
-        </div>
-
-        {/* Project slider */}
-        <Carousel opts={{ loop: true }} className="overflow-hidden rounded-lg bg-inset">
-          <CarouselContent className="ml-0">
-            {heroSlides.map((slide) => (
-              <CarouselItem key={slide.visual} className="pl-0">
-                <div className="relative flex h-[480px] w-full flex-col bg-[linear-gradient(to_right,rgb(255_255_255/0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.035)_1px,transparent_1px)] bg-[size:40px_40px] px-5 pt-8 pb-28 sm:h-[560px] md:px-12 md:pt-16 lg:h-[770px] lg:pb-36">
-                  <div className="mx-auto flex min-h-0 w-full max-w-[520px] flex-1 items-start overflow-hidden md:items-center">
-                    <ServiceVisual id={slide.visual} />
-                  </div>
-                  <div className="mt-6 text-center md:mt-8">
-                    <p className="font-sans text-base text-white md:text-lg">{slide.title}</p>
-                    <p className="mt-1 font-mono text-sm text-white/70 md:text-base">{slide.subtitle}</p>
-                  </div>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselDots className="absolute bottom-10 left-6 md:left-8" />
-          <div className="absolute right-6 bottom-6 flex gap-2 md:right-8">
-            <CarouselPrevious className="size-12 md:size-16" />
-            <CarouselNext className="size-12 md:size-16" />
-          </div>
-        </Carousel>
+        <Terminal />
       </div>
     </section>
   )
