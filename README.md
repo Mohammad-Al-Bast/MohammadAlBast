@@ -1,33 +1,54 @@
-# MohammadAlBast
+# Mohammad Al Bast · Portfolio
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+Personal portfolio of Mohammad Al Bast, full-stack web developer and Webflow expert.
+Built with Next.js 16, React 19, TypeScript, Tailwind CSS v4 and shadcn/ui (Base UI).
 
-## Built with v0
+## Getting started
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
-
-[Continue working on v0 →](https://v0.app/chat/projects/prj_r7YOG2VYw5vtXUm1HjnT93K3b2Zz)
-
-## Getting Started
-
-First, run the development server:
+This project uses **pnpm** only.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+pnpm install
+cp .env.example .env.local   # then fill in the values (see below)
+pnpm dev                     # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm build   # production build; type errors fail the build
+pnpm start   # serve the production build
+```
 
-## Learn More
+## Environment variables
 
-To learn more, take a look at the following resources:
+The contact form sends email through [Resend](https://resend.com). Set these in `.env.local`
+locally and in the Vercel project settings for production.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
+| Variable | Required | Purpose |
+|---|---|---|
+| `RESEND_API_KEY` | yes | Resend API key with sending access |
+| `CONTACT_TO_EMAIL` | no | Inbox for enquiries; defaults to the email in `data.ts` |
+| `CONTACT_FROM_EMAIL` | no | Sender; defaults to Resend's test sender until a domain is verified |
+
+Without `RESEND_API_KEY` the form still renders and asks visitors to email directly.
+
+## Where things live
+
+| What | Where |
+|---|---|
+| All copy, links, stats, services, projects | `components/portfolio/data.ts` |
+| Page sections | `components/portfolio/` |
+| Hero terminal | `components/portfolio/hero-options/terminal.tsx` |
+| Contact form, dialog, server action | `components/portfolio/contact-*.tsx`, `app/actions/contact.ts`, `lib/contact-schema.ts` |
+| shadcn components (re-skinned) | `components/ui/` |
+| Design tokens | `app/globals.css` |
+| CV download | `public/cv/Mohammad-Al-Bast-CV.pdf` |
+| Style guide (dev only) | `/style-guide`, returns 404 in production |
+
+Booking link and CV path are set in `site` inside `data.ts`; leaving either empty hides its buttons.
+
+## Deployment
+
+Deployed on Vercel. Merging into `main` deploys to production, so only merge once the
+placeholder content (projects, testimonials, portrait) has been replaced.

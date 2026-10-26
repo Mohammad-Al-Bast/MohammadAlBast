@@ -16,22 +16,26 @@ This project uses **pnpm** exclusively (see `pnpm-lock.yaml`). Do not run `npm i
 Portfolio for Mohammad Al Bast built with **Next.js 16 + React 19 + TypeScript + Tailwind CSS v4 + shadcn/ui (base-nova style, on Base UI)**.
 The design source is the Figma file "Hamada's portfolio (Copy)", Page 1.
 
-- `app/layout.tsx` — root layout; fonts (IBM Plex Sans + IBM Plex Mono), dark-only, and the shared shell: `SiteNav` → page → `CTA` → `SiteFooter`
+- `app/layout.tsx` — root layout; fonts (IBM Plex Sans + IBM Plex Mono), dark-only, skip link, and the shared shell inside `ContactProvider`: `SiteNav` → page → `CTA` → `SiteFooter`
 - `app/page.tsx` — home
 - `app/projects/page.tsx` — project listing with category tabs
 - `app/projects/[slug]/page.tsx` — project detail template (static params from `data.ts`)
 - `app/globals.css` — Tailwind v4 theme; all design tokens are CSS custom properties defined here
-- `app/style-guide/page.tsx` — living style guide at `/style-guide`; update this when adding new primitives
+- `app/style-guide/page.tsx` — living style guide at `/style-guide` (dev only: noindex, 404 in production); update this when adding new primitives
+- `app/actions/contact.ts` + `lib/contact-schema.ts` — contact form server action (zod validation, honeypot) sending through the Resend REST API; env vars in `.env.example`
 
 ### Component layers
 
 | Layer | Path | Role |
 |---|---|---|
-| shadcn/ui | `components/ui/` | `button`, `badge`, `card`, `carousel` (Embla), `separator`, `sheet`, `tabs`, `avatar`. Re-skinned to the Figma — edit variants here, not per-use |
+| shadcn/ui | `components/ui/` | `button`, `badge`, `card`, `carousel` (Embla), `dialog`, `separator`, `sheet`, `tabs`, `avatar`. Re-skinned to the Figma — edit variants here, not per-use |
 | Primitives | `components/primitives.tsx` | Composites on top of shadcn: `ArrowButton`, `ButtonLink`, `ArrowLink`, `GithubLink` |
 | Headings | `components/code-heading.tsx` | `<Title/>` display heading with mint brackets |
 | Brand | `components/brand-glyph.tsx` | CSS-mask trick for tintable SVG brand icons |
 | Sections | `components/portfolio/` | One file per section; `project-row.tsx`, `projects-browser.tsx`, `project-gallery.tsx` are shared by the project pages |
+| Contact | `components/portfolio/contact-*.tsx` | One site-wide dialog (`ContactProvider`); open it with `ContactButton` / `ContactArrowButton`, optionally passing `projectType` to preselect |
+| Hero | `components/portfolio/hero.tsx`, `hero-options/terminal.tsx` | Intro card + interactive terminal (typed intro, commands read from `data.ts`) |
+| Visuals | `components/portfolio/service-visuals.tsx` | Coded service illustrations (no stock images) |
 | Data | `components/portfolio/data.ts` | Single source of truth for all copy, links, projects, testimonials. Entries marked `PLACEHOLDER` are dummy content |
 
 The shadcn registry is not reachable from every environment; if `shadcn add` fails, write the component by hand against `@base-ui/react` (see existing files for the pattern).
@@ -51,3 +55,6 @@ The shadcn registry is not reachable from every environment; if `shadcn add` fai
 - New brand SVG icons go in `public/logos/` and are rendered via `BrandGlyph`
 - Nav links are `/#id`; section ids (`expertise`, `services`, `portfolio`, `about`, `contact`) must match `navLinks` in `data.ts`
 - All page content (copy, images, links) lives in `components/portfolio/data.ts` — edit there, not in JSX
+- Do not name past employers or clients in site copy
+- Every contact CTA opens the contact dialog; don't add raw `mailto:` buttons
+- `main` auto-deploys to production on Vercel; work on a branch and merge only when ready to ship

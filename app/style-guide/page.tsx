@@ -1,3 +1,6 @@
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+
 import { CodeHeading } from '@/components/code-heading'
 import { Logo } from '@/components/logo'
 import { ArrowButton, ArrowLink, ButtonLink, GithubLink } from '@/components/primitives'
@@ -36,7 +39,12 @@ function Section({
   )
 }
 
+// Internal reference for developers: kept out of search engines and disabled in production builds.
+export const metadata: Metadata = { title: 'Style Guide', robots: { index: false, follow: false } }
+
 export default function StyleGuidePage() {
+  if (process.env.NODE_ENV === 'production') notFound()
+
   return (
     <main className="mx-auto max-w-5xl px-6 py-16 md:px-10">
       {/* Header */}
