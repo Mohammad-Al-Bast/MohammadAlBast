@@ -24,8 +24,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const project = projects.find((p) => p.slug === slug)
   if (!project) notFound()
 
-  // falls back to the featured site testimonial until projects have their own
-  const quote = project.testimonial ?? testimonials.items[1]
+  // only real, per-project testimonials are shown (falls back to the site list once it is enabled)
+  const quote = project.testimonial ?? (testimonials.enabled ? testimonials.items[0] : undefined)
   const masonry = [...project.images, ...project.images].slice(0, 6)
 
   const rows = [
@@ -51,7 +51,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <p className="mt-4 max-w-[480px] font-mono text-base text-foreground/80">{project.description}</p>
             <div className="mt-10 flex items-center justify-between gap-6 lg:mt-auto">
               <ArrowLink href={project.liveUrl}>View Project</ArrowLink>
-              <GithubLink href={project.codeUrl}>See code</GithubLink>
+              <GithubLink href={project.codeUrl}>See Code</GithubLink>
             </div>
           </div>
 
@@ -118,6 +118,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* Testimonial */}
+      {quote && (
       <section className="section-y">
         <div className="container-page">
           <div className="mx-auto grid max-w-[1000px] items-center gap-8 md:grid-cols-[minmax(0,320px)_1fr] md:gap-12">
@@ -139,6 +140,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </div>
       </section>
+      )}
 
       <ProjectGallery images={project.images} name={project.name} />
     </>

@@ -22,15 +22,30 @@ export function About() {
                 <p key={p}>{p}</p>
               ))}
             </div>
-            <GithubLink href={site.github} className="mt-auto pt-4">
-              Follow me on Github
-            </GithubLink>
+
+            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-border">
+              {about.stats.map((s) => (
+                <div key={s.label} className="flex flex-col-reverse justify-end gap-2 bg-background p-4">
+                  <dt className="font-mono text-xs leading-snug text-foreground/60">{s.label}</dt>
+                  <dd className="font-sans text-[32px] leading-none text-primary tabular-nums">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="mt-auto flex flex-col gap-4 pt-4">
+              <p className="flex items-start gap-2.5 font-mono text-sm text-foreground/90">
+                <span aria-hidden className="mt-1.5 size-2 shrink-0 rounded-full bg-primary" />
+                {about.availability}
+              </p>
+              <GithubLink href={site.github}>Follow Me on GitHub</GithubLink>
+            </div>
           </div>
 
           {/* Photo */}
-          <div className="border-border py-8 lg:border-x lg:px-6">
-            <div className="relative aspect-square w-full overflow-hidden lg:aspect-[410/475]">
-              <Image src={site.portrait} alt={site.name} fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover grayscale" />
+          {/* stretches to the tallest column so all three end on the same line */}
+          <div className="flex flex-col border-border py-8 lg:border-x lg:px-6">
+            <div className="relative aspect-square w-full overflow-hidden lg:aspect-auto lg:min-h-[475px] lg:flex-1">
+              <Image src={site.portrait} alt={site.name} fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover object-top grayscale" />
             </div>
           </div>
 

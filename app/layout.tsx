@@ -20,11 +20,11 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Mohammad Al Bast — Front-End & Webflow Developer',
+    default: 'Mohammad Al Bast — Full-Stack Web Developer & Webflow Expert',
     template: '%s — Mohammad Al Bast',
   },
   description:
-    'Portfolio of Mohammad Al Bast, a Front-End & Webflow web developer specializing in React, Laravel Blade, Webflow & JavaScript. I turn ideas and designs into fast, user-friendly interfaces.',
+    'Mohammad Al Bast is a full-stack web developer and Webflow expert in Lebanon, building Webflow sites and TypeScript web applications with React, Next.js, NestJS and Laravel for clients worldwide.',
   icons: { icon: { url: '/images/favicon.svg', type: 'image/svg+xml' } },
 }
 
@@ -37,8 +37,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" className={`dark ${ibmPlexSans.variable} ${ibmPlexMono.variable} bg-background`}>
       <body className="overflow-x-clip">
+        <a
+          href="#main"
+          className="sr-only rounded-md bg-primary px-4 py-2 font-sans text-sm text-primary-foreground focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60]"
+        >
+          Skip to content
+        </a>
         <SiteNav />
-        <main>{children}</main>
+        <main id="main" tabIndex={-1} className="outline-none">
+          {children}
+        </main>
         <CTA />
         <SiteFooter />
         {process.env.NODE_ENV === 'production' && <Analytics />}

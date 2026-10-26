@@ -15,8 +15,8 @@ const badgeVariants = cva(
         ghost: 'border-transparent text-muted-foreground',
       },
       size: {
-        default: 'h-5 rounded-[3px] px-1.5 text-[10px]',
-        lg: 'h-6 rounded-[4px] px-2 text-xs',
+        default: 'h-6 rounded-[4px] px-2 text-xs',
+        lg: 'h-7 rounded-[4px] px-2.5 text-[13px]',
       },
     },
     defaultVariants: { variant: 'outline', size: 'default' },

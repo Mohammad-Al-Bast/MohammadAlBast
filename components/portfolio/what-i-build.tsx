@@ -6,9 +6,9 @@ import {
   Blocks,
   LayoutDashboard,
   type LucideIcon,
-  MonitorSmartphone,
   MousePointerClick,
   PanelsTopLeft,
+  Store,
 } from 'lucide-react'
 
 import { CodeHeading } from '@/components/code-heading'
@@ -23,8 +23,8 @@ const icons: Record<(typeof buildItems)[number]['icon'], LucideIcon> = {
   site: PanelsTopLeft,
   landing: MousePointerClick,
   frontend: AppWindow,
-  scale: MonitorSmartphone,
   dashboard: LayoutDashboard,
+  store: Store,
 }
 
 function Detail({ index }: { index: number }) {
@@ -61,7 +61,7 @@ export function WhatIBuild() {
                 {i > 0 && <Separator />}
                 <TabsTrigger
                   value={i}
-                  className="group h-auto w-full justify-start gap-5 rounded-none px-0 py-5 text-left font-sans text-lg whitespace-normal text-foreground/25 hover:text-foreground/60 data-[active]:bg-transparent data-[active]:text-foreground md:gap-6 md:py-[26px] md:text-2xl"
+                  className="group h-auto w-full justify-start gap-5 rounded-none px-0 py-5 text-left font-sans text-lg whitespace-normal text-foreground/45 hover:text-foreground/75 data-[active]:bg-transparent data-[active]:text-foreground md:gap-6 md:py-[26px] md:text-2xl"
                 >
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-current font-sans text-base md:size-12 md:text-xl">
                     {i + 1}

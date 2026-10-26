@@ -17,7 +17,7 @@ export function CodeHeading({
   return (
     <Tag
       className={cn(
-        'font-sans text-[40px] leading-[1.15] font-normal text-heading md:text-[56px]',
+        'font-sans text-[40px] leading-[1.15] font-normal text-balance text-heading md:text-[56px]',
         className,
       )}
     >

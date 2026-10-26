@@ -1,8 +1,8 @@
 import { cn } from '@/lib/utils'
 
-const LOGO_URLS = {
-  compact: '/images/MB-nav_logo.svg',
-  full: '/images/Mohammad Al Bast_footer-logo.svg',
+const LOGOS = {
+  compact: { src: '/images/MB-nav_logo.svg', width: 127, height: 33 },
+  full: { src: '/images/Mohammad Al Bast_footer-logo.svg', width: 1376, height: 248 },
 }
 
 export function Logo({
@@ -14,7 +14,9 @@ export function Logo({
 }) {
   return (
     <img
-      src={LOGO_URLS[variant]}
+      src={LOGOS[variant].src}
+      width={LOGOS[variant].width}
+      height={LOGOS[variant].height}
       alt="MB Logo"
       className={cn('select-none', className)}
       style={{

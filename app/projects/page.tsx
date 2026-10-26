@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 
 import { CodeHeading } from '@/components/code-heading'
 import { ProjectsBrowser } from '@/components/portfolio/projects-browser'
@@ -18,7 +19,9 @@ export default function ProjectsPage() {
             {projectsPage.intro}
           </p>
         </div>
-        <ProjectsBrowser />
+        <Suspense>
+          <ProjectsBrowser />
+        </Suspense>
       </div>
     </section>
   )

@@ -22,7 +22,7 @@ export function Stack() {
           {stack.columns.map((col) => (
             <Card
               key={col.title}
-              className="min-h-[320px] bg-gradient-to-b from-[#1c1c1c] to-[#050505] text-center md:min-h-[450px]"
+              className="bg-gradient-to-b from-[#1c1c1c] to-[#050505] text-center"
             >
               <CardHeader className="items-center gap-6 px-6 pt-8 md:px-10">
                 <CardTitle className="text-2xl text-heading">{col.title}</CardTitle>

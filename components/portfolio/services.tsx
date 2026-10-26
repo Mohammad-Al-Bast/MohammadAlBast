@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 
 import { CodeHeading } from '@/components/code-heading'
 import { ArrowButton } from '@/components/primitives'
@@ -13,6 +12,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import { services } from './data'
+import { ServiceVisual } from './service-visuals'
 
 export function Services() {
   return (
@@ -51,8 +51,8 @@ export function Services() {
                   </div>
                   <div className="flex flex-col">
                     <span className="hidden self-end font-sans text-sm md:block">{s.tag}</span>
-                    <div className="relative mt-auto aspect-[4/3] overflow-hidden rounded-md md:mt-4 md:aspect-auto md:flex-1">
-                      <Image src={s.image} alt="" fill sizes="(min-width: 768px) 30vw, 90vw" className="object-cover" />
+                    <div className="mt-auto flex items-center rounded-md bg-[#1a1a1a] p-3 md:mt-4 md:min-h-[360px] md:flex-1 md:p-4">
+                      <ServiceVisual id={s.visual} />
                     </div>
                   </div>
                 </article>

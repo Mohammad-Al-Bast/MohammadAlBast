@@ -38,6 +38,9 @@ export function SiteFooter() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/footer-logo-dark.svg"
+          width={1376}
+          height={248}
+          loading="lazy"
           alt="[MHMD/B] — Mohammad Al Bast"
           className="mt-8 h-auto w-full select-none"
         />

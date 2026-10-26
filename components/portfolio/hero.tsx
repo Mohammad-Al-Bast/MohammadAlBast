@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import { BrandGlyph } from '@/components/brand-glyph'
+import { ServiceVisual } from './service-visuals'
 import { ArrowButton, ButtonLink } from '@/components/primitives'
 import { Carousel, CarouselContent, CarouselDots, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { hero, heroSlides, site, techLogos } from './data'
@@ -10,8 +11,8 @@ export function Hero() {
     <section className="container-page pt-4 pb-4 md:pt-10 md:pb-8">
       <div className="grid gap-2 lg:grid-cols-2">
         {/* Intro card */}
-        <div className="flex min-h-[560px] flex-col items-center justify-between gap-12 rounded-lg bg-card px-6 py-14 text-center md:px-12 lg:h-[770px] lg:py-24">
-          <h1 className="max-w-[560px] text-[44px] leading-[1.15] md:text-[72px]">
+        <div className="flex flex-col items-center justify-between gap-10 rounded-lg bg-card px-5 py-10 text-center md:min-h-[560px] md:gap-12 md:px-12 md:py-14 lg:h-[770px] lg:py-24">
+          <h1 className="max-w-[560px] text-[44px] leading-[1.15] text-balance md:text-[72px]">
             {hero.titleStart}
             <span className="text-[#d6ffcc]">{hero.titleHighlight}</span>
             {hero.titleEnd}
@@ -41,21 +42,15 @@ export function Hero() {
         {/* Project slider */}
         <Carousel opts={{ loop: true }} className="overflow-hidden rounded-lg bg-inset">
           <CarouselContent className="ml-0">
-            {heroSlides.map((slide, i) => (
-              <CarouselItem key={slide.image} className="pl-0">
-                <div className="relative aspect-[4/5] w-full sm:aspect-[4/3] lg:aspect-auto lg:h-[770px]">
-                  <Image
-                    src={slide.image}
-                    alt={slide.title}
-                    fill
-                    priority={i === 0}
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-28 px-6 text-center md:bottom-32">
-                    <p className="font-sans text-base text-white">{slide.title}</p>
-                    <p className="mt-1 font-mono text-sm text-white/75 md:text-base">{slide.subtitle}</p>
+            {heroSlides.map((slide) => (
+              <CarouselItem key={slide.visual} className="pl-0">
+                <div className="relative flex h-[480px] w-full flex-col bg-[linear-gradient(to_right,rgb(255_255_255/0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.035)_1px,transparent_1px)] bg-[size:40px_40px] px-5 pt-8 pb-28 sm:h-[560px] md:px-12 md:pt-16 lg:h-[770px] lg:pb-36">
+                  <div className="mx-auto flex min-h-0 w-full max-w-[520px] flex-1 items-start overflow-hidden md:items-center">
+                    <ServiceVisual id={slide.visual} />
+                  </div>
+                  <div className="mt-6 text-center md:mt-8">
+                    <p className="font-sans text-base text-white md:text-lg">{slide.title}</p>
+                    <p className="mt-1 font-mono text-sm text-white/70 md:text-base">{slide.subtitle}</p>
                   </div>
                 </div>
               </CarouselItem>
@@ -78,7 +73,7 @@ export function LogoStrip() {
     <div className="relative overflow-hidden py-10" aria-label="Technologies">
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-background to-transparent md:w-32" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-background to-transparent md:w-32" />
-      <div className="flex w-max animate-marquee">
+      <div className="flex w-max animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
         {[0, 1].map((copy) => (
           <ul key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center gap-24 pr-24">
             {row.map((logo, i) => (

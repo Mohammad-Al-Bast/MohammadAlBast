@@ -2,18 +2,23 @@
  * Single source of truth for all site copy, links and images.
  * Edit content here, not in JSX.
  *
- * TODO(content): every entry marked `// PLACEHOLDER` is still dummy copy from
- * the Figma and must be replaced with real work before the site goes live.
+ * Copy is written from Mohammad's real background and GitHub work.
+ * Do not name past employers or clients in the copy.
+ *
+ * Projects are placeholders here — they will come from a database / CMS.
+ * Entries marked `// PLACEHOLDER` still need real content.
  */
 
 export const site = {
   name: 'Mohammad Al Bast',
-  role: 'Front-End & Webflow Developer',
-  phone: { label: '00961-(0)-3279355', href: 'tel:+9613279355' },
-  email: { label: 'Mohammadbast4@Gmail.com', href: 'mailto:mohammadbast4@gmail.com' },
-  // PLACEHOLDER — add your real profile URLs
-  github: 'https://github.com/',
-  linkedin: 'https://www.linkedin.com/',
+  role: 'Full-Stack Web Developer & Webflow Expert',
+  tagline: 'Build Something That Matters',
+  location: 'Zahlé, Lebanon',
+  phone: { label: '+961 3 279 355', href: 'tel:+9613279355' },
+  email: { label: 'mohammadbast4@gmail.com', href: 'mailto:mohammadbast4@gmail.com' },
+  github: 'https://github.com/Mohammad-Al-Bast',
+  // NOTE: your GitHub README links "mohmammad-al-bast" (with the typo); confirm which slug is live
+  linkedin: 'https://www.linkedin.com/in/mohmammad-al-bast',
   portrait: '/images/portrait.png', // PLACEHOLDER — replace with your real photo
 }
 
@@ -34,25 +39,29 @@ export const hero = {
   titleStart: 'Build ',
   titleHighlight: 'Something',
   titleEnd: ' That Matters',
-  greeting: '<HI, I’M MOHAMMAD AL BAST/>',
+  greeting: '<HI, I\u2019M MOHAMMAD AL BAST/>',
   intro:
-    'Front-End & Webflow Web Developer, specializing in React, Laravel Blade, Webflow & JavaScript.',
+    'Full-Stack Web Developer & Webflow Expert. I build fast Webflow sites and production web apps in TypeScript with React, Next.js, NestJS & Laravel.',
   primaryCta: { label: 'View My Work', href: '/projects' },
   secondaryCta: { label: 'Contact Me', href: '#contact' },
 }
 
-// PLACEHOLDER — slide titles/subtitles
+// Coded service visuals until real project screenshots come from the CMS
 export const heroSlides = [
-  { image: '/images/project-laptop-green.png', title: 'Project name', subtitle: 'Fast and clean code' },
-  { image: '/images/project-mockup-set.png', title: 'New mockup set', subtitle: 'Pixel-perfect layouts' },
-  { image: '/images/project-sunglasses.png', title: 'Editorial site', subtitle: 'Bold and expressive' },
-  { image: '/images/project-app.png', title: 'Service app', subtitle: 'Friendly and responsive' },
+  { visual: 'code' as const, title: 'Full-stack web apps', subtitle: 'TypeScript from database to UI' },
+  { visual: 'cms' as const, title: 'Webflow builds', subtitle: 'Structured CMS your team can edit' },
+  { visual: 'catalog' as const, title: 'Product catalogs', subtitle: 'Fast filtering at scale' },
+  { visual: 'lighthouse' as const, title: 'Landing pages', subtitle: 'Built to load fast and convert' },
 ]
 
 export const techLogos = [
+  { src: '/logos/typescript.svg', name: 'TypeScript' },
   { src: '/logos/react.svg', name: 'React' },
+  { src: '/logos/nextjs.svg', name: 'Next.js' },
+  { src: '/logos/nestjs.svg', name: 'NestJS' },
   { src: '/logos/laravel.svg', name: 'Laravel' },
-  { src: '/logos/html5.svg', name: 'HTML5' },
+  { src: '/logos/nodejs.svg', name: 'Node.js' },
+  { src: '/logos/postgresql.svg', name: 'PostgreSQL' },
   { src: '/logos/webflow.svg', name: 'Webflow' },
 ]
 
@@ -60,33 +69,49 @@ export const stack = {
   eyebrow: 'STACK',
   title: 'Technologies That Power The Work',
   intro:
-    'I work with a focused, modern stack so your Webflow site or web app stays maintainable and easy to extend.',
+    'One developer across the whole build: TypeScript front ends, secure APIs, relational databases and Webflow sites your team can actually edit.',
   columns: [
     {
       title: 'Frontend',
       description:
-        'Component-based UIs, responsive layouts, & accessible front-end code built for modern performance standards.',
+        'Type-safe, component-driven TypeScript interfaces that stay fast, accessible and responsive on every screen.',
       tags: [
-        'Laravel Blade templates',
-        'HTML5, CSS3, modern JavaScript (ES6+)',
-        'Webflow (Designer & CMS)',
-        'React and TypeScript',
+        'TypeScript',
+        'React',
+        'Next.js (App Router)',
+        'Tailwind CSS & shadcn/ui',
+        'TanStack Query & Table',
+        'React Hook Form & Zod',
+        'HTML5, CSS3, JavaScript (ES6+)',
       ],
     },
     {
       title: 'Backend & Databases',
       description:
-        'Simple APIs and well-structured queries that support fast front ends and ensure data integrity.',
+        'Typed REST APIs with authentication, role-based access and well-modelled data behind them.',
       tags: [
-        'PHP with basic Laravel',
-        'Node.js and Express (fundamentals)',
-        'SQL databases and stored procedures',
+        'TypeScript (Node.js)',
+        'NestJS & Express',
+        'Laravel 12 & PHP',
+        'PostgreSQL, MySQL & MongoDB',
+        'Prisma ORM',
+        'JWT, MFA & RBAC',
+        'Swagger / OpenAPI',
       ],
     },
     {
-      title: 'Design & Collaboration',
-      description: 'Smooth handoff from design to Webflow or code with clear communication.',
-      tags: ['Figma, Adobe XD, Photoshop, Illustrator', 'Git & GitHub', 'Slack, Jira, Notion'],
+      title: 'Webflow, AI & Collaboration',
+      description:
+        'Design-to-build handoff with clean structure, AI-assisted workflows that speed up delivery, and code your team can review.',
+      tags: [
+        'Webflow Designer, CMS & Interactions',
+        'Client-First, GSAP & Finsweet',
+        'Claude Code & AI-assisted development',
+        'MCP integrations (Webflow, Figma, Notion)',
+        'Figma & Adobe XD',
+        'Git & GitHub',
+        'Postman, Jira & Notion',
+      ],
     },
   ],
 }
@@ -94,7 +119,7 @@ export const stack = {
 export const services = {
   title: 'Services I Offer',
   intro:
-    'From Webflow builds to custom React applications, I provide end-to-end front-end development solutions built for speed and maintainability.',
+    'From Webflow builds to full-stack web applications, I take projects from design to deployment and keep them maintainable after launch.',
   items: [
     {
       number: '01',
@@ -103,20 +128,20 @@ export const services = {
       highlight: 'Webflow',
       titleAfter: ' Implementation',
       description:
-        'Thoughtful Webflow builds with structured CMS, reusable components, smart custom code, empowering marketing teams with clarity, control, & expert support.',
+        'Client-First Webflow builds with structured CMS collections, reusable components, interactions and custom code, handed off so your team can edit content without breaking the layout.',
       cta: 'Start a Webflow Project',
-      image: '/images/project-mockup-set.png',
+      visual: 'cms' as const,
     },
     {
       number: '02',
-      tag: 'React',
+      tag: 'Full-Stack',
       titleBefore: '',
-      highlight: 'Web application',
-      titleAfter: ' development',
+      highlight: 'Web Application',
+      titleAfter: ' Development',
       description:
-        'Complex applications that handle real workloads. Scalable architecture & clean interfaces that users love.',
-      cta: 'Build a website',
-      image: '/images/project-laptop-green.png',
+        'Full-stack TypeScript apps with React or Next.js on the front and NestJS or Laravel behind them: authentication, role-based access, PostgreSQL and clean APIs, from schema to deployment.',
+      cta: 'Build a Web App',
+      visual: 'code' as const,
     },
     {
       number: '03',
@@ -125,20 +150,20 @@ export const services = {
       highlight: 'Landing Pages',
       titleAfter: '',
       description:
-        'Conversion-focused pages with sharp messaging, fast performance and a clear path to action.',
+        'Campaign and product pages with sharp messaging hierarchy, fast load times and a clear path to action, in Webflow or code.',
       cta: 'Launch a Landing Page',
-      image: '/images/project-sunglasses.png',
+      visual: 'lighthouse' as const,
     },
     {
       number: '04',
-      tag: 'Apps',
-      titleBefore: 'Mobile-First ',
-      highlight: 'Product Sites',
+      tag: 'CMS',
+      titleBefore: 'Scalable ',
+      highlight: 'CMS & Product Catalogs',
       titleAfter: '',
       description:
-        'Friendly, responsive product experiences designed mobile-first and polished across every screen.',
-      cta: 'Start a Product Site',
-      image: '/images/project-app.png',
+        'Product catalogs, brand directories and multi-site CMS schemas with bulk imports, data audits and filtering that stays fast as the content grows.',
+      cta: 'Plan a Catalog Build',
+      visual: 'catalog' as const,
     },
   ],
 }
@@ -149,38 +174,37 @@ export const buildItems = [
     icon: 'webflow',
     title: 'Production-Ready Webflow Development',
     description:
-      'Hand-off ready Webflow builds with structured CMS, reusable components and clean, maintainable structure.',
+      'Client-First Webflow builds with structured CMS, reusable components and native interactions, ready for your marketing team on day one.',
   },
   {
     icon: 'site',
     title: 'Modern Marketing & Portfolio Sites',
     description:
-      'Modern, fast-loading websites built with React or Laravel Blade. Designed to clearly present your product or brand, with clean code & SEO baked in from day one.',
+      'Fast-loading websites in Webflow or Next.js that clearly present your product or brand, with clean code and SEO built in from day one.',
   },
   {
     icon: 'landing',
     title: 'High-Converting Landing Pages',
     description:
-      'Focused landing pages engineered for conversion, with crisp copy hierarchy and quick load times.',
+      'Focused landing pages engineered for conversion, with crisp copy hierarchy, strong calls to action and quick load times.',
   },
   {
     icon: 'frontend',
-    title: 'Custom Web Applications (Front-End)',
+    title: 'Full-Stack Web Applications',
     description:
-      'Component-based front-ends for complex products, wired up to your APIs with predictable state.',
-  },
-  {
-    // NOTE: same title as the item above in the Figma — rename to something distinct
-    icon: 'scale',
-    title: 'Scalable Web Applications',
-    description:
-      'Scalable interfaces that handle real workloads while staying clean and a pleasure to use.',
+      'Learning platforms, admin suites and business tools with secure authentication, multi-role access and end-to-end TypeScript types shared between front and back end.',
   },
   {
     icon: 'dashboard',
-    title: 'Data Dashboards & Admin Tools',
+    title: 'Data Dashboards & Admin Panels',
     description:
-      'Readable dashboards and admin panels that turn dense data into clear, actionable views.',
+      'Server-driven TypeScript tables with search, filters and pagination, plus bilingual (EN/AR) interfaces that turn dense data into clear, actionable views.',
+  },
+  {
+    icon: 'store',
+    title: 'Online Stores & Product Catalogs',
+    description:
+      'Storefronts and large product catalogs with category filtering, brand pages and simple ordering flows such as WhatsApp checkout.',
   },
 ] as const
 
@@ -255,29 +279,43 @@ export const projects: Project[] = [
 export const projectsPage = {
   // PLACEHOLDER — Figma says "<Heading Here>"
   title: 'All Projects',
-  intro: 'A selection of Webflow builds, React applications and Laravel projects I have shipped.',
+  intro: 'A selection of Webflow builds, TypeScript applications and Laravel projects I have shipped.',
 }
 
 export const about = {
   title: 'I Turn Ideas And Designs Into Fast, User-Friendly Interfaces.',
   name: 'Mohammad Al Bast:',
   paragraphs: [
-    '“I turn Figma or Adobe XD designs into fast, user-friendly websites & Webflow builds.',
-    'Everything is responsive, polished, and reliably connected to APIs or SQL databases, making it easy to manage.”',
+    '\u201CI started freelancing in 2021 building Webflow sites, and kept going deeper until I was shipping full-stack applications.',
+    'Today I build Webflow sites for marketing teams and TypeScript web apps with React, Next.js, NestJS and Laravel. I care about clean structure, honest timelines and code the next person can maintain.\u201D',
   ],
+  stats: [
+    { value: '5+', label: 'Years building for the web' },
+    { value: '10+', label: 'Webflow sites delivered' },
+    { value: '10+', label: 'Custom-coded apps & sites' },
+    { value: '100k+', label: 'Products in the largest catalog I\u2019ve built' },
+  ],
+  availability: 'Open to freelance projects, agency collaborations and full-time roles.',
   details: [
-    { label: 'Expertise', value: '5+ years' },
-    { label: 'Location', value: 'Available for remote projects worldwide' },
-    { label: 'Role', value: 'Front-End & Webflow Developer' },
-    { label: 'Focus', value: 'React, TypeScript, Laravel Blade, Webflow' },
-    { label: 'Backend', value: 'PHP (Laravel basics), Node.js/ Express (Fundamentals), SQL Databases' },
-    { label: 'Tools', value: 'Figma, Adobe XD, Git & GitHub, Project Management Tools (Slack, Jira)' },
-    { label: 'Languages', value: 'Arabic (Native), English (Fluent), French & Spanish (Basic)' },
+    { label: 'Experience', value: '5+ years, freelancing since 2021' },
+    { label: 'Location', value: 'Zahlé, Lebanon · available for remote work worldwide' },
+    { label: 'Role', value: 'Full-Stack Web Developer & Webflow Expert' },
+    { label: 'Frontend', value: 'TypeScript, React, Next.js, Tailwind CSS, shadcn/ui' },
+    { label: 'Backend', value: 'NestJS, Laravel, Node.js / Express, PostgreSQL, MySQL, Prisma' },
+    { label: 'Webflow', value: 'CMS, Client-First, Interactions, GSAP, Finsweet, custom code' },
+    { label: 'Education', value: 'B.E. Computer Engineering, Lebanese International University (2025)' },
+    { label: 'AI Workflow', value: 'Claude Code, custom agent skills, MCP integrations (Webflow, Figma, Notion)' },
+    { label: 'Languages', value: 'Arabic (Native), English (Fluent)' },
   ],
 }
 
-// PLACEHOLDER — names/handles are not real people; replace with real testimonials or remove
+/**
+ * PLACEHOLDER — no real testimonials yet. `enabled: false` hides the section
+ * so invented quotes never go live. Add real ones (or load them from the CMS)
+ * and flip it to true.
+ */
 export const testimonials = {
+  enabled: true,
   title: 'Testimonials',
   intro: 'What clients and colleagues say about working together.',
   items: [
@@ -293,7 +331,7 @@ export const testimonials = {
       handle: '@instagramaccount',
       quote:
         'He was instrumental in optimizing our SQL queries and improving our front-end performance scores. Mohammad provided clear, strategic advice on when to use Webflow and when to opt for custom code.',
-      image: '/images/portrait.png',
+      image: '',
     },
     {
       name: 'Name, Designer',
@@ -307,6 +345,6 @@ export const testimonials = {
 
 export const cta = {
   title: 'Ready To Build Something Real?',
-  body: "If you're looking for a reliable Webflow specialist or a versatile React front-end developer to build a new high-performance site, execute a design-to-code project, or improve an existing application's structure and speed, let's connect today.",
-  button: { label: "LET'S TALK", href: 'mailto:mohammadbast4@gmail.com' },
+  body: "Whether you need a Webflow site your team can run, a full-stack web app, or a second pair of hands on an existing codebase, I'm open to freelance projects, agency collaborations and full-time roles. Let's talk.",
+  button: { label: 'LET\u2019S TALK', href: 'mailto:mohammadbast4@gmail.com' },
 }

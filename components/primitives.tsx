@@ -11,7 +11,7 @@ type ButtonStyle = VariantProps<typeof buttonVariants>
 
 /**
  * Pill link with the circular arrow on the right ("View My Work",
- * "Start a Webflow Project", "View all", "LET'S TALK").
+ * "Start a Webflow Project", "View All", "LET’S TALK").
  */
 export function ArrowButton({
   href,
@@ -87,7 +87,7 @@ export function ArrowLink({
   )
 }
 
-/** Mint text link with the GitHub glyph ("See code", "Follow me on Github"). */
+/** Mint text link with the GitHub glyph ("See Code", "Follow Me on GitHub"). */
 export function GithubLink({
   href,
   children,

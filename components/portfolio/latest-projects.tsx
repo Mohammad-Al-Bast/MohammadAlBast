@@ -10,7 +10,7 @@ export function LatestProjects() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <CodeHeading>Latest Projects</CodeHeading>
           <ArrowButton href="/projects" variant="outline" className="w-full sm:w-[340px]">
-            View all
+            View All
           </ArrowButton>
         </div>
 

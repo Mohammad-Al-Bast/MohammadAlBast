@@ -205,7 +205,7 @@ function CarouselDots({ className }: { className?: string }) {
           aria-current={i === selectedIndex}
           onClick={() => scrollTo(i)}
           className={cn(
-            'h-[3px] cursor-pointer rounded-full transition-all',
+            'h-[3px] cursor-pointer rounded-full transition-[width,background-color] duration-300',
             i === selectedIndex ? 'w-6 bg-white' : 'w-2 bg-white/30 hover:bg-white/60',
           )}
         />
