@@ -88,3 +88,26 @@ export const seedProjects: SeedProject[] = [
     order: 3,
   },
 ]
+
+type SeedImage = { file: string; alt: string }
+
+export const seedImages: Record<string, SeedImage[]> = {
+  'Brain Learning Center': [
+    { file: 'brain-learning-center/01-courses.png', alt: 'Brain Learning Center dashboard course list with search, status and category filters' },
+    { file: 'brain-learning-center/02-course-detail.png', alt: 'Course detail page with tabs for info, lessons, enrollments, progress and reviews' },
+    { file: 'brain-learning-center/03-arabic-rtl.png', alt: 'Course list in Arabic with the right-to-left layout' },
+    { file: 'brain-learning-center/04-dark-mode.png', alt: 'Course list in dark mode' },
+  ],
+  EDUadmin: [
+    { file: 'eduadmin/01-overview.png', alt: 'EDUadmin dashboard with student and user totals and students by year chart' },
+    { file: 'eduadmin/02-students.png', alt: 'Student records table with campus, school, major and semester' },
+    { file: 'eduadmin/03-change-grade.png', alt: 'Grade change form with student details filled in from the student ID' },
+    { file: 'eduadmin/04-courses.png', alt: 'Course catalog table with instructor, section, credits and room' },
+  ],
+  'Reactive Store': [
+    { file: 'reactive-store/01-home.png', alt: 'Reactive Store home page with featured equipment and call to action' },
+    { file: 'reactive-store/02-product.png', alt: 'Product page for a TENS and EMS unit with add to cart and WhatsApp order buttons' },
+    { file: 'reactive-store/03-checkout.png', alt: 'Cart and checkout page that sends the order on WhatsApp' },
+    { file: 'reactive-store/04-home-mobile.png', alt: 'Reactive Store home page on a phone' },
+  ],
+}

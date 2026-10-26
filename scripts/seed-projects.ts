@@ -1,7 +1,32 @@
+import { existsSync } from 'node:fs'
+import path from 'node:path'
+
 import config from '@payload-config'
 import { getPayload } from 'payload'
 
-import { seedProjects } from '../payload/seed/projects'
+import { seedImages, seedProjects } from '../payload/seed/projects'
+
+type PayloadClient = Awaited<ReturnType<typeof getPayload>>
+
+const IMAGE_ROOT = path.resolve(process.cwd(), 'project-screenshots')
+
+async function uploadImages(payload: PayloadClient, projectName: string) {
+  const ids: number[] = []
+
+  for (const image of seedImages[projectName] ?? []) {
+    const filePath = path.join(IMAGE_ROOT, image.file)
+
+    if (!existsSync(filePath)) {
+      payload.logger.warn(`Missing image, skipped: ${image.file}`)
+      continue
+    }
+
+    const media = await payload.create({ collection: 'media', data: { alt: image.alt }, filePath })
+    ids.push(media.id)
+  }
+
+  return ids
+}
 
 async function main() {
   const payload = await getPayload({ config })
@@ -19,9 +44,11 @@ async function main() {
       continue
     }
 
-    // Drafts skip the required image check, so screenshots can be added in the admin before publishing.
-    await payload.create({ collection: 'projects', data: project as never, draft: true })
-    payload.logger.info(`Created draft: ${project.name}`)
+    const images = await uploadImages(payload, project.name)
+
+    // Drafts skip required-field checks, so a project with no images still saves.
+    await payload.create({ collection: 'projects', data: { ...project, images } as never, draft: true })
+    payload.logger.info(`Created draft: ${project.name} (${images.length} images)`)
   }
 
   process.exit(0)

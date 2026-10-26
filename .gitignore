@@ -24,3 +24,6 @@ yarn.lock
 
 # TypeScript incremental build info
 *.tsbuildinfo
+
+# Local screenshots used by the seed script
+/project-screenshots

@@ -21,7 +21,7 @@ export const site = {
 	},
 	github: "https://github.com/Mohammad-Al-Bast",
 	linkedin: "https://www.linkedin.com/in/mohammad-al-bast",
-	portrait: "/images/portrait.png", // PLACEHOLDER — replace with your real photo
+	portrait: "/images/mb.jpeg", // PLACEHOLDER — replace with your real photo
 	// Booking page (e.g. "https://cal.com/your-name/intro"). Leave empty to hide every "Book a call" button.
 	booking: "https://cal.com/mohammad-al-bast/intro",
 	// CV in /public (e.g. "/cv/Mohammad-Al-Bast-CV.pdf"). Leave empty to hide every CV button.
@@ -252,8 +252,6 @@ export type Project = {
 	category: ProjectCategory;
 	tags: string[];
 	images: string[];
-	/** alt text per image, same order as `images` (from the CMS) */
-	imageAlts?: string[];
 	liveUrl: string;
 	codeUrl: string;
 	about: string;
@@ -268,7 +266,7 @@ export type Project = {
 	};
 };
 
-// PLACEHOLDER — dummy projects, shown only until DATABASE_URL is set. Real projects are managed in Payload at /admin.
+// PLACEHOLDER — all three projects are dummy content from the Figma
 export const projects: Project[] = [
 	{
 		slug: "project-one",
