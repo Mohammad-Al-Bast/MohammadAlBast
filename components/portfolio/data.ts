@@ -21,7 +21,7 @@ export const site = {
 	},
 	github: "https://github.com/Mohammad-Al-Bast",
 	linkedin: "https://www.linkedin.com/in/mohammad-al-bast",
-	portrait: "/images/mb.jpeg", // PLACEHOLDER — replace with your real photo
+	portrait: "/images/MB.JPEG",
 	// Booking page (e.g. "https://cal.com/your-name/intro"). Leave empty to hide every "Book a call" button.
 	booking: "https://cal.com/mohammad-al-bast/intro",
 	// CV in /public (e.g. "/cv/Mohammad-Al-Bast-CV.pdf"). Leave empty to hide every CV button.
@@ -242,8 +242,18 @@ export const buildItems = [
 	},
 ] as const;
 
-export const projectCategories = ["Webflow", "React", "Laravel"] as const;
+export const projectCategories = ["Webflow", "Next.js", "React", "NestJS", "Laravel", "Full-Stack"] as const;
 export type ProjectCategory = (typeof projectCategories)[number];
+
+/** Language ids understood by the code highlighter (lib/highlight.ts). */
+export const snippetLanguages = ["typescript", "tsx", "javascript", "php", "css", "html", "json", "sql"] as const;
+export type SnippetLanguage = (typeof snippetLanguages)[number];
+
+export type CodeSnippet = {
+	filename: string;
+	language: SnippetLanguage;
+	code: string;
+};
 
 export type Project = {
 	slug: string;
@@ -252,6 +262,8 @@ export type Project = {
 	category: ProjectCategory;
 	tags: string[];
 	images: string[];
+	imageAlts?: string[];
+	snippet?: CodeSnippet;
 	liveUrl: string;
 	codeUrl: string;
 	about: string;

@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation'
 import { CodeHeading } from '@/components/code-heading'
 import { ArrowLink, GithubLink } from '@/components/primitives'
 import { ProjectGallery } from '@/components/portfolio/project-gallery'
+import { ProjectHeroMarquee } from '@/components/portfolio/project-hero-marquee'
+import { ProjectShowcase } from '@/components/portfolio/project-showcase'
 import { testimonials } from '@/components/portfolio/data'
 import { getProject, getProjects } from '@/lib/projects'
 import { Badge } from '@/components/ui/badge'
@@ -28,7 +30,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   // only real, per-project testimonials are shown (falls back to the site list once it is enabled)
   const quote = project.testimonial ?? (testimonials.enabled ? testimonials.items[0] : undefined)
-  const masonry = [...project.images, ...project.images].slice(0, 6)
 
   const rows = [
     { label: 'About Project/ About Client', body: project.about },
@@ -57,25 +58,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
 
-          <div className="relative h-[420px] overflow-hidden md:h-[560px] lg:h-[700px]">
-            <div className="grid grid-cols-2 gap-3 md:gap-4">
-              {[0, 1].map((col) => (
-                <div key={col} className={col === 1 ? '-mt-10 flex flex-col gap-3 md:gap-4' : 'flex flex-col gap-3 md:gap-4'}>
-                  {masonry
-                    .filter((_, i) => i % 2 === col)
-                    .map((src, i) => (
-                      <div
-                        key={src + i}
-                        className={`relative overflow-hidden rounded-lg ${(i + col) % 2 ? 'aspect-[4/5]' : 'aspect-[5/4]'}`}
-                      >
-                        <Image src={src} alt="" fill sizes="25vw" className="object-cover grayscale" />
-                      </div>
-                    ))}
-                </div>
-              ))}
-            </div>
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
-          </div>
+          <ProjectHeroMarquee images={project.images} />
         </div>
       </section>
 
@@ -104,20 +87,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* Showcase card */}
-      <section className="container-page">
-        <div className="rounded-lg bg-card p-4 md:p-6">
-          <div className="grid items-center gap-2 pb-4 md:grid-cols-3 md:pb-6">
-            <CodeHeading as="h2" className="text-[32px] md:text-[40px]">
-              Text
-            </CodeHeading>
-            <p className="font-mono text-sm text-foreground/70 md:text-center">Description</p>
-          </div>
-          <div className="relative aspect-[16/9] overflow-hidden rounded-md bg-inset">
-            <Image src={project.images[0]} alt={project.imageAlts?.[0] ?? `${project.name} showcase`} fill sizes="90vw" className="object-cover" />
-          </div>
-        </div>
-      </section>
+      <ProjectShowcase project={project} />
 
       {/* Testimonial */}
       {quote && (

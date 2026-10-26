@@ -130,7 +130,7 @@ export interface Project {
    * One line shown on project cards (max 160 characters).
    */
   description: string;
-  category: 'Webflow' | 'React' | 'Laravel';
+  category: 'Webflow' | 'Next.js' | 'React' | 'NestJS' | 'Laravel' | 'Full-Stack';
   /**
    * Short labels on the card, e.g. React, Webflow.
    */
@@ -145,6 +145,17 @@ export interface Project {
   challenges: string;
   solutions: string;
   technologies?: string[] | null;
+  /**
+   * Optional. When filled, the large showcase card on the project page shows this code instead of the first screenshot. Use real code from the project, 15 to 40 lines.
+   */
+  codeSnippet?: {
+    /**
+     * Shown above the code, e.g. roles.guard.ts
+     */
+    filename?: string | null;
+    language?: ('typescript' | 'tsx' | 'javascript' | 'php' | 'css' | 'html' | 'json' | 'sql') | null;
+    code?: string | null;
+  };
   /**
    * Optional. Only real quotes, with permission.
    */
@@ -344,6 +355,13 @@ export interface ProjectsSelect<T extends boolean = true> {
   challenges?: T;
   solutions?: T;
   technologies?: T;
+  codeSnippet?:
+    | T
+    | {
+        filename?: T;
+        language?: T;
+        code?: T;
+      };
   testimonial?:
     | T
     | {

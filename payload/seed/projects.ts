@@ -1,7 +1,10 @@
+import type { CodeSnippet, ProjectCategory } from '../../components/portfolio/data'
+import { brainLearningCenterSnippet, reactiveStoreSnippet } from './snippets'
+
 type SeedProject = {
   name: string
   description: string
-  category: 'Webflow' | 'React' | 'Laravel'
+  category: ProjectCategory
   tags: string[]
   technologies: string[]
   liveUrl?: string
@@ -9,6 +12,7 @@ type SeedProject = {
   about: string
   challenges: string
   solutions: string
+  codeSnippet?: CodeSnippet
   featured: boolean
   order: number
 }
@@ -18,7 +22,7 @@ export const seedProjects: SeedProject[] = [
     name: 'Brain Learning Center',
     description:
       'Learning management platform: a NestJS API and a bilingual Next.js admin dashboard with four roles, two-factor sign-in, and course, lesson and review tools.',
-    category: 'React',
+    category: 'Full-Stack',
     tags: ['Next.js', 'NestJS', 'TypeScript', 'PostgreSQL'],
     technologies: [
       'Next.js 16',
@@ -40,6 +44,7 @@ export const seedProjects: SeedProject[] = [
       'Four roles (super admin, admin, instructor and student) need different permissions on the same data, and the rules have to hold on the server, not only in the interface. Sign-in had to be safe by default: short-lived access tokens, refresh tokens that scripts cannot read, and two-factor authentication. The dashboard also had to work in Arabic, which means a right-to-left layout and not only translated text.',
     solutions:
       'The API is NestJS with Prisma and PostgreSQL, split into nine modules: auth, admin, categories, courses, lessons, enrollments, progress, reviews and mailer. Role guards and ownership checks enforce access on every route. Access tokens last five minutes in the default setup, refresh tokens rotate and travel in an httpOnly cookie, and sign-in supports email codes and authenticator apps, with one-time-code password reset. Every response uses one envelope with a request ID on errors, lists use cursor pagination, and the API is documented with Swagger. The dashboard is Next.js 16 with TanStack Query and Table for server-driven lists (search, sort, filter, pagination), React Hook Form with Zod for forms, and next-intl with a direction switch for English and Arabic.',
+    codeSnippet: brainLearningCenterSnippet,
     featured: true,
     order: 1,
   },
@@ -74,7 +79,7 @@ export const seedProjects: SeedProject[] = [
     name: 'Reactive Store',
     description:
       'Online store for a Lebanese medical and rehabilitation supplies retailer, with a catalog, cart and checkout that sends the order to the store on WhatsApp.',
-    category: 'React',
+    category: 'Next.js',
     tags: ['Next.js', 'Tailwind CSS', 'shadcn/ui', 'TypeScript'],
     technologies: ['Next.js 16', 'React', 'TypeScript', 'Tailwind CSS 4', 'shadcn/ui', 'Radix UI'],
     codeUrl: 'https://github.com/Mohammad-Al-Bast/reactive-store',
@@ -84,6 +89,7 @@ export const seedProjects: SeedProject[] = [
       'Buyers of medical equipment want specifications and reassurance before they order, not a flash-sale layout. The store had no payment gateway or order backend, and the team confirms totals and delivery with each customer by phone, so the site needed a way to collect orders without a server or database.',
     solutions:
       'Next.js 16 with Tailwind CSS and shadcn/ui. Products, departments, specifications, prices and stock live in one typed data file, and contact details, hours, delivery and warranty in another, so the owner changes data and never components. The shop has search, filters, sort and department pages. The cart is kept in the browser, and checkout collects delivery details and a payment method, then opens WhatsApp with the full order written out for the customer to send. Products without a price show "Price on request". Moving to online orders later means replacing one submit handler.',
+    codeSnippet: reactiveStoreSnippet,
     featured: true,
     order: 3,
   },

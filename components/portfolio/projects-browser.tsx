@@ -32,7 +32,7 @@ function useCategoryParam() {
 
 export function ProjectsBrowser({ projects }: { projects: Project[] }) {
   const [value, setValue] = useCategoryParam()
-  const tabs = [...projectCategories.map((c) => ({ value: c as string, label: c as string })), { value: ALL, label: 'View All' }]
+  const tabs = [{ value: ALL, label: 'All' }, ...projectCategories.map((c) => ({ value: c as string, label: c as string }))]
 
   return (
     <Tabs value={value} onValueChange={(v) => setValue(String(v))} className="mt-10 gap-8 md:mt-12">

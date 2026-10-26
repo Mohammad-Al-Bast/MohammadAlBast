@@ -15,6 +15,7 @@ function mediaUrl(m: number | Media | null | undefined, size: 'card' | 'full' = 
 function toProject(doc: ProjectDoc): Project {
   const images = (doc.images ?? []).filter((m): m is Media => typeof m === 'object' && m !== null)
   const t = doc.testimonial
+  const s = doc.codeSnippet
   return {
     slug: doc.slug,
     name: doc.name,
@@ -23,6 +24,7 @@ function toProject(doc: ProjectDoc): Project {
     tags: doc.tags ?? [],
     images: images.map((m) => mediaUrl(m, 'full')).filter((u): u is string => Boolean(u)),
     imageAlts: images.map((m) => m.alt),
+    snippet: s?.code && s?.language ? { filename: s.filename ?? '', language: s.language, code: s.code } : undefined,
     liveUrl: doc.liveUrl ?? '',
     codeUrl: doc.codeUrl ?? '',
     about: doc.about,

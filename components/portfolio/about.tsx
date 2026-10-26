@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 import { CodeHeading } from '@/components/code-heading'
 import { GithubLink } from '@/components/primitives'
 import { ContactButton } from './contact-trigger'
@@ -9,6 +7,7 @@ import { Download } from 'lucide-react'
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { about, contact, site } from './data'
+import { SpotlightPortrait } from './spotlight-portrait'
 
 export function About() {
   return (
@@ -49,9 +48,11 @@ export function About() {
           {/* Photo */}
           {/* stretches to the tallest column so all three end on the same line */}
           <div className="flex flex-col border-border py-8 lg:border-x lg:px-6">
-            <div className="relative aspect-square w-full overflow-hidden lg:aspect-auto lg:min-h-[475px] lg:flex-1">
-              <Image src={site.portrait} alt={site.name} fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover object-top grayscale" />
-            </div>
+            <SpotlightPortrait
+              src={site.portrait}
+              alt={site.name}
+              className="aspect-square w-full lg:aspect-auto lg:min-h-[475px] lg:flex-1"
+            />
           </div>
 
           {/* Details */}

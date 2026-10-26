@@ -16,13 +16,15 @@ export function HeroIntro() {
       </h1>
 
       <div className="flex flex-col items-center">
-        <Image
-          src={site.portrait}
-          alt={site.name}
-          width={64}
-          height={64}
-          className="size-16 rounded-full object-cover grayscale"
-        />
+        <span className="block size-16 overflow-hidden rounded-full">
+          <Image
+            src={site.portrait}
+            alt={site.name}
+            width={192}
+            height={192}
+            className="size-full scale-125 object-cover object-[50%_4%] grayscale"
+          />
+        </span>
         <p className="mt-4 font-sans text-base uppercase md:text-lg">{hero.greeting}</p>
         <p className="mt-4 max-w-[480px] font-mono text-sm leading-relaxed text-foreground/85 md:text-base">
           {hero.intro}

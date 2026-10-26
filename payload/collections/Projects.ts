@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { projectCategories } from '../../components/portfolio/data'
+import { projectCategories, snippetLanguages } from '../../components/portfolio/data'
 import { revalidateProjectPages } from '../hooks/revalidate'
 
 const toSlug = (value: string) =>
@@ -92,6 +92,34 @@ export const Projects: CollectionConfig = {
             { name: 'challenges', type: 'textarea', required: true },
             { name: 'solutions', type: 'textarea', required: true },
             { name: 'technologies', type: 'text', hasMany: true },
+          ],
+        },
+        {
+          label: 'Code snippet',
+          fields: [
+            {
+              name: 'codeSnippet',
+              type: 'group',
+              admin: {
+                description:
+                  'Optional. When filled, the large showcase card on the project page shows this code instead of the first screenshot. Use real code from the project, 15 to 40 lines.',
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'filename', type: 'text', admin: { width: '50%', description: 'Shown above the code, e.g. roles.guard.ts' } },
+                    {
+                      name: 'language',
+                      type: 'select',
+                      options: snippetLanguages.map((l) => ({ label: l, value: l })),
+                      admin: { width: '50%' },
+                    },
+                  ],
+                },
+                { name: 'code', type: 'textarea', admin: { rows: 20 } },
+              ],
+            },
           ],
         },
         {
