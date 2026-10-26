@@ -16,12 +16,15 @@ This project uses **pnpm** exclusively (see `pnpm-lock.yaml`). Do not run `npm i
 Portfolio for Mohammad Al Bast built with **Next.js 16 + React 19 + TypeScript + Tailwind CSS v4 + shadcn/ui (base-nova style, on Base UI)**.
 The design source is the Figma file "Hamada's portfolio (Copy)", Page 1.
 
-- `app/layout.tsx` — root layout; fonts (IBM Plex Sans + IBM Plex Mono), dark-only, skip link, and the shared shell inside `ContactProvider`: `SiteNav` → page → `CTA` → `SiteFooter`
-- `app/page.tsx` — home
-- `app/projects/page.tsx` — project listing with category tabs
-- `app/projects/[slug]/page.tsx` — project detail template (static params from `data.ts`)
-- `app/globals.css` — Tailwind v4 theme; all design tokens are CSS custom properties defined here
-- `app/style-guide/page.tsx` — living style guide at `/style-guide` (dev only: noindex, 404 in production); update this when adding new primitives
+- `app/(frontend)/layout.tsx` — site root layout; fonts (IBM Plex Sans + IBM Plex Mono), dark-only, skip link, and the shared shell inside `ContactProvider`: `SiteNav` → page → `CTA` → `SiteFooter`
+- `app/(frontend)/page.tsx` — home
+- `app/(frontend)/projects/page.tsx` — project listing with category tabs (URL-synced `?category=`)
+- `app/(frontend)/projects/[slug]/page.tsx` — project detail template (static params from Payload)
+- `app/(payload)/` — Payload admin (`/admin`) and REST/GraphQL API (`/api`); generated boilerplate, do not edit by hand
+- `payload.config.ts`, `payload/collections/` (Projects, Media, Users), `payload/migrations/` — CMS schema. After schema changes run `pnpm generate:types` and `pnpm migrate:create <name>`
+- `lib/projects.ts` — the only place pages read projects from; falls back to `data.ts` placeholders when `DATABASE_URL` is unset
+- `app/(frontend)/globals.css` — Tailwind v4 theme; all design tokens are CSS custom properties defined here
+- `app/(frontend)/style-guide/page.tsx` — living style guide at `/style-guide` (dev only: noindex, 404 in production); update this when adding new primitives
 - `app/actions/contact.ts` + `lib/contact-schema.ts` — contact form server action (zod validation, honeypot) sending through the Resend REST API; env vars in `.env.example`
 
 ### Component layers
@@ -36,7 +39,7 @@ The design source is the Figma file "Hamada's portfolio (Copy)", Page 1.
 | Contact | `components/portfolio/contact-*.tsx` | One site-wide dialog (`ContactProvider`); open it with `ContactButton` / `ContactArrowButton`, optionally passing `projectType` to preselect |
 | Hero | `components/portfolio/hero.tsx`, `hero-options/terminal.tsx` | Intro card + interactive terminal (typed intro, commands read from `data.ts`) |
 | Visuals | `components/portfolio/service-visuals.tsx` | Coded service illustrations (no stock images) |
-| Data | `components/portfolio/data.ts` | Single source of truth for all copy, links, projects, testimonials. Entries marked `PLACEHOLDER` are dummy content |
+| Data | `components/portfolio/data.ts` | Single source of truth for site copy, links, services, testimonials (projects come from Payload). Entries marked `PLACEHOLDER` are dummy content |
 
 The shadcn registry is not reachable from every environment; if `shadcn add` fails, write the component by hand against `@base-ui/react` (see existing files for the pattern).
 
@@ -54,7 +57,7 @@ The shadcn registry is not reachable from every environment; if `shadcn add` fai
 - Never put `background-clip:text` / transparent fill on headings globally — it kills colored spans inside headings
 - New brand SVG icons go in `public/logos/` and are rendered via `BrandGlyph`
 - Nav links are `/#id`; section ids (`expertise`, `services`, `portfolio`, `about`, `contact`) must match `navLinks` in `data.ts`
-- All page content (copy, images, links) lives in `components/portfolio/data.ts` — edit there, not in JSX
+- All page content (copy, images, links) lives in `components/portfolio/data.ts` — edit there, not in JSX; projects live in Payload
 - Do not name past employers or clients in site copy
 - Every contact CTA opens the contact dialog; don't add raw `mailto:` buttons
 - `main` auto-deploys to production on Vercel; work on a branch and merge only when ready to ship

@@ -7,6 +7,7 @@ __v0_jsx-dev-runtime.ts
 .vercel/
 
 # Environment variables
+.env
 .env*.local
 
 # Common ignores
@@ -17,3 +18,9 @@ node_modules
 # pnpm only
 package-lock.json
 yarn.lock
+
+# Payload local uploads (dev only; production uses Cloudflare R2)
+/media
+
+# TypeScript incremental build info
+*.tsbuildinfo

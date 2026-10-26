@@ -1,9 +1,12 @@
 import { CodeHeading } from '@/components/code-heading'
 import { ArrowButton } from '@/components/primitives'
-import { projects } from './data'
+import { getLatestProjects } from '@/lib/projects'
 import { ProjectRow } from './project-row'
 
-export function LatestProjects() {
+export async function LatestProjects() {
+  const projects = await getLatestProjects(3)
+  if (projects.length === 0) return null
+
   return (
     <section id="portfolio" className="section-y">
       <div className="container-page">
@@ -15,7 +18,7 @@ export function LatestProjects() {
         </div>
 
         <div className="mt-10 flex flex-col gap-8 md:mt-12">
-          {projects.slice(0, 3).map((p, i) => (
+          {projects.map((p, i) => (
             <ProjectRow key={p.slug} project={p} priority={i === 0} />
           ))}
         </div>

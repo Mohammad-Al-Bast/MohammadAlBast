@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { projectCategories, projects } from './data'
+import { projectCategories, type Project } from './data'
 import { ProjectRow } from './project-row'
 
 const ALL = 'all'
@@ -30,7 +30,7 @@ function useCategoryParam() {
   return [value, setValue] as const
 }
 
-export function ProjectsBrowser() {
+export function ProjectsBrowser({ projects }: { projects: Project[] }) {
   const [value, setValue] = useCategoryParam()
   const tabs = [...projectCategories.map((c) => ({ value: c as string, label: c as string })), { value: ALL, label: 'View All' }]
 

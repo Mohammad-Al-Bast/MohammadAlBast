@@ -252,6 +252,8 @@ export type Project = {
 	category: ProjectCategory;
 	tags: string[];
 	images: string[];
+	/** alt text per image, same order as `images` (from the CMS) */
+	imageAlts?: string[];
 	liveUrl: string;
 	codeUrl: string;
 	about: string;
@@ -266,7 +268,7 @@ export type Project = {
 	};
 };
 
-// PLACEHOLDER — all three projects are dummy content from the Figma
+// PLACEHOLDER — dummy projects, shown only until DATABASE_URL is set. Real projects are managed in Payload at /admin.
 export const projects: Project[] = [
 	{
 		slug: "project-one",

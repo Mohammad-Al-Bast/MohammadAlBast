@@ -27,7 +27,7 @@ export function ProjectRow({ project, priority = false }: { project: Project; pr
               <div className="relative aspect-[4/3] w-full sm:aspect-[16/10] lg:aspect-auto lg:h-[500px]">
                 <Image
                   src={src}
-                  alt={`${project.name} screenshot ${i + 1}`}
+                  alt={project.imageAlts?.[i] ?? `${project.name} screenshot ${i + 1}`}
                   fill
                   priority={priority && i === 0}
                   sizes="(min-width: 1024px) 64vw, 100vw"

@@ -4,10 +4,13 @@ import { Suspense } from 'react'
 import { CodeHeading } from '@/components/code-heading'
 import { ProjectsBrowser } from '@/components/portfolio/projects-browser'
 import { projectsPage } from '@/components/portfolio/data'
+import { getProjects } from '@/lib/projects'
 
 export const metadata: Metadata = { title: 'Projects' }
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getProjects()
+
   return (
     <section className="section-y pt-10 md:pt-16">
       <div className="container-page">
@@ -20,7 +23,7 @@ export default function ProjectsPage() {
           </p>
         </div>
         <Suspense>
-          <ProjectsBrowser />
+          <ProjectsBrowser projects={projects} />
         </Suspense>
       </div>
     </section>

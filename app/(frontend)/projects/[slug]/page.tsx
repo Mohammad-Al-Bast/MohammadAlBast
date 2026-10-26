@@ -5,23 +5,25 @@ import { notFound } from 'next/navigation'
 import { CodeHeading } from '@/components/code-heading'
 import { ArrowLink, GithubLink } from '@/components/primitives'
 import { ProjectGallery } from '@/components/portfolio/project-gallery'
-import { projects, testimonials } from '@/components/portfolio/data'
+import { testimonials } from '@/components/portfolio/data'
+import { getProject, getProjects } from '@/lib/projects'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const projects = await getProjects()
   return projects.map((p) => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const project = projects.find((p) => p.slug === slug)
+  const project = await getProject(slug)
   return project ? { title: project.name, description: project.description } : {}
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const project = projects.find((p) => p.slug === slug)
+  const project = await getProject(slug)
   if (!project) notFound()
 
   // only real, per-project testimonials are shown (falls back to the site list once it is enabled)
@@ -112,7 +114,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <p className="font-mono text-sm text-foreground/70 md:text-center">Description</p>
           </div>
           <div className="relative aspect-[16/9] overflow-hidden rounded-md bg-inset">
-            <Image src={project.images[0]} alt={`${project.name} showcase`} fill sizes="90vw" className="object-cover" />
+            <Image src={project.images[0]} alt={project.imageAlts?.[0] ?? `${project.name} showcase`} fill sizes="90vw" className="object-cover" />
           </div>
         </div>
       </section>
