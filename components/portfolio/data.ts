@@ -28,6 +28,12 @@ export const site = {
 	cv: "/cv/Mohammad-Al-Bast-CV.pdf",
 };
 
+// Shown as icons in the hero and the footer. To add a platform, put its SVG in /public/logos and add a line here.
+export const socialLinks = [
+	{ label: "GitHub", href: site.github, icon: "/logos/github.svg" },
+	{ label: "LinkedIn", href: site.linkedin, icon: "/logos/linkedin.svg" },
+];
+
 export const contact = {
 	title: "Tell me about your project",
 	intro: "A few lines are enough. I reply within one working day.",
@@ -415,8 +421,9 @@ export const about = {
  * so invented quotes never go live. Add real ones (or load them from the CMS)
  * and flip it to true.
  */
+// Keep this false until the three items below are replaced with real, permitted quotes.
 export const testimonials = {
-	enabled: true,
+	enabled: false,
 	title: "Testimonials",
 	intro: "What clients and colleagues say about working together.",
 	items: [

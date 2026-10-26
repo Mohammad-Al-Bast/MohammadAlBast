@@ -4,7 +4,11 @@ import { BrandGlyph } from '@/components/brand-glyph'
 import { Terminal } from './hero-options/terminal'
 import { ArrowButton } from '@/components/primitives'
 import { ContactButton } from './contact-trigger'
-import { hero, site, techLogos } from './data'
+import { about, hero, site, techLogos } from './data'
+import { SocialLinks } from './social-links'
+
+const SOCIAL_LINK_CLASS =
+  'flex size-11 items-center justify-center rounded-full border border-foreground/30 text-foreground transition-colors hover:border-primary hover:text-primary hover:opacity-100'
 
 export function HeroIntro() {
   return (
@@ -29,12 +33,17 @@ export function HeroIntro() {
         <p className="mt-4 max-w-[480px] font-mono text-sm leading-relaxed text-foreground/85 md:text-base">
           {hero.intro}
         </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <p className="mt-6 flex max-w-[480px] items-start gap-2.5 text-left font-mono text-xs text-foreground/75 md:text-sm">
+          <span aria-hidden className="mt-1.5 size-2 shrink-0 rounded-full bg-primary" />
+          {about.availability}
+        </p>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <ArrowButton href={hero.primaryCta.href}>{hero.primaryCta.label}</ArrowButton>
           <ContactButton variant="outline" className="min-w-[180px]">
             {hero.secondaryCta.label}
           </ContactButton>
         </div>
+        <SocialLinks className="mt-6 justify-center gap-3" linkClassName={SOCIAL_LINK_CLASS} />
       </div>
     </div>
   )

@@ -59,7 +59,7 @@ export function ProjectRow({ project, priority = false }: { project: Project; pr
           <p className="mt-3 font-mono text-sm text-foreground/80">{project.description}</p>
         </div>
         <div className="flex items-center justify-between">
-          <GithubLink href={project.codeUrl}>See Code</GithubLink>
+          {project.codeUrl ? <GithubLink href={project.codeUrl}>See Code</GithubLink> : <span />}
           <ArrowLink href={href}>View Project</ArrowLink>
         </div>
       </div>

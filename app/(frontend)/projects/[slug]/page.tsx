@@ -7,7 +7,6 @@ import { ArrowLink, GithubLink } from '@/components/primitives'
 import { ProjectGallery } from '@/components/portfolio/project-gallery'
 import { ProjectHeroMarquee } from '@/components/portfolio/project-hero-marquee'
 import { ProjectShowcase } from '@/components/portfolio/project-showcase'
-import { testimonials } from '@/components/portfolio/data'
 import { getProject, getProjects } from '@/lib/projects'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
@@ -28,11 +27,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const project = await getProject(slug)
   if (!project) notFound()
 
-  // only real, per-project testimonials are shown (falls back to the site list once it is enabled)
-  const quote = project.testimonial ?? (testimonials.enabled ? testimonials.items[0] : undefined)
+  const quote = project.testimonial
 
   const rows = [
-    { label: 'About Project/ About Client', body: project.about },
+    { label: 'About', body: project.about },
     { label: 'Challenges', body: project.challenges },
     { label: 'Solutions', body: project.solutions },
   ]
@@ -53,8 +51,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </CodeHeading>
             <p className="mt-4 max-w-[480px] font-mono text-base text-foreground/80">{project.description}</p>
             <div className="mt-10 flex items-center justify-between gap-6 lg:mt-auto">
-              <ArrowLink href={project.liveUrl}>View Project</ArrowLink>
-              <GithubLink href={project.codeUrl}>See Code</GithubLink>
+              {project.liveUrl ? <ArrowLink href={project.liveUrl}>View Project</ArrowLink> : null}
+              {project.codeUrl ? <GithubLink href={project.codeUrl}>See Code</GithubLink> : null}
             </div>
           </div>
 

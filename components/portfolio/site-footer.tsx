@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
-import { BrandGlyph } from '@/components/brand-glyph'
 import { legalLinks, navLinks, site } from './data'
+import { SocialLinks } from './social-links'
 
 export function SiteFooter() {
   return (
@@ -24,14 +24,7 @@ export function SiteFooter() {
             <a href={site.email.href} className="break-all hover:text-foreground">
               {site.email.label}
             </a>
-            <div className="flex items-center gap-6">
-              <a href={site.github} target="_blank" rel="noreferrer" className="text-primary hover:opacity-80">
-                <BrandGlyph src="/logos/github.svg" label="GitHub" />
-              </a>
-              <a href={site.linkedin} target="_blank" rel="noreferrer" className="text-primary hover:opacity-80">
-                <BrandGlyph src="/logos/linkedin.svg" label="LinkedIn" />
-              </a>
-            </div>
+            <SocialLinks />
           </div>
         </div>
 
