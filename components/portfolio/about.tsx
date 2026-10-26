@@ -1,67 +1,56 @@
 import Image from 'next/image'
+
 import { CodeHeading } from '@/components/code-heading'
-import { BrandGlyph } from '@/components/brand-glyph'
-import { OutlineButton } from '@/components/primitives'
-import { aboutDetails } from './data'
+import { ButtonLink, GithubLink } from '@/components/primitives'
+import { Separator } from '@/components/ui/separator'
+import { about, site } from './data'
 
 export function About() {
   return (
-    <section className="bg-card/40 py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <CodeHeading className="mx-auto max-w-3xl text-center text-2xl leading-snug md:text-4xl">
-          {' I Turn Ideas And Designs Into Fast, User-Friendly Interfaces. '}
+    <section id="about" className="section-y">
+      <div className="container-page">
+        <CodeHeading className="mx-auto max-w-[900px] text-center text-heading" close="/>">
+          {about.title}
         </CodeHeading>
 
-        <div className="mt-16 grid gap-10 lg:grid-cols-[1fr_1.1fr_1.2fr] lg:gap-12">
-          {/* Bio */}
-          <div>
-            <h3 className="font-sans text-xl font-semibold text-foreground">
-              Mohammad Al Bast:
-            </h3>
-            <p className="mt-5 font-mono text-sm leading-relaxed text-muted-foreground">
-              {
-                '"I turn Figma or Adobe XD designs into fast, user-friendly websites & Webflow builds."'
-              }
-            </p>
-            <p className="mt-4 font-mono text-sm leading-relaxed text-muted-foreground">
-              Everything is responsive, polished, and reliably connected to APIs
-              or SQL databases, making it easy to manage.
-            </p>
-            <a
-              href="#"
-              className="mt-6 inline-flex items-center gap-2 font-mono text-sm text-primary transition-opacity hover:opacity-80"
-            >
-              Follow me on Github <BrandGlyph src="/logos/github.svg" label="GitHub" className="size-4" />
-            </a>
+        <div className="mt-10 grid border-t border-border md:mt-14 lg:grid-cols-3">
+          {/* Name + quote */}
+          <div className="flex flex-col gap-6 py-8 lg:pr-8">
+            <h3 className="text-[28px] leading-tight md:text-[32px]">{about.name}</h3>
+            <div className="space-y-6 font-mono text-sm leading-relaxed text-foreground/90 md:text-base">
+              {about.paragraphs.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
+            </div>
+            <GithubLink href={site.github} className="mt-auto pt-4">
+              Follow me on Github
+            </GithubLink>
           </div>
 
-          {/* Portrait */}
-          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl">
-            <Image
-              src="/images/portrait.png"
-              alt="Mohammad Al Bast"
-              fill
-              className="object-cover grayscale"
-            />
+          {/* Photo */}
+          <div className="border-border py-8 lg:border-x lg:px-6">
+            <div className="relative aspect-square w-full overflow-hidden lg:aspect-[410/475]">
+              <Image src={site.portrait} alt={site.name} fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover grayscale" />
+            </div>
           </div>
 
           {/* Details */}
-          <div className="flex flex-col">
-            <dl className="space-y-4">
-              {aboutDetails.map((d) => (
-                <div key={d.label} className="font-mono text-sm leading-relaxed">
-                  <dt className="inline font-semibold text-foreground">
-                    {d.label}:{' '}
-                  </dt>
-                  <dd className="inline text-muted-foreground">{d.value}</dd>
+          <div className="flex flex-col py-8 lg:pl-8">
+            <dl>
+              {about.details.map((d, i) => (
+                <div key={d.label}>
+                  {i > 0 && <Separator />}
+                  <div className="py-3 font-mono text-sm leading-relaxed">
+                    <dt className="inline font-sans font-semibold text-foreground">{d.label}: </dt>
+                    <dd className="inline text-foreground/85">{d.value}</dd>
+                  </div>
                 </div>
               ))}
             </dl>
-            <div className="mt-8">
-              <OutlineButton className="w-full justify-center">
-                Contact Me
-              </OutlineButton>
-            </div>
+            <Separator />
+            <ButtonLink href="#contact" variant="outline" className="mt-6 w-full sm:w-[180px]">
+              Contact Me
+            </ButtonLink>
           </div>
         </div>
       </div>

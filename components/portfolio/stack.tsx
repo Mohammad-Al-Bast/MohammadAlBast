@@ -1,49 +1,44 @@
-import { CodeHeading } from "@/components/code-heading";
-import { Tag } from "@/components/primitives";
-import { stackColumns } from "./data";
-import { LogoMarquee } from "./logo-marquee";
+import { CodeHeading } from '@/components/code-heading'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { stack } from './data'
 
 export function Stack() {
-	return (
-		<section className="py-20 md:py-28">
-			<div className="mb-16">
-				<LogoMarquee />
-			</div>
-			<div className="mx-auto max-w-7xl px-5 md:px-8">
-				<div className="text-center">
-					<p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground">
-						Stack
-					</p>
-					<CodeHeading className="mx-auto mt-4 max-w-3xl text-3xl md:text-5xl">
-						Technologies That Power The Work
-					</CodeHeading>
-					<p className="mx-auto mt-5 max-w-xl font-mono text-sm leading-relaxed text-muted-foreground">
-						I work with a focused, modern stack so your Webflow site
-						or web app stays maintainable and easy to extend.
-					</p>
-				</div>
+  return (
+    <section className="section-y relative isolate overflow-hidden">
+      {/* soft radial lift behind the heading, as in the Figma */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_55%_at_50%_45%,#262626_0%,transparent_100%)]" />
 
-				<div className="mt-14 grid gap-5 md:grid-cols-3">
-					{stackColumns.map((col) => (
-						<div
-							key={col.title}
-							className="flex flex-col rounded-2xl border border-border bg-card/40 p-7 text-center"
-						>
-							<h3 className="font-sans text-lg font-semibold text-foreground">
-								{col.title}
-							</h3>
-							<p className="mt-4 font-mono text-sm leading-relaxed text-muted-foreground">
-								{col.description}
-							</p>
-							<div className="mt-auto flex flex-wrap justify-center gap-2 pt-10">
-								{col.tags.map((tag) => (
-									<Tag key={tag}>{tag}</Tag>
-								))}
-							</div>
-						</div>
-					))}
-				</div>
-			</div>
-		</section>
-	);
+      <div className="container-page lg:px-20">
+        <div className="mx-auto max-w-[768px] text-center">
+          <p className="font-mono text-sm text-primary uppercase">{stack.eyebrow}</p>
+          <CodeHeading className="mt-4">{stack.title}</CodeHeading>
+          <p className="mx-auto mt-6 max-w-[560px] font-mono text-base leading-relaxed text-foreground/80 md:text-lg">
+            {stack.intro}
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-4 md:mt-16 md:grid-cols-3">
+          {stack.columns.map((col) => (
+            <Card
+              key={col.title}
+              className="min-h-[320px] bg-gradient-to-b from-[#1c1c1c] to-[#050505] text-center md:min-h-[450px]"
+            >
+              <CardHeader className="items-center gap-6 px-6 pt-8 md:px-10">
+                <CardTitle className="text-2xl text-heading">{col.title}</CardTitle>
+                <CardDescription className="text-base text-foreground/80">{col.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="mt-auto flex flex-wrap justify-center gap-2 px-6 pt-10 pb-8">
+                {col.tags.map((tag) => (
+                  <Badge key={tag} size="lg">
+                    {tag}
+                  </Badge>
+                ))}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
 }

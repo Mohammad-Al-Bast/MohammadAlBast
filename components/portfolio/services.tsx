@@ -1,107 +1,73 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
+
 import { CodeHeading } from '@/components/code-heading'
-import { ArrowPillButton, CircleArrowButton } from '@/components/primitives'
+import { ArrowButton } from '@/components/primitives'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselDots,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel'
 import { services } from './data'
-import { cn } from '@/lib/utils'
 
 export function Services() {
-  const [active, setActive] = useState(0)
-  const go = (dir: 1 | -1) =>
-    setActive((i) => (i + dir + services.length) % services.length)
-
   return (
-    <section id="services" className="bg-card/40 py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="grid gap-6 md:grid-cols-2 md:items-start">
-          <CodeHeading className="text-3xl md:text-5xl">
-            Services I Offer
-          </CodeHeading>
-          <p className="max-w-md font-mono text-sm leading-relaxed text-muted-foreground md:justify-self-end">
-            From Webflow builds to custom React applications, I provide
-            end-to-end front-end development solutions built for speed and
-            maintainability.
+    <section id="services" className="section-y overflow-hidden bg-raised">
+      <div className="container-page">
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+          <CodeHeading>{services.title}</CodeHeading>
+          <p className="max-w-[560px] font-mono text-base leading-relaxed text-foreground/80 md:text-lg">
+            {services.intro}
           </p>
         </div>
 
-        {/* Carousel */}
-        <div className="mt-12 overflow-hidden">
-          <div
-            className="flex transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(-${active * 100}%)` }}
-          >
-            {services.map((service, i) => (
-              <div key={i} className="w-full shrink-0 pr-0 md:pr-6">
-                <article className="grid overflow-hidden rounded-3xl bg-[oklch(0.95_0.01_120)] text-[oklch(0.2_0_0)] md:grid-cols-2">
-                  {/* Text */}
-                  <div className="flex flex-col p-7 md:p-10">
-                    <div className="flex items-center justify-between font-mono text-xs text-[oklch(0.45_0_0)]">
-                      <span>{service.number}</span>
-                      <span>{service.tag}</span>
+        <Carousel opts={{ align: 'start' }} className="mt-10 md:mt-12">
+          <CarouselContent className="-ml-4 overflow-visible">
+            {services.items.map((s) => (
+              <CarouselItem key={s.number} className="basis-[92%] pl-4 md:basis-[66.5%]">
+                <article className="grid h-full gap-6 rounded-lg bg-paper p-6 text-paper-foreground md:min-h-[500px] md:grid-cols-[1fr_1fr] md:gap-8 md:p-8">
+                  <div className="flex flex-col">
+                    <div className="flex items-center justify-between font-mono text-sm text-paper-foreground/70 md:contents">
+                      <span>{s.number}</span>
+                      <span className="md:hidden">{s.tag}</span>
                     </div>
-
-                    <h3 className="mt-8 font-sans text-2xl font-semibold leading-snug md:text-3xl">
-                      {service.title
-                        .split(service.highlight)
-                        .map((part, idx, arr) => (
-                          <span key={idx}>
-                            {part}
-                            {idx < arr.length - 1 && (
-                              <span className="text-[oklch(0.6_0.17_150)]">
-                                {service.highlight}
-                              </span>
-                            )}
-                          </span>
-                        ))}
-                    </h3>
-
-                    <p className="mt-5 max-w-sm font-mono text-sm leading-relaxed text-[oklch(0.35_0_0)]">
-                      {service.description}
-                    </p>
-
-                    <div className="mt-auto pt-8">
-                      <ArrowPillButton>{service.cta}</ArrowPillButton>
+                    <div className="my-auto pt-8 md:pt-0">
+                      <h3 className="font-sans text-2xl leading-snug font-semibold text-paper-foreground">
+                        {s.titleBefore}
+                        <span className="text-paper-accent">{s.highlight}</span>
+                        {s.titleAfter}
+                      </h3>
+                      <p className="mt-4 max-w-[420px] font-mono text-sm leading-relaxed md:text-base">
+                        {s.description}
+                      </p>
+                      <ArrowButton href="#contact" className="mt-8">
+                        {s.cta}
+                      </ArrowButton>
                     </div>
                   </div>
-
-                  {/* Image */}
-                  <div className="relative min-h-56 md:min-h-0">
-                    <Image
-                      src={service.image || '/placeholder.svg'}
-                      alt={service.title}
-                      fill
-                      className="object-cover"
-                    />
+                  <div className="flex flex-col">
+                    <span className="hidden self-end font-sans text-sm md:block">{s.tag}</span>
+                    <div className="relative mt-auto aspect-[4/3] overflow-hidden rounded-md md:mt-4 md:aspect-auto md:flex-1">
+                      <Image src={s.image} alt="" fill sizes="(min-width: 768px) 30vw, 90vw" className="object-cover" />
+                    </div>
                   </div>
                 </article>
-              </div>
+              </CarouselItem>
             ))}
-          </div>
-        </div>
+          </CarouselContent>
 
-        {/* Controls */}
-        <div className="mt-8 flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            {services.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                aria-label={`Go to service ${i + 1}`}
-                onClick={() => setActive(i)}
-                className={cn(
-                  'h-1 rounded-full transition-all',
-                  i === active ? 'w-7 bg-foreground' : 'w-4 bg-muted-foreground/40',
-                )}
-              />
-            ))}
+          <div className="mt-8 flex items-center justify-between md:mt-12">
+            <CarouselDots />
+            <div className="flex gap-2">
+              <CarouselPrevious className="size-12 bg-background md:size-16" />
+              <CarouselNext className="size-12 bg-background md:size-16" />
+            </div>
           </div>
-          <div className="flex gap-3">
-            <CircleArrowButton direction="left" onClick={() => go(-1)} />
-            <CircleArrowButton direction="right" onClick={() => go(1)} />
-          </div>
-        </div>
+        </Carousel>
       </div>
     </section>
   )

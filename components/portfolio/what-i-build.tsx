@@ -1,82 +1,89 @@
 'use client'
 
 import { useState } from 'react'
-import { ImageIcon } from 'lucide-react'
+import {
+  AppWindow,
+  Blocks,
+  LayoutDashboard,
+  type LucideIcon,
+  MonitorSmartphone,
+  MousePointerClick,
+  PanelsTopLeft,
+} from 'lucide-react'
+
 import { CodeHeading } from '@/components/code-heading'
 import { ArrowLink } from '@/components/primitives'
-import { buildItems } from './data'
+import { Separator } from '@/components/ui/separator'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { cn } from '@/lib/utils'
+import { buildItems } from './data'
+
+const icons: Record<(typeof buildItems)[number]['icon'], LucideIcon> = {
+  webflow: Blocks,
+  site: PanelsTopLeft,
+  landing: MousePointerClick,
+  frontend: AppWindow,
+  scale: MonitorSmartphone,
+  dashboard: LayoutDashboard,
+}
+
+function Detail({ index }: { index: number }) {
+  const item = buildItems[index]
+  const Icon = icons[item.icon]
+  return (
+    <div className="flex flex-col gap-8 md:gap-12">
+      <Icon className="size-12 text-primary" strokeWidth={1.25} />
+      <p className="max-w-[400px] font-mono text-sm leading-relaxed text-foreground/90 md:text-base">
+        {item.description}
+      </p>
+      <ArrowLink href="/projects">View Project</ArrowLink>
+    </div>
+  )
+}
 
 export function WhatIBuild() {
-  const [active, setActive] = useState(1)
-  const current = buildItems[active]
+  const [value, setValue] = useState(1)
 
   return (
-    <section id="expertise" className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-      <CodeHeading className="mb-10 text-3xl md:text-4xl">
-        What I Build
-      </CodeHeading>
+    <section id="expertise" className="section-y">
+      <div className="container-page">
+        <CodeHeading>What I Build</CodeHeading>
 
-      <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr]">
-        {/* Accordion list */}
-        <ul>
-          {buildItems.map((item, i) => {
-            const isActive = i === active
-            return (
-              <li key={i} className="border-b border-border">
-                <button
-                  type="button"
-                  onClick={() => setActive(i)}
-                  className="flex w-full items-center gap-5 py-5 text-left"
+        <Tabs
+          value={value}
+          onValueChange={(v) => setValue(Number(v))}
+          orientation="vertical"
+          className="mt-8 gap-0 md:mt-10 md:grid md:grid-cols-[1fr_auto_minmax(0,420px)] md:gap-0 lg:grid-cols-[minmax(0,880px)_auto_1fr]"
+        >
+          <TabsList className="flex h-auto w-full flex-col items-stretch gap-0 overflow-visible rounded-none bg-transparent p-0 md:pr-0 md:pl-8">
+            {buildItems.map((item, i) => (
+              <div key={item.title}>
+                {i > 0 && <Separator />}
+                <TabsTrigger
+                  value={i}
+                  className="group h-auto w-full justify-start gap-5 rounded-none px-0 py-5 text-left font-sans text-lg whitespace-normal text-foreground/25 hover:text-foreground/60 data-[active]:bg-transparent data-[active]:text-foreground md:gap-6 md:py-[26px] md:text-2xl"
                 >
-                  <span
-                    className={cn(
-                      'flex size-8 shrink-0 items-center justify-center rounded-full border font-mono text-sm transition-colors',
-                      isActive
-                        ? 'border-foreground text-foreground'
-                        : 'border-border text-muted-foreground',
-                    )}
-                  >
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-current font-sans text-base md:size-12 md:text-xl">
                     {i + 1}
                   </span>
-                  <span
-                    className={cn(
-                      'font-sans text-base font-medium transition-colors md:text-lg',
-                      isActive ? 'text-foreground' : 'text-muted-foreground',
-                    )}
-                  >
-                    {item.title}
-                  </span>
-                </button>
+                  {item.title}
+                </TabsTrigger>
+                {/* mobile: the detail opens inline under the active row */}
+                <div className={cn('pb-6 pl-[60px] md:hidden', value !== i && 'hidden')}>
+                  <Detail index={i} />
+                </div>
+              </div>
+            ))}
+          </TabsList>
 
-                {/* Inline detail on mobile */}
-                {isActive && (
-                  <div className="pb-6 pl-13 lg:hidden">
-                    <p className="font-mono text-sm leading-relaxed text-muted-foreground">
-                      {item.description}
-                    </p>
-                    <div className="mt-4">
-                      <ArrowLink>View Project</ArrowLink>
-                    </div>
-                  </div>
-                )}
-              </li>
-            )
-          })}
-        </ul>
+          <Separator orientation="vertical" className="hidden md:block" />
 
-        {/* Detail panel on desktop */}
-        <aside className="hidden lg:block">
-          <div className="flex size-12 items-center justify-center rounded-lg border border-border text-primary">
-            <ImageIcon className="size-6" />
-          </div>
-          <p className="mt-6 font-mono text-sm leading-relaxed text-muted-foreground">
-            {current.description}
-          </p>
-          <div className="mt-6">
-            <ArrowLink>View Project</ArrowLink>
-          </div>
-        </aside>
+          {buildItems.map((item, i) => (
+            <TabsContent key={item.title} value={i} className="hidden md:block md:pl-8 md:[&[hidden]]:hidden">
+              <Detail index={i} />
+            </TabsContent>
+          ))}
+        </Tabs>
       </div>
     </section>
   )

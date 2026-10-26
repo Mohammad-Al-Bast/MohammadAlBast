@@ -1,17 +1,14 @@
 import { CodeHeading } from '@/components/code-heading'
 import { Logo } from '@/components/logo'
-import {
-  ArrowLink,
-  ArrowPillButton,
-  CircleArrowButton,
-  OutlineButton,
-  Tag,
-} from '@/components/primitives'
+import { ArrowButton, ArrowLink, ButtonLink, GithubLink } from '@/components/primitives'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 
 const colorTokens = [
   { name: 'Background', token: '--background', className: 'bg-background' },
   { name: 'Card', token: '--card', className: 'bg-card' },
-  { name: 'Surface', token: '--surface', className: 'bg-surface' },
+  { name: 'Inset', token: '--inset', className: 'bg-inset' },
+  { name: 'Paper', token: '--paper', className: 'bg-paper' },
   { name: 'Muted', token: '--muted', className: 'bg-muted' },
   { name: 'Primary / Green', token: '--primary', className: 'bg-primary' },
   { name: 'Foreground', token: '--foreground', className: 'bg-foreground' },
@@ -86,9 +83,9 @@ export default function StyleGuidePage() {
         <div className="space-y-8">
           <div>
             <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Display — Space Grotesk
+              Display — IBM Plex Sans
             </p>
-            <p className="font-sans text-5xl font-semibold tracking-tight text-foreground">
+            <p className="font-sans text-5xl text-heading md:text-[72px]">
               Build Something That Matters
             </p>
           </div>
@@ -100,7 +97,7 @@ export default function StyleGuidePage() {
           </div>
           <div>
             <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Body — JetBrains Mono
+              Body — IBM Plex Mono
             </p>
             <p className="max-w-2xl font-mono text-sm leading-relaxed text-muted-foreground">
               I turn Figma or Adobe XD designs into fast, user-friendly websites
@@ -115,24 +112,24 @@ export default function StyleGuidePage() {
       {/* Buttons */}
       <Section label="Components" title="Buttons & Links">
         <div className="flex flex-wrap items-center gap-5">
-          <ArrowPillButton>View My Work</ArrowPillButton>
-          <ArrowPillButton variant="outline">Start a Project</ArrowPillButton>
-          <OutlineButton>Contact Me</OutlineButton>
-          <ArrowLink>View Project</ArrowLink>
-          <div className="flex gap-3">
-            <CircleArrowButton direction="left" />
-            <CircleArrowButton direction="right" />
-          </div>
+          <ArrowButton href="#">View My Work</ArrowButton>
+          <ArrowButton href="#" variant="outline">View all</ArrowButton>
+          <ArrowButton href="#" variant="dark">LET&apos;S TALK</ArrowButton>
+          <ButtonLink href="#">Contact Me</ButtonLink>
+          <ButtonLink href="#" variant="outline-light">Contact</ButtonLink>
+          <Button variant="default">shadcn Button</Button>
+          <ArrowLink href="#">View Project</ArrowLink>
+          <GithubLink href="#">See code</GithubLink>
         </div>
       </Section>
 
       {/* Tags & cards */}
       <Section label="Components" title="Tags & Cards">
         <div className="mb-8 flex flex-wrap gap-2">
-          <Tag>React</Tag>
-          <Tag>Webflow</Tag>
-          <Tag>Custom animation</Tag>
-          <Tag>HTML, CSS3, modern JavaScript (ES6+)</Tag>
+          <Badge size="lg">React</Badge>
+          <Badge size="lg">Webflow</Badge>
+          <Badge size="lg">Custom animation</Badge>
+          <Badge size="lg">HTML, CSS3, modern JavaScript (ES6+)</Badge>
         </div>
         <div className="grid gap-5 sm:grid-cols-2">
           <article className="rounded-2xl border border-border bg-card p-6">
