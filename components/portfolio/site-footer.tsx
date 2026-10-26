@@ -1,97 +1,56 @@
-import { BrandGlyph } from "@/components/brand-glyph";
-import { Logo } from "@/components/logo";
-import { navLinks } from "./data";
+import Link from 'next/link'
+
+import { legalLinks, navLinks, site } from './data'
+import { SocialLinks } from './social-links'
 
 export function SiteFooter() {
-	return (
-		<footer className="border-t border-border">
-			<div className="mx-auto max-w-7xl px-5 py-14 md:px-8">
-				{/* Top: nav + contact + socials */}
-				<div className="flex flex-row gap-10 md:flex-row md:items-start md:justify-between">
-					<ul className="grid grid-cols-2 gap-x-10 gap-y-4 md:flex md:gap-10">
-						{navLinks.map((link) => (
-							<li key={link.label}>
-								<a
-									href={link.href}
-									className="font-mono text-xs tracking-wide text-muted-foreground transition-colors hover:text-foreground"
-								>
-									{link.label}
-								</a>
-							</li>
-						))}
-					</ul>
+  return (
+    <footer className="bg-raised pt-12 pb-10 md:pt-20">
+      <div className="container-page">
+        <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+          <ul className="grid grid-cols-2 gap-x-8 gap-y-4 sm:flex sm:flex-wrap">
+            {navLinks.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="font-mono text-base text-primary hover:opacity-80">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-col gap-4 font-sans text-base text-foreground/75 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
+            <a href={site.phone.href} className="hover:text-foreground">
+              {site.phone.label}
+            </a>
+            <a href={site.email.href} className="break-all hover:text-foreground">
+              {site.email.label}
+            </a>
+            <SocialLinks />
+          </div>
+        </div>
 
-					<div className="flex flex-row gap-4">
-						<a
-							href="tel:0096103279355"
-							className="font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
-						>
-							00961-(0)-3279355
-						</a>
-						<a
-							href="mailto:Mohammadbast4@Gmail.com"
-							className="font-mono text-sm text-muted-foreground transition-colors hover:text-foreground"
-						>
-							Mohammadbast4@Gmail.com
-						</a>
-						<div className="flex items-center gap-5">
-							<a
-								href="#"
-								aria-label="GitHub"
-								className="text-foreground transition-colors hover:text-primary"
-							>
-								<BrandGlyph
-									src="/logos/github.svg"
-									label="GitHub"
-									className="size-5"
-								/>
-							</a>
-							<a
-								href="#"
-								aria-label="LinkedIn"
-								className="text-primary transition-opacity hover:opacity-80"
-							>
-								<BrandGlyph
-									src="/logos/linkedin.svg"
-									label="LinkedIn"
-									className="size-5"
-								/>
-							</a>
-						</div>
-					</div>
-				</div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/footer-logo-dark.svg"
+          width={1376}
+          height={248}
+          loading="lazy"
+          alt="[MHMD/B] — Mohammad Al Bast"
+          className="mt-8 h-auto w-full select-none"
+        />
 
-				{/* Big wordmark */}
-				<div className="mt-12">
-					<Logo
-						variant="full"
-						className="text-[clamp(3.5rem,16vw,12rem)] leading-none"
-					/>
-				</div>
-
-				{/* Bottom legal */}
-				<div className="mt-10 flex flex-col gap-4 border-t border-border pt-6 md:flex-row md:items-center md:justify-between">
-					<p className="font-mono text-xs text-muted-foreground">
-						&copy; 2026 Mohammad Al Bast. All Rights Reserved.
-					</p>
-					<ul className="flex flex-wrap gap-6">
-						{[
-							"Privacy Policy",
-							"Terms Of Service",
-							"Cookies Settings",
-						].map((item) => (
-							<li key={item}>
-								<a
-									href="#"
-									className="font-mono text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
-								>
-									{item}
-								</a>
-							</li>
-						))}
-					</ul>
-				</div>
-			</div>
-		</footer>
-	);
+        <div className="mt-8 flex flex-col-reverse gap-4 font-sans text-sm text-foreground/75 md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} Mohammad Al Bast. All Rights Reserved.</p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            {legalLinks.map((l) => (
+              <li key={l.label}>
+                <a href={l.href} className="underline underline-offset-4 hover:text-foreground">
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </footer>
+  )
 }
