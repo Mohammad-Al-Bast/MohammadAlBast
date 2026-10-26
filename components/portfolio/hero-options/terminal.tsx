@@ -3,15 +3,21 @@
 import Link from 'next/link'
 import { type ReactNode, useEffect, useRef, useState } from 'react'
 
-import { about, services, site, stack } from '@/components/portfolio/data'
+import { about, contact, services, site, stack } from '@/components/portfolio/data'
+import { useContact } from '@/components/portfolio/contact-dialog'
 import { HeroPanel } from './panel'
 
 type Line = { id: number; kind: 'cmd' | 'out'; content: ReactNode }
 
 const PROMPT = 'guest@mb:~$'
-const CHIPS = ['whoami', 'stack', 'services', 'projects', 'contact', 'help'] as const
+const CHIPS = ['whoami', 'stack', 'services', 'projects', ...(site.cv ? ['cv'] : []), 'contact', 'help']
+// typed automatically on first load so the window is never empty
+const INTRO = ['whoami', 'help']
+const TYPE_MS = 55
 
-function respond(cmd: string): ReactNode | 'clear' {
+const linkClass = 'text-primary underline underline-offset-4'
+
+function respond(cmd: string, openContact: () => void): ReactNode | 'clear' {
   switch (cmd) {
     case 'help':
       return (
@@ -21,7 +27,17 @@ function respond(cmd: string): ReactNode | 'clear' {
           {'  '}stack{'     '}what I build with{'\n'}
           {'  '}services{'  '}what I offer{'\n'}
           {'  '}projects{'  '}see my work{'\n'}
-          {'  '}contact{'   '}get in touch{'\n'}
+          {site.cv && (
+            <>
+              {'  '}cv{'        '}download my CV{'\n'}
+            </>
+          )}
+          {site.booking && (
+            <>
+              {'  '}book{'      '}book a call{'\n'}
+            </>
+          )}
+          {'  '}contact{'   '}open the contact form{'\n'}
           {'  '}clear{'     '}clear the screen
         </>
       )
@@ -60,21 +76,43 @@ function respond(cmd: string): ReactNode | 'clear' {
         </>
       )
     case 'contact':
+      setTimeout(openContact, 400)
       return (
         <>
+          Opening the contact form…{'\n'}
           email{'  '}
-          <a href={site.email.href} className="text-primary underline underline-offset-4">
+          <a href={site.email.href} className={linkClass}>
             {site.email.label}
           </a>
           {'\n'}
           phone{'  '}
-          <a href={site.phone.href} className="text-primary underline underline-offset-4">
+          <a href={site.phone.href} className={linkClass}>
             {site.phone.label}
           </a>
         </>
       )
+    case 'cv':
+      return site.cv ? (
+        <>
+          <a href={site.cv} download className={linkClass}>
+            {contact.cvLabel}
+          </a>{' '}
+          (PDF)
+        </>
+      ) : (
+        <>CV coming soon. Type contact to ask for a copy.</>
+      )
+    case 'book':
+      return site.booking ? (
+        <a href={site.booking} target="_blank" rel="noopener noreferrer" className={linkClass}>
+          {contact.bookingLabel}
+        </a>
+      ) : (
+        <>Booking opens soon. Type contact to reach me now.</>
+      )
     case 'sudo hire-mohammad':
-      return <span className="text-primary">Permission granted. Sending you to the contact form…</span>
+      setTimeout(openContact, 700)
+      return <span className="text-primary">Permission granted. Opening the contact form…</span>
     case 'clear':
       return 'clear'
     case '':
@@ -94,10 +132,11 @@ export function Terminal() {
   const idRef = useRef(0)
   const scrollRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const { openContact } = useContact()
 
   const run = (raw: string) => {
     const cmd = raw.trim().toLowerCase()
-    const out = respond(cmd)
+    const out = respond(cmd, () => openContact())
     if (out === 'clear') {
       setLines([])
       return
@@ -107,15 +146,45 @@ export function Terminal() {
       { id: idRef.current++, kind: 'cmd', content: raw },
       ...(out ? [{ id: idRef.current++, kind: 'out' as const, content: out }] : []),
     ])
-    if (cmd === 'sudo hire-mohammad') setTimeout(() => document.getElementById('contact')?.scrollIntoView(), 900)
   }
 
-  // greet once; the ref guard stops React Strict Mode from printing it twice in dev
-  const greeted = useRef(false)
+  // Types the intro commands once. Any user input stops it; reduced motion skips straight to the output.
+  // Every step is a timer so React Strict Mode's mount/unmount/mount in dev cancels the first run cleanly.
+  const introCancelled = useRef(false)
+  const stopIntro = () => {
+    if (introCancelled.current) return
+    introCancelled.current = true
+    setInput('')
+  }
   useEffect(() => {
-    if (greeted.current) return
-    greeted.current = true
-    run('whoami')
+    const timers: ReturnType<typeof setTimeout>[] = []
+    const later = (fn: () => void, ms: number) => timers.push(setTimeout(() => !introCancelled.current && fn(), ms))
+    const finish = () => {
+      introCancelled.current = true
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      later(() => {
+        INTRO.forEach((c) => run(c))
+        finish()
+      }, 0)
+      return () => timers.forEach(clearTimeout)
+    }
+    let at = 500
+    INTRO.forEach((cmd, n) => {
+      for (let i = 1; i <= cmd.length; i++) {
+        const partial = cmd.slice(0, i)
+        later(() => setInput(partial), at)
+        at += TYPE_MS
+      }
+      at += 350
+      later(() => {
+        setInput('')
+        run(cmd)
+        if (n === INTRO.length - 1) finish()
+      }, at)
+      at += 700
+    })
+    return () => timers.forEach(clearTimeout)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -135,7 +204,10 @@ export function Terminal() {
       {/* clicking anywhere focuses the prompt, like a real terminal */}
       <div
         ref={scrollRef}
-        onClick={() => inputRef.current?.focus()}
+        onClick={() => {
+          stopIntro()
+          inputRef.current?.focus()
+        }}
         className="min-h-0 flex-1 cursor-text overflow-y-auto p-5 font-mono text-sm leading-relaxed md:p-8 md:text-[15px]"
       >
         <p className="mb-4 text-foreground/50">
@@ -159,6 +231,7 @@ export function Terminal() {
           className="mt-3 flex items-center gap-2"
           onSubmit={(e) => {
             e.preventDefault()
+            stopIntro()
             run(input)
             setInput('')
           }}
@@ -170,7 +243,11 @@ export function Terminal() {
             id="terminal-input"
             ref={inputRef}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => {
+              stopIntro()
+              setInput(e.target.value)
+            }}
+            onFocus={stopIntro}
             autoComplete="off"
             autoCapitalize="off"
             spellCheck={false}
@@ -185,7 +262,10 @@ export function Terminal() {
           <button
             key={c}
             type="button"
-            onClick={() => run(c)}
+            onClick={() => {
+              stopIntro()
+              run(c)
+            }}
             className="cursor-pointer rounded-md border border-white/10 px-3 py-1.5 font-mono text-xs text-foreground/80 transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:outline-none"
           >
             {c}

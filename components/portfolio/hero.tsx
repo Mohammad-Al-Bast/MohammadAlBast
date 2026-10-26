@@ -2,7 +2,8 @@ import Image from 'next/image'
 
 import { BrandGlyph } from '@/components/brand-glyph'
 import { Terminal } from './hero-options/terminal'
-import { ArrowButton, ButtonLink } from '@/components/primitives'
+import { ArrowButton } from '@/components/primitives'
+import { ContactButton } from './contact-trigger'
 import { hero, site, techLogos } from './data'
 
 export function HeroIntro() {
@@ -28,9 +29,9 @@ export function HeroIntro() {
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <ArrowButton href={hero.primaryCta.href}>{hero.primaryCta.label}</ArrowButton>
-          <ButtonLink href={hero.secondaryCta.href} variant="outline" className="min-w-[180px]">
+          <ContactButton variant="outline" className="min-w-[180px]">
             {hero.secondaryCta.label}
-          </ButtonLink>
+          </ContactButton>
         </div>
       </div>
     </div>

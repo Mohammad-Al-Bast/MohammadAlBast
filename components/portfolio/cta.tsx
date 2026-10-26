@@ -1,6 +1,8 @@
-import { ArrowButton } from '@/components/primitives'
+import { ContactArrowButton } from './contact-trigger'
 import { CopyEmailButton } from './copy-email-button'
-import { cta, site } from './data'
+import { CalendarDays } from 'lucide-react'
+
+import { contact, cta, site } from './data'
 
 export function CTA() {
   return (
@@ -12,10 +14,23 @@ export function CTA() {
           </h2>
           <div>
             <p className="font-mono text-sm leading-snug">{cta.body}</p>
-            <ArrowButton href={cta.button.href} variant="dark" className="mt-6 w-full">
+            <ContactArrowButton variant="dark" className="mt-6 w-full">
               {cta.button.label}
-            </ArrowButton>
-            <CopyEmailButton email={site.email.label} className="mt-3" />
+            </ContactArrowButton>
+            <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+              {site.booking && (
+                <a
+                  href={site.booking}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-sm font-mono text-sm text-primary-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-black/40 focus-visible:outline-none"
+                >
+                  <CalendarDays className="size-4" aria-hidden />
+                  {contact.bookingLabel}
+                </a>
+              )}
+              <CopyEmailButton email={site.email.label} />
+            </div>
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { Menu } from 'lucide-react'
 
 import { Logo } from '@/components/logo'
-import { ButtonLink } from '@/components/primitives'
+import { ContactButton } from './contact-trigger'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
@@ -70,9 +70,9 @@ export function SiteNav() {
           ))}
         </ul>
 
-        <ButtonLink href="#contact" variant="outline-light" className="hidden md:inline-flex">
+        <ContactButton variant="outline-light" className="hidden md:inline-flex">
           Contact
-        </ButtonLink>
+        </ContactButton>
 
         <Sheet>
           <SheetTrigger
@@ -105,7 +105,7 @@ export function SiteNav() {
               ))}
             </ul>
             <SheetClose
-              render={<ButtonLink href="#contact" variant="outline-light" size="lg" className="mt-6 w-full" />}
+              render={<ContactButton variant="outline-light" size="lg" className="mt-6 w-full" />}
             >
               Contact
             </SheetClose>

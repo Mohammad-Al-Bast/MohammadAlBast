@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google'
 
+import { ContactProvider } from '@/components/portfolio/contact-dialog'
 import { CTA } from '@/components/portfolio/cta'
 import { SiteFooter } from '@/components/portfolio/site-footer'
 import { SiteNav } from '@/components/portfolio/site-nav'
@@ -43,12 +44,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         >
           Skip to content
         </a>
-        <SiteNav />
-        <main id="main" tabIndex={-1} className="outline-none">
-          {children}
-        </main>
-        <CTA />
-        <SiteFooter />
+        <ContactProvider>
+          <SiteNav />
+          <main id="main" tabIndex={-1} className="outline-none">
+            {children}
+          </main>
+          <CTA />
+          <SiteFooter />
+        </ContactProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

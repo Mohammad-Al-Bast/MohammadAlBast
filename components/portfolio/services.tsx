@@ -2,7 +2,6 @@
 
 
 import { CodeHeading } from '@/components/code-heading'
-import { ArrowButton } from '@/components/primitives'
 import {
   Carousel,
   CarouselContent,
@@ -12,6 +11,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import { services } from './data'
+import { ContactArrowButton } from './contact-trigger'
 import { ServiceVisual } from './service-visuals'
 
 export function Services() {
@@ -51,9 +51,9 @@ export function Services() {
                       <p className="mt-4 max-w-[420px] font-mono text-sm leading-relaxed md:text-base">
                         {s.description}
                       </p>
-                      <ArrowButton href="#contact" className="mt-8">
+                      <ContactArrowButton projectType={s.contactType} className="mt-8">
                         {s.cta}
-                      </ArrowButton>
+                      </ContactArrowButton>
                     </div>
                   </div>
                   <div className="flex min-w-0 flex-col">

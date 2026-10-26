@@ -1,9 +1,14 @@
 import Image from 'next/image'
 
 import { CodeHeading } from '@/components/code-heading'
-import { ButtonLink, GithubLink } from '@/components/primitives'
+import { GithubLink } from '@/components/primitives'
+import { ContactButton } from './contact-trigger'
 import { Separator } from '@/components/ui/separator'
-import { about, site } from './data'
+import { Download } from 'lucide-react'
+
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { about, contact, site } from './data'
 
 export function About() {
   return (
@@ -63,9 +68,16 @@ export function About() {
               ))}
             </dl>
             <Separator />
-            <ButtonLink href="#contact" variant="outline" className="mt-6 w-full sm:w-[180px]">
-              Contact Me
-            </ButtonLink>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <ContactButton variant="outline" className="w-full sm:w-[180px]">
+                Contact Me
+              </ContactButton>
+              {site.cv && (
+                <a href={site.cv} download className={cn(buttonVariants({ variant: 'outline-light' }), 'w-full sm:w-auto')}>
+                  <Download aria-hidden /> {contact.cvLabel}
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>
