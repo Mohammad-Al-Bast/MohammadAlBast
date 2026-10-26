@@ -81,7 +81,8 @@ export const hero = {
 	// Shown by the terminal `now` command. Keep to one or two short lines and update them each month.
 	now: [
 		"Building this portfolio on Next.js and Payload CMS",
-		"Webflow client sites with structured CMS collections",
+		"Webflow catalog sites with structured CMS collections",
+		"Taking new freelance and agency projects",
 	],
 };
 
