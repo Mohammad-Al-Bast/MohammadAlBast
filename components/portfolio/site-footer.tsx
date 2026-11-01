@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { BrandGlyph } from "@/components/brand-glyph";
 import { Logo } from "@/components/logo";
 import { navLinks } from "./data";
@@ -74,22 +75,12 @@ export function SiteFooter() {
 					<p className="font-mono text-xs text-muted-foreground">
 						&copy; 2026 Mohammad Al Bast. All Rights Reserved.
 					</p>
-					<ul className="flex flex-wrap gap-6">
-						{[
-							"Privacy Policy",
-							"Terms Of Service",
-							"Cookies Settings",
-						].map((item) => (
-							<li key={item}>
-								<a
-									href="#"
-									className="font-mono text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
-								>
-									{item}
-								</a>
-							</li>
-						))}
-					</ul>
+					<Link
+						href="/privacy-policy"
+						className="font-mono text-xs text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+					>
+						Privacy Policy
+					</Link>
 				</div>
 			</div>
 		</footer>

@@ -1,8 +1,8 @@
 export const navLinks = [
-  { label: 'EXPERTISE', href: '#expertise' },
-  { label: 'SERVICES', href: '#services' },
-  { label: 'PORTFOLIO', href: '#portfolio' },
-  { label: 'ABOUT ME', href: '#about' },
+  { label: 'EXPERTISE', href: '/#expertise' },
+  { label: 'SERVICES', href: '/#services' },
+  { label: 'PORTFOLIO', href: '/#portfolio' },
+  { label: 'ABOUT ME', href: '/#about' },
 ]
 
 export const heroSlides = [
