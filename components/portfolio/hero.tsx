@@ -14,7 +14,7 @@ const SOCIAL_LINK_CLASS =
 
 export function HeroIntro() {
   return (
-    <div className="flex flex-col justify-between gap-12 rounded-lg bg-card px-5 py-10 md:min-h-[560px] md:px-12 md:py-14 lg:h-[770px] lg:py-16">
+    <div className="flex flex-col justify-between gap-12 rounded-lg bg-card px-5 py-10 md:min-h-[560px] md:px-12 md:py-14 lg:min-h-[770px] lg:py-16">
       <div className="flex flex-col items-start gap-6">
         <h1 className="max-w-[640px] text-[40px] leading-[1.1] text-balance md:text-[56px] lg:text-[60px]">
           {hero.titleStart}
