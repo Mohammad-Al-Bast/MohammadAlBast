@@ -1,0 +1,174 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design tokens — sampled from the Figma file "Hamada's portfolio (Copy)".
+ * Page #151515 · raised sections/cards #2A2A2A · accent mint #85FD9C.
+ */
+@theme inline {
+  --font-heading: var(--font-ibm-plex-sans), 'IBM Plex Sans Fallback', ui-sans-serif, system-ui;
+  --font-sans: var(--font-ibm-plex-sans), 'IBM Plex Sans Fallback', ui-sans-serif, system-ui;
+  --font-mono: var(--font-ibm-plex-mono), 'IBM Plex Mono Fallback', ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* project-specific */
+  --color-heading: var(--heading);
+  --color-raised: var(--raised);
+  --color-inset: var(--inset);
+  --color-paper: var(--paper);
+  --color-paper-foreground: var(--paper-foreground);
+  --color-paper-accent: var(--paper-accent);
+
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.33);
+  --radius-2xl: calc(var(--radius) * 1.66);
+  --radius-3xl: calc(var(--radius) * 2);
+  --radius-4xl: calc(var(--radius) * 2.66);
+}
+
+:root {
+  --background: #151515;
+  --foreground: #f5f5f5;
+
+  /* raised sections + cards share one grey in the Figma */
+  --card: #2a2a2a;
+  --card-foreground: #f5f5f5;
+  --raised: #2a2a2a;
+  /* near-black inset cards (stack, testimonials) */
+  --inset: #0e0e0e;
+
+  --popover: #2a2a2a;
+  --popover-foreground: #f5f5f5;
+
+  --primary: #85fd9c;
+  --primary-foreground: #0a0a0a;
+
+  --secondary: #222222;
+  --secondary-foreground: #f5f5f5;
+
+  --muted: #222222;
+  --muted-foreground: #a3a3a3;
+
+  --accent: #85fd9c;
+  --accent-foreground: #0a0a0a;
+
+  --destructive: #f25555;
+
+  --border: #393939;
+  --input: #393939;
+  --ring: #85fd9c;
+
+  /* pale mint used for display headings */
+  --heading: #f3fff0;
+
+  /* light "paper" service cards */
+  --paper: #effff1;
+  --paper-foreground: #0a0a0a;
+  --paper-accent: #0b7020;
+
+  --radius: 0.75rem; /* 12px — card radius in the Figma */
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply scroll-smooth font-mono;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans font-normal text-heading;
+  }
+  /* keep anchored sections clear of the sticky nav */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@layer utilities {
+  /* 1440 frame with 32px gutters (16px on mobile) */
+  .container-page {
+    @apply mx-auto w-full max-w-[1440px] px-4 md:px-8;
+  }
+  .section-y {
+    @apply py-16 md:py-20;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 80s linear infinite;
+}
+
+@keyframes marquee-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes marquee-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-marquee-up {
+  animation: marquee-up 50s linear infinite;
+}
+
+.animate-marquee-down {
+  animation: marquee-down 62s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-up,
+  .animate-marquee-down {
+    animation: none;
+  }
+}

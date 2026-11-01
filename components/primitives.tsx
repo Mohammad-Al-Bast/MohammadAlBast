@@ -1,43 +1,34 @@
+import Link from 'next/link'
+import type { ComponentProps, ReactNode } from 'react'
+import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import type { VariantProps } from 'class-variance-authority'
+
+import { buttonVariants } from '@/components/ui/button'
+import { BrandGlyph } from '@/components/brand-glyph'
 import { cn } from '@/lib/utils'
-import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
-/** Bordered monospace tag pill, e.g. "React", "Webflow". */
-export function Tag({
-  children,
-  className,
-}: {
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <span
-      className={cn(
-        'inline-flex items-center rounded-md border border-border bg-background/40 px-2.5 py-1 font-mono text-xs text-muted-foreground',
-        className,
-      )}
-    >
-      {children}
-    </span>
-  )
-}
+type ButtonStyle = VariantProps<typeof buttonVariants>
 
-/** Solid green pill button with a circular arrow on the right. */
-export function ArrowPillButton({
+/**
+ * Pill link with the circular arrow on the right ("View My Work",
+ * "Start a Webflow Project", "View All", "LET’S TALK").
+ */
+export function ArrowButton({
+  href,
   children,
+  variant = 'default',
   className,
-  variant = 'solid',
   ...props
-}: ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'solid' | 'outline'
+}: Omit<ComponentProps<typeof Link>, 'href'> & {
+  href: string
+  variant?: 'default' | 'outline' | 'dark'
 }) {
   return (
-    <button
+    <Link
+      href={href}
       className={cn(
-        'group inline-flex items-center gap-3 rounded-full py-1.5 pl-5 pr-1.5 font-mono text-sm font-medium transition-colors',
-        variant === 'solid'
-          ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-          : 'border border-primary/60 bg-transparent text-foreground hover:border-primary',
+        buttonVariants({ variant, size: 'default' }),
+        'justify-between gap-4 pr-1 pl-5',
         className,
       )}
       {...props}
@@ -45,83 +36,79 @@ export function ArrowPillButton({
       <span>{children}</span>
       <span
         className={cn(
-          'flex size-8 items-center justify-center rounded-full transition-transform group-hover:translate-x-0.5',
-          variant === 'solid'
-            ? 'bg-primary-foreground text-primary'
-            : 'bg-primary text-primary-foreground',
+          'flex size-8 items-center justify-center rounded-full transition-transform group-hover/button:translate-x-0.5',
+          variant === 'default' && 'bg-black text-primary',
+          variant === 'outline' && 'bg-primary text-primary-foreground',
+          variant === 'dark' && 'border border-primary text-primary',
         )}
       >
         <ArrowRight className="size-4" />
       </span>
-    </button>
+    </Link>
   )
 }
 
-/** Outlined pill button (no arrow), e.g. "Contact Me". */
-export function OutlineButton({
-  children,
+/** Plain pill link styled as a shadcn Button. */
+export function ButtonLink({
+  href,
+  variant = 'outline',
+  size = 'default',
   className,
   ...props
-}: ButtonHTMLAttributes<HTMLButtonElement>) {
+}: Omit<ComponentProps<typeof Link>, 'href'> & { href: string } & ButtonStyle) {
   return (
-    <button
-      className={cn(
-        'inline-flex items-center justify-center rounded-full border border-primary/60 bg-transparent px-6 py-2.5 font-mono text-sm font-medium text-foreground transition-colors hover:border-primary hover:bg-primary/10',
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </button>
+    <Link href={href} className={cn(buttonVariants({ variant, size }), className)} {...props} />
   )
 }
 
-/** Small text link with a green up-right arrow, e.g. "View Project". */
+/** Mint text link with a small filled arrow badge ("View Project"). */
 export function ArrowLink({
+  href,
   children,
-  href = '#',
   className,
 }: {
+  href: string
   children: ReactNode
-  href?: string
+  className?: string
+}) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        'group inline-flex items-center gap-2 font-sans text-sm text-primary transition-opacity hover:opacity-80',
+        className,
+      )}
+    >
+      {children}
+      <span className="flex size-4 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform group-hover:-translate-y-px group-hover:translate-x-px">
+        <ArrowUpRight className="size-3" strokeWidth={2.5} />
+      </span>
+    </Link>
+  )
+}
+
+/** Mint text link with the GitHub glyph ("See Code", "Follow Me on GitHub"). */
+export function GithubLink({
+  href,
+  children,
+  className,
+}: {
+  href: string
+  children: ReactNode
   className?: string
 }) {
   return (
     <a
       href={href}
+      target="_blank"
+      rel="noreferrer"
       className={cn(
-        'group inline-flex items-center gap-1.5 font-mono text-sm text-primary transition-opacity hover:opacity-80',
+        'inline-flex items-center gap-2 font-sans text-sm text-primary transition-opacity hover:opacity-80',
         className,
       )}
     >
-      <span>{children}</span>
-      <span className="flex size-4 items-center justify-center rounded-full bg-primary text-primary-foreground">
-        <ArrowUpRight className="size-3" />
-      </span>
+      {children}
+      <BrandGlyph src="/logos/github.svg" label="GitHub" className="size-4" />
     </a>
-  )
-}
-
-/** Circular carousel navigation button. */
-export function CircleArrowButton({
-  direction,
-  className,
-  ...props
-}: ButtonHTMLAttributes<HTMLButtonElement> & {
-  direction: 'left' | 'right'
-}) {
-  const Icon = direction === 'left' ? ChevronLeft : ChevronRight
-  return (
-    <button
-      type="button"
-      aria-label={direction === 'left' ? 'Previous' : 'Next'}
-      className={cn(
-        'flex size-11 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:border-primary hover:text-primary',
-        className,
-      )}
-      {...props}
-    >
-      <Icon className="size-5" />
-    </button>
   )
 }

@@ -1,66 +1,83 @@
-import Image from 'next/image'
 import { CodeHeading } from '@/components/code-heading'
-import { BrandGlyph } from '@/components/brand-glyph'
-import { OutlineButton } from '@/components/primitives'
-import { aboutDetails } from './data'
+import { GithubLink } from '@/components/primitives'
+import { ContactButton } from './contact-trigger'
+import { Separator } from '@/components/ui/separator'
+import { Download } from 'lucide-react'
+
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { about, contact, site } from './data'
+import { SpotlightPortrait } from './spotlight-portrait'
 
 export function About() {
   return (
-    <section className="bg-card/40 py-20 md:py-28">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <CodeHeading className="mx-auto max-w-3xl text-center text-2xl leading-snug md:text-4xl">
-          {' I Turn Ideas And Designs Into Fast, User-Friendly Interfaces. '}
+    <section id="about" className="section-y">
+      <div className="container-page">
+        <CodeHeading className="mx-auto max-w-[900px] text-center text-heading" close="/>">
+          {about.title}
         </CodeHeading>
 
-        <div className="mt-16 grid gap-10 lg:grid-cols-[1fr_1.1fr_1.2fr] lg:gap-12">
-          {/* Bio */}
-          <div>
-            <h3 className="font-sans text-xl font-semibold text-foreground">
-              Mohammad Al Bast:
-            </h3>
-            <p className="mt-5 font-mono text-sm leading-relaxed text-muted-foreground">
-              {
-                '"I turn Figma or Adobe XD designs into fast, user-friendly websites & Webflow builds."'
-              }
-            </p>
-            <p className="mt-4 font-mono text-sm leading-relaxed text-muted-foreground">
-              Everything is responsive, polished, and reliably connected to APIs
-              or SQL databases, making it easy to manage.
-            </p>
-            <a
-              href="#"
-              className="mt-6 inline-flex items-center gap-2 font-mono text-sm text-primary transition-opacity hover:opacity-80"
-            >
-              Follow me on Github <BrandGlyph src="/logos/github.svg" label="GitHub" className="size-4" />
-            </a>
+        <div className="mt-10 grid border-t border-border md:mt-14 lg:grid-cols-3">
+          {/* Name + quote */}
+          <div className="flex flex-col gap-6 py-8 lg:pr-8">
+            <h3 className="text-[28px] leading-tight md:text-[32px]">{about.name}</h3>
+            <div className="space-y-6 font-mono text-sm leading-relaxed text-foreground/90 md:text-base">
+              {about.paragraphs.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
+            </div>
+
+            <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-border">
+              {about.stats.map((s) => (
+                <div key={s.label} className="flex flex-col-reverse justify-end gap-2 bg-background p-4">
+                  <dt className="font-mono text-xs leading-snug text-foreground/60">{s.label}</dt>
+                  <dd className="font-sans text-[32px] leading-none text-primary tabular-nums">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="mt-auto flex flex-col gap-4 pt-4">
+              <p className="flex items-start gap-2.5 font-mono text-sm text-foreground/90">
+                <span aria-hidden className="mt-1.5 size-2 shrink-0 rounded-full bg-primary" />
+                {about.availability}
+              </p>
+              <GithubLink href={site.github}>Follow Me on GitHub</GithubLink>
+            </div>
           </div>
 
-          {/* Portrait */}
-          <div className="relative aspect-[3/4] overflow-hidden rounded-2xl">
-            <Image
-              src="/images/portrait.png"
-              alt="Mohammad Al Bast"
-              fill
-              className="object-cover grayscale"
+          {/* Photo */}
+          {/* stretches to the tallest column so all three end on the same line */}
+          <div className="flex flex-col border-border py-8 lg:border-x lg:px-6">
+            <SpotlightPortrait
+              src={site.portrait}
+              alt={site.name}
+              className="aspect-square w-full lg:aspect-auto lg:min-h-[475px] lg:flex-1"
             />
           </div>
 
           {/* Details */}
-          <div className="flex flex-col">
-            <dl className="space-y-4">
-              {aboutDetails.map((d) => (
-                <div key={d.label} className="font-mono text-sm leading-relaxed">
-                  <dt className="inline font-semibold text-foreground">
-                    {d.label}:{' '}
-                  </dt>
-                  <dd className="inline text-muted-foreground">{d.value}</dd>
+          <div className="flex flex-col py-8 lg:pl-8">
+            <dl>
+              {about.details.map((d, i) => (
+                <div key={d.label}>
+                  {i > 0 && <Separator />}
+                  <div className="py-3 font-mono text-sm leading-relaxed">
+                    <dt className="inline font-sans font-semibold text-foreground">{d.label}: </dt>
+                    <dd className="inline text-foreground/85">{d.value}</dd>
+                  </div>
                 </div>
               ))}
             </dl>
-            <div className="mt-8">
-              <OutlineButton className="w-full justify-center">
+            <Separator />
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <ContactButton variant="outline" className="w-full sm:w-[180px]">
                 Contact Me
-              </OutlineButton>
+              </ContactButton>
+              {site.cv && (
+                <a href={site.cv} download className={cn(buttonVariants({ variant: 'outline-light' }), 'w-full sm:w-auto')}>
+                  <Download aria-hidden /> {contact.cvLabel}
+                </a>
+              )}
             </div>
           </div>
         </div>

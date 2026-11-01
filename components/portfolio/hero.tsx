@@ -1,104 +1,88 @@
-'use client'
-
-import { useState } from 'react'
 import Image from 'next/image'
-import { ArrowPillButton, CircleArrowButton, OutlineButton } from '@/components/primitives'
-import { heroSlides } from './data'
-import { cn } from '@/lib/utils'
 
-export function Hero() {
-  const [active, setActive] = useState(0)
-  const slide = heroSlides[active]
+import { BrandGlyph } from '@/components/brand-glyph'
+import { Terminal } from './hero-options/terminal'
+import { ArrowButton } from '@/components/primitives'
+import { getLatestProjects } from '@/lib/projects'
+import { ContactButton } from './contact-trigger'
+import { about, hero, site, techLogos } from './data'
+import { SocialLinks } from './social-links'
 
-  const go = (dir: 1 | -1) =>
-    setActive((i) => (i + dir + heroSlides.length) % heroSlides.length)
+const SOCIAL_LINK_CLASS =
+  'flex size-11 items-center justify-center rounded-full border border-foreground/30 text-foreground transition-colors hover:border-primary hover:text-primary hover:opacity-100'
 
+export function HeroIntro() {
   return (
-    <section id="about" className="mx-auto max-w-7xl px-5 pt-6 md:px-8">
-      <div className="grid gap-4 lg:grid-cols-2">
-        {/* Left intro card */}
-        <div className="flex flex-col items-center justify-center rounded-3xl bg-card px-6 py-12 text-center md:px-12 md:py-16">
-          <h1 className="font-sans text-4xl font-semibold leading-[1.05] tracking-tight text-foreground text-balance md:text-6xl">
-            Build Something That Matters
-          </h1>
-
-          <div className="mt-10 flex flex-col items-center">
-            <Image
-              src="/images/portrait.png"
-              alt="Mohammad Al Bast"
-              width={56}
-              height={56}
-              className="size-14 rounded-full object-cover grayscale"
-            />
-            <p className="mt-4 font-mono text-xs tracking-wide text-foreground">
-              {'<HI, I\u2019M MOHAMMAD AL BAST/>'}
-            </p>
-            <p className="mt-3 max-w-md font-mono text-sm leading-relaxed text-muted-foreground">
-              Front-End &amp; Webflow Web Developer, specializing in React,
-              Laravel Blade, Webflow &amp; JavaScript.
-            </p>
-          </div>
-
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <ArrowPillButton>View My Work</ArrowPillButton>
-            <OutlineButton>Contact Me</OutlineButton>
-          </div>
+    <div className="flex flex-col justify-between gap-12 rounded-lg bg-card px-5 py-10 md:min-h-[560px] md:px-12 md:py-14 lg:h-[770px] lg:py-16">
+      <div className="flex flex-col items-start gap-6">
+        <h1 className="max-w-[640px] text-[40px] leading-[1.1] text-balance md:text-[56px] lg:text-[60px]">
+          {hero.titleStart}
+          <span className="text-[#d6ffcc]">{hero.titleHighlight}</span>
+          <span className="block">{hero.titleEnd.trim()}</span>
+        </h1>
+        <p className="max-w-[520px] font-mono text-sm leading-relaxed text-foreground/85 md:text-base">{hero.intro}</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <ArrowButton href={hero.primaryCta.href}>{hero.primaryCta.label}</ArrowButton>
+          <ContactButton variant="outline" className="min-w-[180px]">
+            {hero.secondaryCta.label}
+          </ContactButton>
         </div>
+        <p className="-mt-2 max-w-[520px] font-mono text-xs text-foreground/60">{about.availability}</p>
+        <SocialLinks className="gap-3" linkClassName={SOCIAL_LINK_CLASS} />
+      </div>
 
-        {/* Right project carousel */}
-        <div className="relative overflow-hidden rounded-3xl bg-surface">
-          <div className="relative aspect-[4/3] w-full lg:aspect-auto lg:h-full">
-            <Image
-              src={slide.image || '/placeholder.svg'}
-              alt={slide.title}
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-
-            {/* caption */}
-            <div className="absolute inset-x-0 bottom-0 p-6 text-center">
-              <p className="font-mono text-sm font-medium text-white">
-                {slide.title}
-              </p>
-              <p className="font-mono text-xs text-white/70">
-                {slide.subtitle}
-              </p>
-            </div>
-
-            {/* dots */}
-            <div className="absolute bottom-6 left-6 flex items-center gap-1.5">
-              {heroSlides.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  aria-label={`Go to slide ${i + 1}`}
-                  onClick={() => setActive(i)}
-                  className={cn(
-                    'h-1 rounded-full transition-all',
-                    i === active ? 'w-6 bg-white' : 'w-3 bg-white/40',
-                  )}
-                />
-              ))}
-            </div>
-
-            {/* arrows */}
-            <div className="absolute bottom-5 right-5 flex gap-2">
-              <CircleArrowButton
-                direction="left"
-                onClick={() => go(-1)}
-                className="bg-black/40 backdrop-blur"
-              />
-              <CircleArrowButton
-                direction="right"
-                onClick={() => go(1)}
-                className="bg-black/40 backdrop-blur"
-              />
-            </div>
-          </div>
+      <div className="flex items-center gap-4">
+        <span className="block size-14 shrink-0 overflow-hidden rounded-full">
+          <Image
+            src={site.portrait}
+            alt={site.name}
+            width={192}
+            height={192}
+            className="size-full scale-125 object-cover object-[50%_4%]"
+          />
+        </span>
+        <div>
+          <p className="font-sans text-base md:text-lg">{site.name}</p>
+          <p className="font-mono text-xs text-foreground/70 md:text-sm">{site.location}</p>
         </div>
       </div>
+    </div>
+  )
+}
+
+export async function Hero() {
+  const latest = await getLatestProjects(3)
+  const terminalProjects = latest.map(({ slug, name, category }) => ({ slug, name, category }))
+
+  return (
+    <section className="container-page pt-4 pb-4 md:pt-10 md:pb-8">
+      <div className="grid gap-2 lg:grid-cols-2">
+        <HeroIntro />
+
+        <Terminal projects={terminalProjects} />
+      </div>
     </section>
+  )
+}
+
+export function LogoStrip() {
+  const row = [...techLogos, ...techLogos, ...techLogos]
+  return (
+    <div className="relative overflow-hidden py-10" aria-label="Technologies">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-background to-transparent md:w-32" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-background to-transparent md:w-32" />
+      <div className="flex w-max animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
+        {[0, 1].map((copy) => (
+          <ul key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center gap-24 pr-24">
+            {row.map((logo, i) => (
+              <li key={i} className="flex items-center gap-3 text-foreground/45">
+                <BrandGlyph src={logo.src} label={logo.name} className="size-7" />
+                <span className="font-sans text-xl">{logo.name}</span>
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
   )
 }
