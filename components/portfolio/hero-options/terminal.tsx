@@ -274,7 +274,7 @@ export function Terminal({ projects }: { projects: TerminalProject[] }) {
             autoCapitalize="off"
             spellCheck={false}
             aria-label="Terminal command"
-            className="min-w-0 flex-1 rounded-sm bg-transparent text-foreground caret-primary"
+            className="min-w-0 flex-1 bg-transparent text-foreground caret-primary outline-none"
           />
         </form>
       </div>
