@@ -40,7 +40,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="overflow-x-clip">
         <a
           href="#main"
-          className="sr-only rounded-md bg-primary px-4 py-2 font-sans text-sm text-primary-foreground focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60]"
+          className="sr-only rounded-md bg-primary font-sans text-sm text-primary-foreground focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:px-4 focus:py-2"
         >
           Skip to content
         </a>
@@ -48,8 +48,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <SiteNav />
           <main id="main" tabIndex={-1} className="outline-none">
             {children}
+            <CTA />
           </main>
-          <CTA />
           <SiteFooter />
         </ContactProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}

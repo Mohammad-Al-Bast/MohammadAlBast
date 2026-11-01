@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import { cn } from '@/lib/utils'
+import { MarqueeFrame } from './marquee-frame'
 
 type Direction = 'up' | 'down'
 
@@ -45,12 +46,16 @@ export function ProjectHeroMarquee({ images }: { images: string[] }) {
   if (images.length === 0) return null
 
   return (
-    <div aria-hidden className="group relative h-[420px] overflow-hidden md:h-[560px] lg:h-[700px]">
-      <div className="grid grid-cols-2 items-start gap-3 md:gap-4">
+    <MarqueeFrame
+      label="project screenshots"
+      className="group h-[420px] overflow-hidden md:h-[560px] lg:h-[700px]"
+      buttonClassName="right-3 bottom-3"
+    >
+      <div aria-hidden className="grid grid-cols-2 items-start gap-3 md:gap-4">
         <MarqueeColumn images={images} column={0} direction="up" />
         <MarqueeColumn images={images} column={1} direction="down" />
       </div>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
-    </div>
+    </MarqueeFrame>
   )
 }

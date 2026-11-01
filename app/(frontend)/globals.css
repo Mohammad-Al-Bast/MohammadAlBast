@@ -75,10 +75,11 @@
   --accent: #85fd9c;
   --accent-foreground: #0a0a0a;
 
-  --destructive: #f25555;
+  --destructive: #ff6b6b;
 
   --border: #393939;
-  --input: #393939;
+  /* form field outline: needs 3:1 against both the page and the dialog panel */
+  --input: #7a7a7a;
   --ring: #85fd9c;
 
   /* pale mint used for display headings */
@@ -97,7 +98,14 @@
     @apply border-border outline-ring/50;
   }
   html {
-    @apply scroll-smooth font-mono;
+    @apply font-mono motion-safe:scroll-smooth;
+    /* keeps anchored sections and keyboard focus clear of the sticky nav */
+    scroll-padding-top: 5.5rem;
+  }
+  /* the one focus style for the site; on light surfaces add .focus-dark to a parent */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
   body {
     @apply bg-background text-foreground antialiased;
@@ -110,10 +118,6 @@
   h6 {
     @apply font-sans font-normal text-heading;
   }
-  /* keep anchored sections clear of the sticky nav */
-  section[id] {
-    scroll-margin-top: 5rem;
-  }
 }
 
 @layer utilities {
@@ -123,6 +127,10 @@
   }
   .section-y {
     @apply py-16 md:py-20;
+  }
+  /* mint focus rings disappear on mint and paper surfaces */
+  .focus-dark {
+    --ring: #0a0a0a;
   }
 }
 
@@ -163,6 +171,12 @@
 
 .animate-marquee-down {
   animation: marquee-down 62s linear infinite;
+}
+
+[data-marquee-paused] .animate-marquee,
+[data-marquee-paused] .animate-marquee-up,
+[data-marquee-paused] .animate-marquee-down {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -15,7 +15,7 @@ export function ProjectGallery({ images, name }: { images: string[]; name: strin
   return (
     <section className="pb-16 md:pb-20">
       <div className="container-page">
-        <Carousel opts={{ align: 'start' }}>
+        <Carousel label={`${name} gallery`} opts={{ align: 'start' }}>
           <CarouselContent className="-ml-2">
             {images.map((src, i) => (
               <CarouselItem key={src + i} className="basis-[88%] pl-2 md:basis-[60%]">

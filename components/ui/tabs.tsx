@@ -32,7 +32,7 @@ function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
     <TabsPrimitive.Tab
       data-slot="tabs-trigger"
       className={cn(
-        'inline-flex h-8 shrink-0 cursor-pointer items-center justify-center rounded-md px-3 font-mono text-xs whitespace-nowrap text-muted-foreground transition-colors outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 data-[active]:bg-background data-[active]:text-foreground',
+        'inline-flex h-8 shrink-0 cursor-pointer items-center justify-center rounded-md px-3 font-mono text-xs whitespace-nowrap text-muted-foreground transition-colors hover:text-foreground data-[active]:bg-background data-[active]:text-foreground',
         className,
       )}
       {...props}
@@ -44,7 +44,7 @@ function TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {
   return (
     <TabsPrimitive.Panel
       data-slot="tabs-content"
-      className={cn('outline-none', className)}
+      className={className}
       {...props}
     />
   )

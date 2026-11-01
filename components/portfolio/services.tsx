@@ -25,11 +25,11 @@ export function Services() {
           </p>
         </div>
 
-        <Carousel opts={{ align: 'start' }} className="mt-10 md:mt-12">
+        <Carousel label={services.title} opts={{ align: 'start' }} className="mt-10 md:mt-12">
           <CarouselContent className="-ml-4 overflow-visible">
             {services.items.map((s) => (
               <CarouselItem key={s.number} className="basis-[92%] pl-4 md:basis-[66.5%]">
-                <article className="grid h-full grid-cols-[minmax(0,1fr)] gap-6 rounded-lg bg-paper p-6 text-paper-foreground md:min-h-[500px] md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-8 md:p-8">
+                <article className="focus-dark grid h-full grid-cols-[minmax(0,1fr)] gap-6 rounded-lg bg-paper p-6 text-paper-foreground md:min-h-[500px] md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-8 md:p-8">
                   <div className="flex min-w-0 flex-col">
                     <div className="flex items-center justify-between font-mono text-sm text-paper-foreground/70 md:contents">
                       <span className="flex items-center gap-2">

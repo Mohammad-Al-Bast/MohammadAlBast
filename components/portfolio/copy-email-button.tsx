@@ -24,7 +24,7 @@ export function CopyEmailButton({ email, className }: { email: string; className
       type="button"
       onClick={copy}
       className={cn(
-        'inline-flex cursor-pointer items-center gap-2 rounded-sm font-mono text-sm text-primary-foreground/80 underline-offset-4 transition-colors hover:text-primary-foreground hover:underline focus-visible:ring-2 focus-visible:ring-black/40 focus-visible:outline-none',
+        'inline-flex cursor-pointer items-center gap-2 rounded-sm font-mono text-sm text-primary-foreground/80 underline-offset-4 transition-colors hover:text-primary-foreground hover:underline',
         className,
       )}
     >

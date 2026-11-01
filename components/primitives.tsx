@@ -66,14 +66,18 @@ export function ArrowLink({
   href,
   children,
   className,
+  label,
 }: {
   href: string
   children: ReactNode
   className?: string
+  /** full link name when the visible text repeats on the page; must start with the visible text */
+  label?: string
 }) {
   return (
     <Link
       href={href}
+      aria-label={label}
       className={cn(
         'group inline-flex items-center gap-2 font-sans text-sm text-primary transition-opacity hover:opacity-80',
         className,
@@ -92,23 +96,27 @@ export function GithubLink({
   href,
   children,
   className,
+  label,
 }: {
   href: string
   children: ReactNode
   className?: string
+  /** full link name when the visible text repeats on the page; must start with the visible text */
+  label?: string
 }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noreferrer"
+      aria-label={label}
       className={cn(
         'inline-flex items-center gap-2 font-sans text-sm text-primary transition-opacity hover:opacity-80',
         className,
       )}
     >
       {children}
-      <BrandGlyph src="/logos/github.svg" label="GitHub" className="size-4" />
+      <BrandGlyph src="/logos/github.svg" className="size-4" />
     </a>
   )
 }

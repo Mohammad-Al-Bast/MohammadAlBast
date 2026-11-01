@@ -36,7 +36,7 @@ export function ProjectsBrowser({ projects }: { projects: Project[] }) {
 
   return (
     <Tabs value={value} onValueChange={(v) => setValue(String(v))} className="mt-10 gap-8 md:mt-12">
-      <TabsList className="rounded-xl bg-card p-1.5">
+      <TabsList aria-label="Project categories" className="rounded-xl bg-card p-1.5">
         {tabs.map((t) => (
           <TabsTrigger key={t.value} value={t.value} className="h-9 rounded-lg px-4 data-[active]:bg-[#1f1f1f]">
             {t.label}
@@ -49,7 +49,7 @@ export function ProjectsBrowser({ projects }: { projects: Project[] }) {
         return (
           <TabsContent key={t.value} value={t.value} className="flex flex-col gap-8">
             {list.length ? (
-              list.map((p, i) => <ProjectRow key={p.slug} project={p} priority={i === 0} />)
+              list.map((p, i) => <ProjectRow key={p.slug} project={p} priority={i === 0} headingAs="h2" />)
             ) : (
               <p className="font-mono text-sm text-muted-foreground">No projects in this category yet.</p>
             )}

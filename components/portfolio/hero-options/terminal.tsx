@@ -8,7 +8,7 @@ import { useContact } from '@/components/portfolio/contact-dialog'
 import { HeroPanel } from './panel'
 import { logOutput, nowOutput, statusOutput, type TerminalProject } from './terminal-commands'
 
-type Line = { id: number; kind: 'cmd' | 'out'; content: ReactNode }
+type Line = { id: number; kind: 'cmd' | 'out'; content: ReactNode; intro: boolean }
 
 const PROMPT = 'guest@mb:~$'
 const CHIPS = ['status', 'now', 'log', 'whoami', 'stack', 'services', ...(site.cv ? ['cv'] : []), 'contact', 'help']
@@ -17,6 +17,16 @@ const INTRO = ['status', 'git log --oneline']
 const TYPE_MS = 55
 
 const linkClass = 'text-primary underline underline-offset-4'
+
+function TerminalLine({ line }: { line: Line }) {
+  return line.kind === 'cmd' ? (
+    <p className="mt-3">
+      <span className="text-primary">{PROMPT}</span> {line.content}
+    </p>
+  ) : (
+    <p className="whitespace-pre-wrap text-foreground/85">{line.content}</p>
+  )
+}
 
 function respond(cmd: string, openContact: () => void, projects: TerminalProject[]): ReactNode | 'clear' {
   switch (cmd) {
@@ -146,7 +156,7 @@ export function Terminal({ projects }: { projects: TerminalProject[] }) {
   const inputRef = useRef<HTMLInputElement>(null)
   const { openContact } = useContact()
 
-  const run = (raw: string) => {
+  const run = (raw: string, intro = false) => {
     const cmd = raw.trim().toLowerCase()
     const out = respond(cmd, () => openContact(), projects)
     if (out === 'clear') {
@@ -155,8 +165,8 @@ export function Terminal({ projects }: { projects: TerminalProject[] }) {
     }
     setLines((prev) => [
       ...prev,
-      { id: idRef.current++, kind: 'cmd', content: raw },
-      ...(out ? [{ id: idRef.current++, kind: 'out' as const, content: out }] : []),
+      { id: idRef.current++, kind: 'cmd', content: raw, intro },
+      ...(out ? [{ id: idRef.current++, kind: 'out' as const, content: out, intro }] : []),
     ])
   }
 
@@ -176,7 +186,7 @@ export function Terminal({ projects }: { projects: TerminalProject[] }) {
     }
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       later(() => {
-        INTRO.forEach((c) => run(c))
+        INTRO.forEach((c) => run(c, true))
         finish()
       }, 0)
       return () => timers.forEach(clearTimeout)
@@ -191,7 +201,7 @@ export function Terminal({ projects }: { projects: TerminalProject[] }) {
       at += 350
       later(() => {
         setInput('')
-        run(cmd)
+        run(cmd, true)
         if (n === INTRO.length - 1) finish()
       }, at)
       at += 700
@@ -226,18 +236,18 @@ export function Terminal({ projects }: { projects: TerminalProject[] }) {
           Welcome to {site.name.split(' ')[0]}&apos;s terminal. Type <span className="text-primary">help</span> or tap a
           command below.
         </p>
+        {/* the auto-typed intro stays out of the live region so nothing is announced on page load */}
+        {lines
+          .filter((l) => l.intro)
+          .map((l) => (
+            <TerminalLine key={l.id} line={l} />
+          ))}
         <div aria-live="polite">
-          {lines.map((l) =>
-            l.kind === 'cmd' ? (
-              <p key={l.id} className="mt-3">
-                <span className="text-primary">{PROMPT}</span> {l.content}
-              </p>
-            ) : (
-              <p key={l.id} className="whitespace-pre-wrap text-foreground/85">
-                {l.content}
-              </p>
-            ),
-          )}
+          {lines
+            .filter((l) => !l.intro)
+            .map((l) => (
+              <TerminalLine key={l.id} line={l} />
+            ))}
         </div>
         <form
           className="mt-3 flex items-center gap-2"
@@ -264,7 +274,7 @@ export function Terminal({ projects }: { projects: TerminalProject[] }) {
             autoCapitalize="off"
             spellCheck={false}
             aria-label="Terminal command"
-            className="min-w-0 flex-1 bg-transparent text-foreground caret-primary outline-none"
+            className="min-w-0 flex-1 rounded-sm bg-transparent text-foreground caret-primary"
           />
         </form>
       </div>
@@ -278,7 +288,7 @@ export function Terminal({ projects }: { projects: TerminalProject[] }) {
               stopIntro()
               run(c)
             }}
-            className="cursor-pointer rounded-md border border-white/10 px-3 py-1.5 font-mono text-xs text-foreground/80 transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:outline-none"
+            className="cursor-pointer rounded-md border border-white/10 px-3 py-1.5 font-mono text-xs text-foreground/80 transition-colors hover:border-primary hover:text-primary"
           >
             {c}
           </button>

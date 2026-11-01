@@ -58,7 +58,7 @@ function CmsVisual() {
           ))}
         </ul>
         <div className="p-2">
-          <div className="grid grid-cols-[1.4fr_1fr_auto] gap-2 px-2 pb-2 text-foreground/40">
+          <div className="grid grid-cols-[1.4fr_1fr_auto] gap-2 px-2 pb-2 text-foreground/60">
             <span>Name</span>
             <span>Category</span>
             <span>Status</span>

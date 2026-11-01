@@ -12,6 +12,8 @@ type CarouselOptions = UseCarouselParameters[0]
 type CarouselPlugin = UseCarouselParameters[1]
 
 type CarouselProps = {
+  /** What the carousel shows; names the group and its controls for screen readers. */
+  label: string
   opts?: CarouselOptions
   plugins?: CarouselPlugin
   orientation?: 'horizontal' | 'vertical'
@@ -38,7 +40,10 @@ function useCarousel() {
   return context
 }
 
+const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
 function Carousel({
+  label,
   orientation = 'horizontal',
   opts,
   setApi,
@@ -55,6 +60,8 @@ function Carousel({
   const [canScrollNext, setCanScrollNext] = React.useState(false)
   const [selectedIndex, setSelectedIndex] = React.useState(0)
   const [snapCount, setSnapCount] = React.useState(0)
+  // stays empty until the slide changes, so nothing is announced on page load
+  const [announcement, setAnnouncement] = React.useState('')
 
   const onSelect = React.useCallback((api: CarouselApi) => {
     if (!api) return
@@ -64,9 +71,9 @@ function Carousel({
     setSnapCount(api.scrollSnapList().length)
   }, [])
 
-  const scrollPrev = React.useCallback(() => api?.scrollPrev(), [api])
-  const scrollNext = React.useCallback(() => api?.scrollNext(), [api])
-  const scrollTo = React.useCallback((i: number) => api?.scrollTo(i), [api])
+  const scrollPrev = React.useCallback(() => api?.scrollPrev(prefersReducedMotion()), [api])
+  const scrollNext = React.useCallback(() => api?.scrollNext(prefersReducedMotion()), [api])
+  const scrollTo = React.useCallback((i: number) => api?.scrollTo(i, prefersReducedMotion()), [api])
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -87,18 +94,23 @@ function Carousel({
 
   React.useEffect(() => {
     if (!api) return
+    const announce = (api: NonNullable<CarouselApi>) =>
+      setAnnouncement(`${label}: slide ${api.selectedScrollSnap() + 1} of ${api.scrollSnapList().length}`)
     onSelect(api)
     api.on('reInit', onSelect)
     api.on('select', onSelect)
+    api.on('select', announce)
     return () => {
+      api.off('select', announce)
       api.off('select', onSelect)
       api.off('reInit', onSelect)
     }
-  }, [api, onSelect])
+  }, [api, label, onSelect])
 
   return (
     <CarouselContext.Provider
       value={{
+        label,
         carouselRef,
         api,
         opts,
@@ -115,25 +127,36 @@ function Carousel({
       <div
         onKeyDownCapture={handleKeyDown}
         className={cn('relative', className)}
-        role="region"
+        role="group"
         aria-roledescription="carousel"
+        aria-label={label}
         data-slot="carousel"
         {...props}
       >
         {children}
+        <p aria-live="polite" aria-atomic="true" className="sr-only">
+          {announcement}
+        </p>
       </div>
     </CarouselContext.Provider>
   )
 }
 
-function CarouselContent({ className, ...props }: React.ComponentProps<'div'>) {
+function CarouselContent({ className, children, ...props }: React.ComponentProps<'div'>) {
   const { carouselRef, orientation } = useCarousel()
+  const count = React.Children.count(children)
   return (
     <div ref={carouselRef} className="overflow-hidden" data-slot="carousel-content">
       <div
         className={cn('flex', orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col', className)}
         {...props}
-      />
+      >
+        {React.Children.map(children, (child, i) =>
+          React.isValidElement<React.ComponentProps<'div'>>(child)
+            ? React.cloneElement(child, { 'aria-label': `${i + 1} of ${count}` })
+            : child,
+        )}
+      </div>
     </div>
   )
 }
@@ -155,60 +178,70 @@ function CarouselItem({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
+// aria-disabled rather than disabled: a disabled button drops keyboard focus on the last slide
 const navButton =
-  'flex size-11 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white backdrop-blur transition-colors hover:bg-black/80 disabled:cursor-default disabled:opacity-40 focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:outline-none'
+  'flex size-11 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white backdrop-blur transition-colors hover:bg-black/80 aria-disabled:cursor-default aria-disabled:opacity-40'
 
 function CarouselPrevious({ className, ...props }: React.ComponentProps<'button'>) {
-  const { scrollPrev, canScrollPrev } = useCarousel()
+  const { label, scrollPrev, canScrollPrev } = useCarousel()
   return (
     <button
       type="button"
       data-slot="carousel-previous"
       className={cn(navButton, className)}
-      disabled={!canScrollPrev}
+      aria-disabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}
     >
       <ChevronLeft className="size-4" />
-      <span className="sr-only">Previous slide</span>
+      <span className="sr-only">Previous slide: {label}</span>
     </button>
   )
 }
 
 function CarouselNext({ className, ...props }: React.ComponentProps<'button'>) {
-  const { scrollNext, canScrollNext } = useCarousel()
+  const { label, scrollNext, canScrollNext } = useCarousel()
   return (
     <button
       type="button"
       data-slot="carousel-next"
       className={cn(navButton, className)}
-      disabled={!canScrollNext}
+      aria-disabled={!canScrollNext}
       onClick={scrollNext}
       {...props}
     >
       <ChevronRight className="size-4" />
-      <span className="sr-only">Next slide</span>
+      <span className="sr-only">Next slide: {label}</span>
     </button>
   )
 }
 
-/** Pill-style progress dots used throughout the Figma (active = long white bar). */
+/** Pill-style progress dots used throughout the Figma (active = long white bar). The button is the 24px hit area. */
 function CarouselDots({ className }: { className?: string }) {
-  const { selectedIndex, snapCount, scrollTo } = useCarousel()
+  const { label, selectedIndex, snapCount, scrollTo } = useCarousel()
   return (
-    <div className={cn('flex items-center gap-1.5', className)} data-slot="carousel-dots">
+    <div
+      role="group"
+      aria-label={`Choose a slide: ${label}`}
+      className={cn('flex items-center', className)}
+      data-slot="carousel-dots"
+    >
       {Array.from({ length: snapCount }).map((_, i) => (
         <button
           key={i}
           type="button"
-          aria-label={`Go to slide ${i + 1}`}
-          aria-current={i === selectedIndex}
+          aria-label={`Go to slide ${i + 1} of ${snapCount}`}
+          aria-current={i === selectedIndex ? 'true' : undefined}
           onClick={() => scrollTo(i)}
-          className={cn(
-            'h-[3px] cursor-pointer rounded-full transition-[width,background-color] duration-300',
-            i === selectedIndex ? 'w-6 bg-white' : 'w-2 bg-white/30 hover:bg-white/60',
-          )}
-        />
+          className="group/dot flex h-6 min-w-6 cursor-pointer items-center justify-center rounded-full"
+        >
+          <span
+            className={cn(
+              'block h-[3px] rounded-full transition-[width,background-color] duration-300 forced-color-adjust-none forced-colors:bg-[ButtonText] motion-reduce:transition-none',
+              i === selectedIndex ? 'w-6 bg-white' : 'w-2 bg-white/50 group-hover/dot:bg-white/80',
+            )}
+          />
+        </button>
       ))}
     </div>
   )

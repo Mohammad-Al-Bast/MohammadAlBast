@@ -8,7 +8,7 @@ export function CTA() {
   return (
     <section id="contact" className="bg-raised pt-10 pb-10">
       <div className="container-page">
-        <div className="grid gap-8 rounded-lg bg-primary p-6 text-primary-foreground md:grid-cols-[1fr_minmax(0,500px)] md:items-center md:p-8 lg:min-h-[236px]">
+        <div className="focus-dark grid gap-8 rounded-lg bg-primary p-6 text-primary-foreground md:grid-cols-[1fr_minmax(0,500px)] md:items-center md:p-8 lg:min-h-[236px]">
           <h2 className="max-w-[560px] text-[40px] leading-[1.15] text-balance text-primary-foreground md:text-[64px]">
             {cta.title}
           </h2>
@@ -23,7 +23,7 @@ export function CTA() {
                   href={site.booking}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-sm font-mono text-sm text-primary-foreground underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-black/40 focus-visible:outline-none"
+                  className="inline-flex items-center gap-2 rounded-sm font-mono text-sm text-primary-foreground underline-offset-4 hover:underline"
                 >
                   <CalendarDays className="size-4" aria-hidden />
                   {contact.bookingLabel}

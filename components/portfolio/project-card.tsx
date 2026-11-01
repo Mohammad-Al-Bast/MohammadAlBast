@@ -37,8 +37,16 @@ export function ProjectCard({ project }: { project: Project }) {
           <p className="mt-2 line-clamp-3 font-mono text-sm text-foreground/80">{project.description}</p>
         </div>
         <div className="mt-auto flex items-center justify-between pt-2">
-          {project.codeUrl ? <GithubLink href={project.codeUrl}>See Code</GithubLink> : <span />}
-          <ArrowLink href={href}>View Project</ArrowLink>
+          {project.codeUrl ? (
+            <GithubLink href={project.codeUrl} label={`See Code: ${project.name}`}>
+              See Code
+            </GithubLink>
+          ) : (
+            <span />
+          )}
+          <ArrowLink href={href} label={`View Project: ${project.name}`}>
+            View Project
+          </ArrowLink>
         </div>
       </div>
     </article>

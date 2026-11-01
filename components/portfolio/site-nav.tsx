@@ -49,7 +49,7 @@ export function SiteNav() {
 
   return (
     <header className="sticky top-0 z-50 bg-background/85 backdrop-blur-md">
-      <nav className="container-page flex h-[72px] items-center justify-between">
+      <nav aria-label="Main" className="container-page flex h-[72px] items-center justify-between">
         <Link href="/" aria-label="Home" className="shrink-0">
           <Logo className="h-8 w-auto" />
         </Link>
@@ -59,6 +59,7 @@ export function SiteNav() {
             <li key={link.href}>
               <Link
                 href={link.href}
+                aria-current={active === link.href ? 'true' : undefined}
                 className={cn(
                   'font-mono text-sm transition-colors hover:text-primary',
                   active === link.href ? 'text-primary' : 'text-foreground',
@@ -92,6 +93,7 @@ export function SiteNav() {
                     render={
                       <Link
                         href={link.href}
+                        aria-current={active === link.href ? 'true' : undefined}
                         className={cn(
                           'block py-5 font-mono text-lg',
                           active === link.href ? 'text-primary' : 'text-foreground',

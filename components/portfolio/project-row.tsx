@@ -16,11 +16,20 @@ import {
 import type { Project } from './data'
 
 /** Image slider card + info card, side by side (stacked on mobile). */
-export function ProjectRow({ project, priority = false }: { project: Project; priority?: boolean }) {
+export function ProjectRow({
+  project,
+  priority = false,
+  headingAs: Heading = 'h3',
+}: {
+  project: Project
+  priority?: boolean
+  /** h2 where the row sits directly under the page's h1 */
+  headingAs?: 'h2' | 'h3'
+}) {
   const href = `/projects/${project.slug}`
   return (
     <article className="grid gap-2 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-      <Carousel opts={{ loop: true }} className="overflow-hidden rounded-lg bg-inset">
+      <Carousel label={`${project.name} screenshots`} opts={{ loop: true }} className="overflow-hidden rounded-lg bg-inset">
         <CarouselContent className="ml-0">
           {project.images.map((src, i) => (
             <CarouselItem key={src + i} className="pl-0">
@@ -38,7 +47,7 @@ export function ProjectRow({ project, priority = false }: { project: Project; pr
           ))}
         </CarouselContent>
         <div className="absolute inset-x-6 bottom-4 flex items-center justify-between">
-          <CarouselDots className="rounded-full bg-background px-3 py-3" />
+          <CarouselDots className="rounded-full bg-background px-1.5" />
           <div className="flex gap-2">
             <CarouselPrevious className="bg-background text-foreground hover:bg-card" />
             <CarouselNext className="bg-background text-foreground hover:bg-card" />
@@ -53,16 +62,24 @@ export function ProjectRow({ project, priority = false }: { project: Project; pr
           ))}
         </div>
         <div className="my-auto py-10">
-          <h3 className="text-[28px] leading-tight md:text-[32px]">
+          <Heading className="text-[28px] leading-tight md:text-[32px]">
             <Link href={href} className="hover:text-primary">
               {project.name}
             </Link>
-          </h3>
+          </Heading>
           <p className="mt-3 font-mono text-sm text-foreground/80">{project.description}</p>
         </div>
         <div className="flex items-center justify-between">
-          {project.codeUrl ? <GithubLink href={project.codeUrl}>See Code</GithubLink> : <span />}
-          <ArrowLink href={href}>View Project</ArrowLink>
+          {project.codeUrl ? (
+            <GithubLink href={project.codeUrl} label={`See Code: ${project.name}`}>
+              See Code
+            </GithubLink>
+          ) : (
+            <span />
+          )}
+          <ArrowLink href={href} label={`View Project: ${project.name}`}>
+            View Project
+          </ArrowLink>
         </div>
       </div>
     </article>

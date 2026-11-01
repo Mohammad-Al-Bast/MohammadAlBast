@@ -59,12 +59,9 @@ export function About() {
           <div className="flex flex-col py-8 lg:pl-8">
             <dl>
               {about.details.map((d, i) => (
-                <div key={d.label}>
-                  {i > 0 && <Separator />}
-                  <div className="py-3 font-mono text-sm leading-relaxed">
-                    <dt className="inline font-sans font-semibold text-foreground">{d.label}: </dt>
-                    <dd className="inline text-foreground/85">{d.value}</dd>
-                  </div>
+                <div key={d.label} className={cn('py-3 font-mono text-sm leading-relaxed', i > 0 && 'border-t border-border')}>
+                  <dt className="inline font-sans font-semibold text-foreground">{d.label}: </dt>
+                  <dd className="inline text-foreground/85">{d.value}</dd>
                 </div>
               ))}
             </dl>

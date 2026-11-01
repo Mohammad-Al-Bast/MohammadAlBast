@@ -6,6 +6,7 @@ import { ArrowButton } from '@/components/primitives'
 import { getLatestProjects } from '@/lib/projects'
 import { ContactButton } from './contact-trigger'
 import { about, hero, site, techLogos } from './data'
+import { MarqueeFrame } from './marquee-frame'
 import { SocialLinks } from './social-links'
 
 const SOCIAL_LINK_CLASS =
@@ -35,7 +36,7 @@ export function HeroIntro() {
         <span className="block size-14 shrink-0 overflow-hidden rounded-full">
           <Image
             src={site.portrait}
-            alt={site.name}
+            alt=""
             width={192}
             height={192}
             className="size-full scale-125 object-cover object-[50%_4%]"
@@ -68,21 +69,30 @@ export async function Hero() {
 export function LogoStrip() {
   const row = [...techLogos, ...techLogos, ...techLogos]
   return (
-    <div className="relative overflow-hidden py-10" aria-label="Technologies">
+    <MarqueeFrame
+      label="technology logos"
+      className="overflow-hidden py-10"
+      buttonClassName="top-1/2 right-4 -translate-y-1/2 md:right-8"
+    >
+      <ul aria-label="Technologies" className="sr-only">
+        {techLogos.map((logo) => (
+          <li key={logo.name}>{logo.name}</li>
+        ))}
+      </ul>
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-background to-transparent md:w-32" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-background to-transparent md:w-32" />
-      <div className="flex w-max animate-marquee hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
+      <div aria-hidden className="flex w-max animate-marquee hover:[animation-play-state:paused]">
         {[0, 1].map((copy) => (
-          <ul key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center gap-24 pr-24">
+          <ul key={copy} className="flex shrink-0 items-center gap-24 pr-24">
             {row.map((logo, i) => (
-              <li key={i} className="flex items-center gap-3 text-foreground/45">
-                <BrandGlyph src={logo.src} label={logo.name} className="size-7" />
+              <li key={i} className="flex items-center gap-3 text-foreground/55">
+                <BrandGlyph src={logo.src} className="size-7" />
                 <span className="font-sans text-xl">{logo.name}</span>
               </li>
             ))}
           </ul>
         ))}
       </div>
-    </div>
+    </MarqueeFrame>
   )
 }

@@ -21,9 +21,13 @@ export function CodeHeading({
         className,
       )}
     >
-      <span className="text-primary">{'<'}</span>
+      <span aria-hidden className="text-primary">
+        {'<'}
+      </span>
       {children}
-      <span className="text-primary">{close}</span>
+      <span aria-hidden className="text-primary">
+        {close}
+      </span>
     </Tag>
   )
 }

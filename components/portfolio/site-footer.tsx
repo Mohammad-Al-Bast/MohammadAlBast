@@ -8,15 +8,17 @@ export function SiteFooter() {
     <footer className="bg-raised pt-12 pb-10 md:pt-20">
       <div className="container-page">
         <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-          <ul className="grid grid-cols-2 gap-x-8 gap-y-4 sm:flex sm:flex-wrap">
-            {navLinks.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="font-mono text-base text-primary hover:opacity-80">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <nav aria-label="Footer">
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-4 sm:flex sm:flex-wrap">
+              {navLinks.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="font-mono text-base text-primary hover:opacity-80">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
           <div className="flex flex-col gap-4 font-sans text-base text-foreground/75 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
             <a href={site.phone.href} className="hover:text-foreground">
               {site.phone.label}

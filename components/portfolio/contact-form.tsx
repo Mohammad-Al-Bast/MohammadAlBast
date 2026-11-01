@@ -11,7 +11,7 @@ import { CopyEmailButton } from './copy-email-button'
 import { contact, site } from './data'
 
 const field =
-  'w-full rounded-md border border-input bg-background px-3 py-2.5 font-mono text-sm text-foreground placeholder:text-foreground/35 transition-colors focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:outline-none aria-invalid:border-destructive'
+  'w-full rounded-md border border-input bg-background px-3 py-2.5 font-mono text-sm text-foreground placeholder:text-foreground/55 transition-colors focus-visible:border-primary aria-invalid:border-destructive'
 const label = 'font-sans text-sm text-foreground'
 const errorText = 'font-mono text-xs text-destructive'
 
@@ -44,6 +44,7 @@ function Field({
 export function ContactForm({ defaultType, onDone }: { defaultType?: string; onDone?: () => void }) {
   const [state, action, pending] = useActionState<ContactState, FormData>(sendContact, { status: 'idle' })
   const formRef = useRef<HTMLFormElement>(null)
+  const successRef = useRef<HTMLDivElement>(null)
 
   const errors = state.status === 'error' ? (state.fieldErrors ?? {}) : {}
   const values = state.status === 'error' ? (state.values ?? {}) : {}
@@ -55,9 +56,17 @@ export function ContactForm({ defaultType, onDone }: { defaultType?: string; onD
     if (first) formRef.current?.querySelector<HTMLElement>(`[name="${first}"]`)?.focus()
   }, [state])
 
+  // The form (and the focused button) is gone after a successful send, so focus moves to the confirmation.
+  // Waits a frame because the dialog first moves focus to itself when the focused element is removed.
+  useEffect(() => {
+    if (state.status !== 'success') return
+    const frame = requestAnimationFrame(() => successRef.current?.focus())
+    return () => cancelAnimationFrame(frame)
+  }, [state])
+
   if (state.status === 'success') {
     return (
-      <div className="flex flex-col items-start gap-4 py-4" role="status">
+      <div ref={successRef} tabIndex={-1} className="flex flex-col items-start gap-4 py-4 outline-none" role="status">
         <CheckCircle2 className="size-10 text-primary" aria-hidden />
         <p className="font-mono text-sm leading-relaxed text-foreground/90">{contact.success}</p>
         {onDone && (
@@ -72,7 +81,17 @@ export function ContactForm({ defaultType, onDone }: { defaultType?: string; onD
   const describedBy = (n: ContactField) => (errors[n] ? `contact-${n}-error` : undefined)
 
   return (
-    <form ref={formRef} action={action} noValidate className="flex flex-col gap-4">
+    <form
+      ref={formRef}
+      action={action}
+      noValidate
+      // aria-disabled keeps focus on the button while sending, so block the repeat submit here
+      onSubmit={(e) => {
+        if (pending) e.preventDefault()
+      }}
+      className="flex flex-col gap-4"
+    >
+      <p className="font-mono text-xs text-foreground/80">{contact.requiredNote}</p>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field name="name" text="Name" error={errors.name}>
           <input
@@ -81,6 +100,7 @@ export function ContactForm({ defaultType, onDone }: { defaultType?: string; onD
             autoComplete="name"
             defaultValue={values.name}
             placeholder="Jane Smith…"
+            aria-required
             aria-invalid={!!errors.name}
             aria-describedby={describedBy('name')}
             className={field}
@@ -96,6 +116,7 @@ export function ContactForm({ defaultType, onDone }: { defaultType?: string; onD
             spellCheck={false}
             defaultValue={values.email}
             placeholder="jane@company.com…"
+            aria-required
             aria-invalid={!!errors.email}
             aria-describedby={describedBy('email')}
             className={field}
@@ -108,6 +129,7 @@ export function ContactForm({ defaultType, onDone }: { defaultType?: string; onD
           id="contact-type"
           name="type"
           defaultValue={values.type ?? defaultType ?? ''}
+          aria-required
           aria-invalid={!!errors.type}
           aria-describedby={describedBy('type')}
           className={cn(field, 'cursor-pointer bg-background text-foreground')}
@@ -131,6 +153,7 @@ export function ContactForm({ defaultType, onDone }: { defaultType?: string; onD
           autoComplete="off"
           defaultValue={values.message}
           placeholder="What are you building, and when do you need it?…"
+          aria-required
           aria-invalid={!!errors.message}
           aria-describedby={describedBy('message')}
           className={cn(field, 'resize-y')}
@@ -150,7 +173,7 @@ export function ContactForm({ defaultType, onDone }: { defaultType?: string; onD
       </p>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <Button type="submit" size="lg" disabled={pending} className="sm:min-w-[180px]">
+        <Button type="submit" size="lg" aria-disabled={pending} className="sm:min-w-[180px]">
           {pending ? (
             <>
               <Loader2 className="size-4 animate-spin" aria-hidden /> Sending…

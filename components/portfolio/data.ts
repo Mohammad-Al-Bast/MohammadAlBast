@@ -37,6 +37,7 @@ export const socialLinks = [
 export const contact = {
 	title: "Tell me about your project",
 	intro: "A few lines are enough. I reply within one working day.",
+	requiredNote: "All fields are required.",
 	projectTypes: [
 		"Webflow site",
 		"Web application",
