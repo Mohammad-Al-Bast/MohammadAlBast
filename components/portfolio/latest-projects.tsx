@@ -10,7 +10,7 @@ export async function LatestProjects() {
   const [lead, ...rest] = projects
 
   return (
-    <section id="portfolio" className="section-y">
+    <section id="portfolio" tabIndex={-1} className="section-y outline-none">
       <div className="container-page">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <CodeHeading>Latest Projects</CodeHeading>

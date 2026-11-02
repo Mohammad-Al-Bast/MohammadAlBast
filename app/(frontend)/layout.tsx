@@ -4,6 +4,7 @@ import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google'
 
 import { ContactProvider } from '@/components/portfolio/contact-dialog'
 import { CTA } from '@/components/portfolio/cta'
+import { RouteFocus } from '@/components/portfolio/route-focus'
 import { SiteFooter } from '@/components/portfolio/site-footer'
 import { SiteNav } from '@/components/portfolio/site-nav'
 import './globals.css'
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         >
           Skip to content
         </a>
+        <RouteFocus />
         <ContactProvider>
           <SiteNav />
           <main id="main" tabIndex={-1} className="outline-none">

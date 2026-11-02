@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Menu } from 'lucide-react'
 
 import { Logo } from '@/components/logo'
@@ -46,6 +46,8 @@ function useActiveHref() {
 
 export function SiteNav() {
   const active = useActiveHref()
+  // the section a menu link is heading to; closing the menu would otherwise send focus back to its trigger
+  const menuTarget = useRef<string | null>(null)
 
   return (
     <header className="sticky top-0 z-50 bg-background/85 backdrop-blur-md">
@@ -81,7 +83,15 @@ export function SiteNav() {
           >
             <Menu className="size-6" />
           </SheetTrigger>
-          <SheetContent side="right" className="w-full max-w-none border-border bg-background p-4">
+          <SheetContent
+            side="right"
+            className="w-full max-w-none border-border bg-background p-4"
+            finalFocus={() => {
+              const id = menuTarget.current
+              menuTarget.current = null
+              return (id && document.getElementById(id)) || true
+            }}
+          >
             <SheetHeader className="p-0 pt-1">
               <SheetTitle className="sr-only">Menu</SheetTitle>
               <Logo className="h-8 w-auto self-start" />
@@ -94,6 +104,9 @@ export function SiteNav() {
                       <Link
                         href={link.href}
                         aria-current={active === link.href ? 'true' : undefined}
+                        onClick={() => {
+                          menuTarget.current = link.href.split('#')[1]
+                        }}
                         className={cn(
                           'block py-5 font-mono text-lg',
                           active === link.href ? 'text-primary' : 'text-foreground',

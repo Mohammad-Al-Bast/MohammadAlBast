@@ -11,7 +11,7 @@ import { SpotlightPortrait } from './spotlight-portrait'
 
 export function About() {
   return (
-    <section id="about" className="section-y">
+    <section id="about" tabIndex={-1} className="section-y outline-none">
       <div className="container-page">
         <CodeHeading className="mx-auto max-w-[900px] text-center text-heading" close="/>">
           {about.title}

@@ -34,7 +34,7 @@ function SheetContent({
         data-slot="sheet-content"
         data-side={side}
         className={cn(
-          'fixed z-50 flex flex-col gap-4 bg-background shadow-lg outline-none transition-transform duration-300 ease-out',
+          'fixed z-50 flex flex-col gap-4 bg-background shadow-lg outline-none transition-transform duration-300 ease-out motion-reduce:transition-none',
           side === 'right' &&
             'inset-y-0 right-0 h-full w-3/4 max-w-sm border-l data-[ending-style]:translate-x-full data-[starting-style]:translate-x-full',
           side === 'left' &&

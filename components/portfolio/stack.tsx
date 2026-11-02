@@ -5,7 +5,7 @@ import { stack } from './data'
 
 export function Stack() {
   return (
-    <section id="expertise" className="section-y relative isolate overflow-hidden">
+    <section id="expertise" tabIndex={-1} className="section-y relative isolate overflow-hidden outline-none">
       {/* soft radial lift behind the heading, as in the Figma */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_55%_at_50%_45%,#262626_0%,transparent_100%)]" />
 

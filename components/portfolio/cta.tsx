@@ -6,7 +6,7 @@ import { contact, cta, site } from './data'
 
 export function CTA() {
   return (
-    <section id="contact" className="bg-raised pt-10 pb-10">
+    <section id="contact" tabIndex={-1} className="bg-raised pt-10 pb-10 outline-none">
       <div className="container-page">
         <div className="focus-dark grid gap-8 rounded-lg bg-primary p-6 text-primary-foreground md:grid-cols-[1fr_minmax(0,500px)] md:items-center md:p-8 lg:min-h-[236px]">
           <h2 className="max-w-[560px] text-[40px] leading-[1.15] text-balance text-primary-foreground md:text-[64px]">

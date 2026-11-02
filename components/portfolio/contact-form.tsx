@@ -171,6 +171,9 @@ export function ContactForm({ defaultType, onDone }: { defaultType?: string; onD
       <p aria-live="polite" className={cn(errorText, 'min-h-4')}>
         {state.status === 'error' && !state.fieldErrors ? state.message : ''}
       </p>
+      <p role="status" className="sr-only">
+        {pending ? 'Sending…' : ''}
+      </p>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Button type="submit" size="lg" aria-disabled={pending} className="sm:min-w-[180px]">

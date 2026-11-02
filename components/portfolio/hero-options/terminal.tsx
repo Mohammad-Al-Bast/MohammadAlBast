@@ -260,6 +260,7 @@ export function Terminal({ projects }: { projects: TerminalProject[] }) {
         >
           <label htmlFor="terminal-input" className="shrink-0 text-primary">
             {PROMPT}
+            <span className="sr-only"> Terminal command</span>
           </label>
           <input
             id="terminal-input"
@@ -273,7 +274,6 @@ export function Terminal({ projects }: { projects: TerminalProject[] }) {
             autoComplete="off"
             autoCapitalize="off"
             spellCheck={false}
-            aria-label="Terminal command"
             className="min-w-0 flex-1 bg-transparent text-foreground caret-primary outline-none"
           />
         </form>

@@ -16,7 +16,7 @@ import { ServiceVisual } from './service-visuals'
 
 export function Services() {
   return (
-    <section id="services" className="section-y overflow-hidden bg-raised">
+    <section id="services" tabIndex={-1} className="section-y overflow-hidden bg-raised outline-none">
       <div className="container-page">
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <CodeHeading>{services.title}</CodeHeading>
