@@ -50,8 +50,9 @@ Without the R2 variables, uploads are stored in `./media` (local development onl
   pnpm migrate:create <name>        # write a migration for production
   ```
   Locally, Payload syncs the schema to your dev database automatically.
-- On Vercel, `pnpm vercel-build` runs `payload migrate` before `next build`, so production
-  tables are created/updated on every deploy.
+- On Vercel, `pnpm vercel-build` runs `payload migrate` before `next build` on production deploys only.
+  It applies migrations the database hasn't recorded yet, so a deploy with no new migration changes nothing.
+  Preview deploys never migrate, so a branch with a new migration can't change the database before it merges.
 
 ## Where things live
 

@@ -6,7 +6,7 @@
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "vercel-build": "cross-env NODE_OPTIONS=--no-deprecation payload migrate && pnpm build",
+    "vercel-build": "if [ \"$VERCEL_ENV\" = \"production\" ]; then pnpm migrate; fi && pnpm build",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
