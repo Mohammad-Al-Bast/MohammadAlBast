@@ -63,7 +63,7 @@ export const legalLinks = [{ label: "Privacy Policy", href: "/privacy-policy" }]
 
 export const privacyPolicy = {
 	title: "Privacy Policy",
-	effectiveDate: "2026-11-01",
+	effectiveDate: "2026-11-02",
 	intro: "This policy explains what happens to your information when you visit this portfolio website, which is run by Mohammad Al Bast. The site has no public accounts or newsletter, so it collects very little.",
 	sections: [
 		{
@@ -78,6 +78,7 @@ export const privacyPolicy = {
 			title: "Analytics",
 			body: [
 				"This site uses Vercel Web Analytics to understand how it is used, such as which pages are visited, the referring site, your browser, operating system and device type, and your approximate location at country level. It does not use cookies and reports this information in aggregate rather than identifying you personally.",
+				"This site also uses Vercel Speed Insights to measure how quickly its pages load. Each measurement records the page address, loading performance figures, the page element they relate to, your network speed, browser, operating system and device type, your country, and the time it was received. These measurements are anonymous: they are not tied to you or your IP address and cannot be used to follow your visit across pages.",
 			],
 		},
 		{
