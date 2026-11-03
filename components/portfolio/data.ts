@@ -33,17 +33,17 @@ export const seo = {
 	// Home page <title>. Other pages use "<page> — Mohammad Al Bast".
 	title: "Mohammad Al Bast — Webflow Developer & Full-Stack Engineer",
 	description:
-		"Freelance Webflow developer and full-stack engineer in Lebanon, building Webflow sites and Next.js, React and NestJS apps for clients in the Gulf and worldwide.",
+		"Freelance Webflow developer and full-stack engineer in Lebanon: Webflow sites and Next.js, Node.js, NestJS and PostgreSQL apps for clients in the Gulf and worldwide.",
 	// Where you take work; used in structured data so search engines can match regional searches.
 	areaServed: ["Lebanon", "United Arab Emirates", "Saudi Arabia", "Qatar", "Kuwait", "Worldwide (remote)"],
 	projectsTitle: "Projects",
 	projectsDescription:
-		"Webflow builds, Next.js and React apps, NestJS APIs and Laravel projects by Mohammad Al Bast, with the challenges, solutions and stack behind each one.",
+		"Webflow builds, Next.js and React apps and Node.js / NestJS APIs on PostgreSQL by Mohammad Al Bast, with the challenges, solutions and stack behind each one.",
 	// Text on the generated share image (1200×630) used when a page is posted on LinkedIn, X, Slack or WhatsApp.
 	shareImage: {
 		eyebrow: "FULL-STACK DEVELOPER & WEBFLOW EXPERT",
 		headline: "Webflow sites your team can run. Web apps that hold up.",
-		footer: "TypeScript · React · Next.js · NestJS · Webflow",
+		footer: "TypeScript · Next.js · Node.js · NestJS · PostgreSQL · Webflow",
 	},
 };
 
@@ -146,7 +146,7 @@ export const hero = {
 	titleStart: "Webflow sites ",
 	titleHighlight: "your team can run.",
 	titleEnd: " Web apps that hold up.",
-	intro: "Freelance Webflow developer and full-stack engineer based in Lebanon, building for businesses and agencies across the Gulf, Europe and beyond. I work in TypeScript, React, Next.js and NestJS.",
+	intro: "Freelance Webflow developer and full-stack engineer based in Lebanon, building for businesses and agencies across the Gulf, Europe and beyond. I work in TypeScript, React, Next.js, Node.js, NestJS and PostgreSQL.",
 	primaryCta: { label: "View My Work", href: "/projects" },
 	secondaryCta: { label: "Contact Me", href: "#contact" },
 	// Shown by the terminal `status` command.
@@ -168,11 +168,11 @@ export const techLogos = [
 	{ src: "/logos/typescript.svg", name: "TypeScript" },
 	{ src: "/logos/react.svg", name: "React" },
 	{ src: "/logos/nextjs.svg", name: "Next.js" },
-	{ src: "/logos/nestjs.svg", name: "NestJS" },
-	{ src: "/logos/laravel.svg", name: "Laravel" },
 	{ src: "/logos/nodejs.svg", name: "Node.js" },
+	{ src: "/logos/nestjs.svg", name: "NestJS" },
 	{ src: "/logos/postgresql.svg", name: "PostgreSQL" },
 	{ src: "/logos/webflow.svg", name: "Webflow" },
+	{ src: "/logos/laravel.svg", name: "Laravel" },
 ];
 
 export const stack = {
@@ -197,15 +197,16 @@ export const stack = {
 		{
 			title: "Backend & Databases",
 			description:
-				"Typed REST APIs with authentication, role-based access and well-modelled data behind them.",
+				"Node.js APIs in NestJS and Express, with authentication, role-based access and well-modelled PostgreSQL data behind them.",
+			// Ordered by emphasis: Node.js stack and SQL first, PHP last.
 			tags: [
-				"TypeScript (Node.js)",
-				"NestJS & Express",
-				"Laravel 12 & PHP",
-				"PostgreSQL, MySQL & MongoDB",
-				"Prisma ORM",
+				"Node.js & TypeScript",
+				"NestJS & Express.js",
+				"PostgreSQL & advanced SQL",
+				"Prisma ORM, MySQL & MongoDB",
+				"REST APIs & Swagger / OpenAPI",
 				"JWT, MFA & RBAC",
-				"Swagger / OpenAPI",
+				"Laravel & PHP",
 			],
 		},
 		{
@@ -251,7 +252,7 @@ export const services = {
 			highlight: "Web Application",
 			titleAfter: " Development",
 			description:
-				"As a Next.js and NestJS developer, I build full-stack TypeScript apps with React or Next.js on the front and NestJS or Laravel behind them: authentication, role-based access, PostgreSQL and clean APIs, from schema to deployment.",
+				"As a Node.js and NestJS developer, I build full-stack TypeScript apps: React or Next.js on the front, NestJS or Express APIs behind them and PostgreSQL underneath, with authentication, role-based access and clean SQL, from schema to deployment.",
 			builds: ["Learning platforms and admin suites", "Dashboards with server-driven tables", "Bilingual EN and AR interfaces"],
 			cta: "Build a Web App",
 			visual: "code" as const,
@@ -426,7 +427,7 @@ export const latestProjects = {
 export const projectsPage = {
 	// PLACEHOLDER — Figma says "<Heading Here>"
 	title: "All Projects",
-	intro: "A selection of Webflow builds, TypeScript applications and Laravel projects I have shipped.",
+	intro: "A selection of Webflow builds, Next.js apps and Node.js / NestJS back ends I have shipped, plus some Laravel work.",
 };
 
 export const about = {
@@ -434,7 +435,7 @@ export const about = {
 	name: "Mohammad Al Bast:",
 	paragraphs: [
 		"\u201CI started freelancing in 2021 building Webflow sites, and kept going deeper until I was shipping full-stack applications.",
-		"Today I build Webflow sites for marketing teams and TypeScript web apps with React, Next.js, NestJS and Laravel. I care about clean structure, honest timelines and code the next person can maintain.\u201D",
+		"Today I build Webflow sites for marketing teams and TypeScript web apps with React, Next.js, Node.js and NestJS on PostgreSQL, and Laravel when a project needs it. I care about clean structure, honest timelines and code the next person can maintain.\u201D",
 	],
 	stats: [
 		{ value: "5+", label: "Years building for the web" },
@@ -460,7 +461,7 @@ export const about = {
 		},
 		{
 			label: "Backend",
-			value: "NestJS, Laravel, Node.js / Express, PostgreSQL, MySQL, Prisma",
+			value: "Node.js, NestJS, Express.js, PostgreSQL & SQL, Prisma, MySQL, Laravel",
 		},
 		{
 			label: "Webflow",
