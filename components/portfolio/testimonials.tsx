@@ -11,7 +11,32 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { testimonials } from './data'
 
+type Testimonial = (typeof testimonials.items)[number]
+
+function TestimonialCard({ t }: { t: Testimonial }) {
+  return (
+    <figure className="flex h-full flex-col gap-4 rounded-lg bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] p-6 sm:flex-row md:gap-6 md:p-8">
+      <Avatar className="size-16 shrink-0 md:size-24">
+        {t.image ? <AvatarImage src={t.image} alt="" className="grayscale" /> : null}
+        <AvatarFallback className="text-xl">{t.name.charAt(0)}</AvatarFallback>
+      </Avatar>
+      <div className="min-w-0">
+        <figcaption>
+          <h3 className="text-xl text-heading md:text-2xl">{t.name}</h3>
+          <p className="mt-1 font-mono text-sm leading-relaxed text-foreground/50">{t.role}</p>
+        </figcaption>
+        <blockquote className="mt-5 font-mono text-sm leading-relaxed text-foreground/90 md:text-base">
+          <p>&ldquo;{t.quote}&rdquo;</p>
+        </blockquote>
+      </div>
+    </figure>
+  )
+}
+
 export function Testimonials() {
+  const items = testimonials.items
+  if (items.length === 0) return null
+
   return (
     <section className="section-y overflow-hidden bg-raised">
       <div className="container-page">
@@ -22,42 +47,37 @@ export function Testimonials() {
           </p>
         </div>
 
-        <Carousel
-          label={testimonials.title}
-          opts={{ align: 'center', loop: true, startIndex: 1 }}
-          className="mt-10 md:mt-12"
-        >
-          {/* edge fade like the Figma: outer cards dissolve into the section */}
-          <div className="[mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
-            <CarouselContent className="-ml-2">
-              {testimonials.items.map((t) => (
-                <CarouselItem key={t.name} className="basis-[88%] pl-2 sm:basis-[60%] lg:basis-[38%]">
-                  <article className="flex h-full flex-col gap-4 rounded-lg sm:flex-row bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] p-6 md:gap-6 md:p-8">
-                    <Avatar className="size-16 md:size-24">
-                      {t.image ? <AvatarImage src={t.image} alt="" className="grayscale" /> : null}
-                      <AvatarFallback className="text-xl">{t.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                    <div className="min-w-0">
-                      <h3 className="text-xl text-heading md:text-2xl">{t.name}</h3>
-                      <p className="mt-1 font-mono text-sm text-foreground/50">{t.handle}</p>
-                      <p className="mt-5 font-mono text-sm leading-relaxed text-foreground/90 md:text-base">
-                        &ldquo;{t.quote}&rdquo;
-                      </p>
-                    </div>
-                  </article>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
+        {items.length === 1 ? (
+          // A single quote: one centred card, no slider controls.
+          <div className="mx-auto mt-10 max-w-[880px] md:mt-12">
+            <TestimonialCard t={items[0]} />
           </div>
-
-          <div className="mt-8 flex items-center justify-between md:mt-12">
-            <CarouselDots />
-            <div className="flex gap-2">
-              <CarouselPrevious />
-              <CarouselNext />
+        ) : (
+          <Carousel
+            label={testimonials.title}
+            opts={{ align: 'center', loop: items.length > 2, startIndex: items.length > 2 ? 1 : 0 }}
+            className="mt-10 md:mt-12"
+          >
+            {/* edge fade like the Figma: outer cards dissolve into the section */}
+            <div className="[mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
+              <CarouselContent className="-ml-2">
+                {items.map((t) => (
+                  <CarouselItem key={t.name} className="basis-[88%] pl-2 sm:basis-[60%] lg:basis-[38%]">
+                    <TestimonialCard t={t} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
             </div>
-          </div>
-        </Carousel>
+
+            <div className="mt-8 flex items-center justify-between md:mt-12">
+              <CarouselDots />
+              <div className="flex gap-2">
+                <CarouselPrevious />
+                <CarouselNext />
+              </div>
+            </div>
+          </Carousel>
+        )}
       </div>
     </section>
   )

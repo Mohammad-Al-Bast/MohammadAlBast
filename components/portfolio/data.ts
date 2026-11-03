@@ -485,27 +485,18 @@ export const about = {
  * and flip it to true.
  */
 // Keep this false until the three items below are replaced with real, permitted quotes.
+// Real testimonials only. One shows as a single card; two or more become a slider.
+// `role` is the person's title without a company name (see the rule above about employers and clients).
+// `image` is an optional photo in /public (e.g. "/images/testimonials/name.jpg"); empty shows their initial.
 export const testimonials = {
-	enabled: false,
+	enabled: true,
 	title: "Testimonials",
 	intro: "What clients and colleagues say about working together.",
 	items: [
 		{
-			name: "Front-End Team Lead",
-			handle: "@teamlead",
-			quote: "He quickly understands complex requirements and consistently turns our designs into clean, responsive Webflow sites and React apps. His attention to detail is excellent.",
-			image: "",
-		},
-		{
-			name: "Name, Backend Developer",
-			handle: "@instagramaccount",
-			quote: "He was instrumental in optimizing our SQL queries and improving our front-end performance scores. Mohammad provided clear, strategic advice on when to use Webflow and when to opt for custom code.",
-			image: "",
-		},
-		{
-			name: "Name, Designer",
-			handle: "@instagramaccount",
-			quote: "He was the rare developer who respects the design. Pixel-perfect implementation and a real partner throughout the whole build.",
+			name: "Hussein Badran",
+			role: "Digital Strategy & Organic Growth Leader · SEO, AEO, Search & Experience Design",
+			quote: "It’s been a pleasure working with Mohammad across multiple web development projects. He’s highly responsive, reliable, and always willing to go the extra mile to deliver quality work. What stands out most is his ability to leverage AI tools and modern technologies to streamline development, solve problems efficiently, and deliver creative solutions.",
 			image: "",
 		},
 	],
