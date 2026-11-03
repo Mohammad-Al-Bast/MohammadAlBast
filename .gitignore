@@ -27,3 +27,5 @@ yarn.lock
 
 # Local screenshots used by the seed script
 /project-screenshots
+.vercel
+.env*
