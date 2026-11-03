@@ -35,6 +35,9 @@ export default buildConfig({
     // Cloudflare R2 (S3-compatible). Without R2 env vars, uploads fall back to the local ./media folder (dev only).
     s3Storage({
       enabled: Boolean(process.env.R2_BUCKET),
+      // Keep the plugin's media columns (prefix, _objectkey) in the schema even when R2 is off locally,
+      // so dev-mode schema push doesn't try to drop them.
+      alwaysInsertFields: true,
       collections: {
         media: r2PublicUrl
           ? {
