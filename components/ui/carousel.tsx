@@ -218,9 +218,16 @@ function CarouselNext({ className, ...props }: React.ComponentProps<'button'>) {
   )
 }
 
-/** Pill-style progress dots used throughout the Figma (active = long white bar). The button is the 24px hit area. */
-function CarouselDots({ className }: { className?: string }) {
-  const { label, selectedIndex, snapCount, scrollTo } = useCarousel()
+/**
+ * Pill-style progress dots used throughout the Figma (active = long white bar). The button is the 24px hit area.
+ * Pass `count` when the slides are a repeated list (so a short list can loop): one dot per real item.
+ */
+function CarouselDots({ className, count }: { className?: string; count?: number }) {
+  const { label, selectedIndex: snap, snapCount: snaps, scrollTo: scrollToSnap } = useCarousel()
+  const snapCount = count ?? snaps
+  const selectedIndex = snap % snapCount
+  // jump within the current cycle of the repeated list, so the move is never longer than one cycle
+  const scrollTo = (i: number) => scrollToSnap(snap - selectedIndex + i)
   return (
     <div
       role="group"

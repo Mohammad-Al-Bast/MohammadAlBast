@@ -33,9 +33,15 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   )
 }
 
+// Embla can only loop when there are slides left over beyond the view, so a short list is repeated
+// (2 testimonials at 2 per screen would otherwise just sit still).
+const MIN_LOOP_SLIDES = 6
+
 export function Testimonials() {
   const items = testimonials.items
   if (items.length === 0) return null
+  const copies = Math.max(1, Math.ceil(MIN_LOOP_SLIDES / items.length))
+  const slides = Array.from({ length: copies }, (_, c) => items.map((t) => ({ t, copy: c }))).flat()
 
   return (
     <section className="section-y overflow-hidden bg-raised">
@@ -55,14 +61,20 @@ export function Testimonials() {
         ) : (
           <Carousel
             label={testimonials.title}
-            opts={{ align: 'center', loop: items.length > 2, startIndex: items.length > 2 ? 1 : 0 }}
+            // infinite loop; one centred card with peeking neighbours on small screens, two full cards on desktop
+            opts={{ align: 'center', loop: true, breakpoints: { '(min-width: 1024px)': { align: 'start' } } }}
             className="mt-10 md:mt-12"
           >
-            {/* edge fade like the Figma: outer cards dissolve into the section */}
-            <div className="[mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]">
-              <CarouselContent className="-ml-2">
-                {items.map((t) => (
-                  <CarouselItem key={t.name} className="basis-[88%] pl-2 sm:basis-[60%] lg:basis-[38%]">
+            {/* edge fade on small screens, where the neighbouring cards peek in; desktop shows two whole cards */}
+            <div className="[mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] lg:[mask-image:none]">
+              <CarouselContent className="-ml-2 lg:-ml-4">
+                {slides.map(({ t, copy }) => (
+                  // repeats exist only to make the loop work; hide them from screen readers
+                  <CarouselItem
+                    key={`${copy}-${t.name}`}
+                    aria-hidden={copy > 0 || undefined}
+                    className="basis-[88%] pl-2 sm:basis-[60%] lg:basis-1/2 lg:pl-4"
+                  >
                     <TestimonialCard t={t} />
                   </CarouselItem>
                 ))}
@@ -70,7 +82,7 @@ export function Testimonials() {
             </div>
 
             <div className="mt-8 flex items-center justify-between md:mt-12">
-              <CarouselDots />
+              <CarouselDots count={items.length} />
               <div className="flex gap-2">
                 <CarouselPrevious />
                 <CarouselNext />
