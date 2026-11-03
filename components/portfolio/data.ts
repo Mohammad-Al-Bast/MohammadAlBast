@@ -419,6 +419,14 @@ export const projects: Project[] = [
 	},
 ];
 
+// 404 page, shown for any address that doesn't exist (including mistyped project links).
+export const notFoundPage = {
+	title: "Page Not Found",
+	body: "This page doesn’t exist or has moved. Check the address, or head back to the home page or the projects.",
+	primary: { label: "Back to Home", href: "/" },
+	secondary: { label: "View All Projects", href: "/projects" },
+};
+
 export const latestProjects = {
 	title: "Webflow & Web App Projects",
 	cta: "View All Projects",

@@ -22,10 +22,25 @@ const nextConfig: NextConfig = {
     // Uploads keep their file name for life (Payload adds a suffix on clashes), so optimized copies can be cached long.
     minimumCacheTTL: 60 * 60 * 24 * 30,
   },
-  // Keep the CMS admin and API out of search results (robots.txt only stops crawling, not indexing of linked URLs).
+  // Unknown URLs get app/global-not-found.tsx (needed because the site and Payload admin are separate root layouts).
+  experimental: {
+    globalNotFound: true,
+  },
   async headers() {
+    // Baseline hardening on every response. No full Content-Security-Policy yet: Payload admin and Vercel
+    // Analytics need inline scripts, so a CSP would need nonces and its own testing pass.
+    const security = [
+      { key: 'X-Content-Type-Options', value: 'nosniff' },
+      { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+      { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), browsing-topics=()' },
+      // Only this site may embed its pages in a frame (blocks clickjacking; Payload's same-origin previews still work).
+      { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+      { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
+    ]
+    // Keep the CMS admin and API out of search results (robots.txt only stops crawling, not indexing of linked URLs).
     const noindex = [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }]
     return [
+      { source: '/:path*', headers: security },
       { source: '/admin/:path*', headers: noindex },
       { source: '/api/:path*', headers: noindex },
     ]

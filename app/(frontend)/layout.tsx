@@ -1,26 +1,15 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google'
 
 import { ContactProvider } from '@/components/portfolio/contact-dialog'
 import { seo, site } from '@/components/portfolio/data'
+import { fontVariables } from '@/lib/fonts'
 import { siteUrl } from '@/lib/seo'
 import { CTA } from '@/components/portfolio/cta'
 import { RouteFocus } from '@/components/portfolio/route-focus'
 import { SiteFooter } from '@/components/portfolio/site-footer'
 import { SiteNav } from '@/components/portfolio/site-nav'
 import './globals.css'
-
-const ibmPlexSans = IBM_Plex_Sans({
-  variable: '--font-ibm-plex-sans',
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-})
-const ibmPlexMono = IBM_Plex_Mono({
-  variable: '--font-ibm-plex-mono',
-  subsets: ['latin'],
-  weight: ['400', '600'],
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -46,7 +35,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`dark ${ibmPlexSans.variable} ${ibmPlexMono.variable} bg-background`}>
+    <html lang="en" className={`dark ${fontVariables} bg-background`}>
       <body className="overflow-x-clip">
         <a
           href="#main"
