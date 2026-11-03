@@ -1,9 +1,13 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { ArrowDown } from 'lucide-react'
 
+import { buttonVariants } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { projectCategories, type Project } from './data'
+import { cn } from '@/lib/utils'
+import { projectCategories, projectsPage, type Project } from './data'
 import { ProjectRow } from './project-row'
 
 const ALL = 'all'
@@ -28,6 +32,67 @@ function useCategoryParam() {
   }
 
   return [value, setValue] as const
+}
+
+/**
+ * One tab's list, revealed `pageSize` at a time. The tab panel unmounts when hidden, so switching
+ * tabs starts the new list at the first page again. No ?page= URLs: every project is in the sitemap.
+ */
+function ProjectList({ projects }: { projects: Project[] }) {
+  const { pageSize, showMore } = projectsPage
+  const [visible, setVisible] = useState(pageSize)
+  // index of the first row revealed by the last click; focus moves there so keyboard users keep their place
+  const [focusIndex, setFocusIndex] = useState<number | null>(null)
+  const focusRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (focusIndex !== null) focusRef.current?.focus()
+  }, [focusIndex])
+
+  if (!projects.length) {
+    return <p className="font-mono text-sm text-muted-foreground">No projects in this category yet.</p>
+  }
+
+  const shown = projects.slice(0, visible)
+  const remaining = projects.length - shown.length
+
+  return (
+    <>
+      {shown.map((p, i) => (
+        <div
+          key={p.slug}
+          ref={i === focusIndex ? focusRef : undefined}
+          tabIndex={i === focusIndex ? -1 : undefined}
+          className="scroll-mt-24 outline-none"
+        >
+          <ProjectRow project={p} priority={i === 0} headingAs="h2" />
+        </div>
+      ))}
+
+      {projects.length > pageSize && (
+        <div className="mt-2 flex flex-col items-center gap-4">
+          <p aria-live="polite" className="font-mono text-sm text-muted-foreground">
+            Showing {shown.length} of {projects.length}
+          </p>
+          {remaining > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                setFocusIndex(visible)
+                setVisible((v) => v + pageSize)
+              }}
+              className={cn(buttonVariants({ variant: 'outline', size: 'default' }), 'gap-4 pr-1 pl-5')}
+            >
+              <span>{showMore}</span>
+              <span className="flex size-8 items-center justify-center rounded-full bg-primary text-primary-foreground transition-transform group-hover/button:translate-y-0.5">
+                <ArrowDown className="size-4" aria-hidden />
+              </span>
+            </button>
+          )}
+        </div>
+      )}
+    </>
+  )
 }
 
 function ProjectTabs({
@@ -55,11 +120,7 @@ function ProjectTabs({
         const list = t.value === ALL ? projects : projects.filter((p) => p.category === t.value)
         return (
           <TabsContent key={t.value} value={t.value} className="flex flex-col gap-8">
-            {list.length ? (
-              list.map((p, i) => <ProjectRow key={p.slug} project={p} priority={i === 0} headingAs="h2" />)
-            ) : (
-              <p className="font-mono text-sm text-muted-foreground">No projects in this category yet.</p>
-            )}
+            <ProjectList projects={list} />
           </TabsContent>
         )
       })}

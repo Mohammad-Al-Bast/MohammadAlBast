@@ -436,6 +436,9 @@ export const projectsPage = {
 	// PLACEHOLDER — Figma says "<Heading Here>"
 	title: "All Projects",
 	intro: "A selection of Webflow builds, Next.js apps and Node.js / NestJS back ends I have shipped, plus some Laravel work.",
+	// Projects shown per tab before the "show more" button; each click reveals this many more.
+	pageSize: 6,
+	showMore: "SHOW MORE",
 };
 
 export const about = {
