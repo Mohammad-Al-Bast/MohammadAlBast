@@ -24,6 +24,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   ])
 
   const name = project?.name ?? 'Project'
+  const words = name.split(/\s+/)
   const tags = (project?.tags ?? []).slice(0, 4)
 
   return new ImageResponse(
@@ -51,10 +52,25 @@ export default async function Image({ params }: { params: Promise<{ slug: string
 
         <div style={{ display: 'flex', flex: 1, gap: 44 }}>
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 24, flex: 1 }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', fontSize: name.length > 28 ? 50 : 60, lineHeight: 1.1, fontWeight: 600, letterSpacing: -1 }}>
-              <span style={{ color: c.primary }}>{'<'}</span>
-              <span style={{ color: c.heading }}>{name}</span>
-              <span style={{ color: c.primary }}>{' />'}</span>
+            {/* One flex item per word, with the brackets glued to the first and last word so they never wrap alone. */}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                columnGap: '0.25em',
+                fontSize: name.length > 28 ? 50 : 60,
+                lineHeight: 1.1,
+                fontWeight: 600,
+                letterSpacing: -1,
+              }}
+            >
+              {words.map((word, i) => (
+                <div key={i} style={{ display: 'flex' }}>
+                  {i === 0 && <span style={{ color: c.primary }}>{'<'}</span>}
+                  <span style={{ color: c.heading }}>{word}</span>
+                  {i === words.length - 1 && <span style={{ color: c.primary, marginLeft: '0.2em' }}>{'/>'}</span>}
+                </div>
+              ))}
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
               {tags.map((t) => (
@@ -78,7 +94,9 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             <div
               style={{
                 display: 'flex',
+                alignSelf: 'center',
                 width: 560,
+                height: 420,
                 borderRadius: 16,
                 overflow: 'hidden',
                 border: `2px solid ${c.border}`,
