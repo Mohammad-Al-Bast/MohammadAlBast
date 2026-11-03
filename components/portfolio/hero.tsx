@@ -37,8 +37,9 @@ export function HeroIntro() {
           <Image
             src={site.portrait}
             alt=""
-            width={192}
-            height={192}
+            width={112}
+            height={112}
+            sizes="70px"
             className="size-full scale-125 object-cover object-[50%_4%]"
           />
         </span>

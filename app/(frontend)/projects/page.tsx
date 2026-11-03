@@ -2,7 +2,7 @@ import { Suspense } from 'react'
 
 import { CodeHeading } from '@/components/code-heading'
 import { JsonLd } from '@/components/json-ld'
-import { ProjectsBrowser } from '@/components/portfolio/projects-browser'
+import { ProjectsBrowser, ProjectsBrowserFallback } from '@/components/portfolio/projects-browser'
 import { projectsPage, seo } from '@/components/portfolio/data'
 import { getProjects } from '@/lib/projects'
 import { pageMetadata } from '@/lib/seo'
@@ -26,7 +26,7 @@ export default async function ProjectsPage() {
             {projectsPage.intro}
           </p>
         </div>
-        <Suspense>
+        <Suspense fallback={<ProjectsBrowserFallback projects={projects} />}>
           <ProjectsBrowser projects={projects} />
         </Suspense>
       </div>

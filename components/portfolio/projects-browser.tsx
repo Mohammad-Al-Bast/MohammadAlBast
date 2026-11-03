@@ -30,12 +30,19 @@ function useCategoryParam() {
   return [value, setValue] as const
 }
 
-export function ProjectsBrowser({ projects }: { projects: Project[] }) {
-  const [value, setValue] = useCategoryParam()
+function ProjectTabs({
+  projects,
+  value,
+  onValueChange,
+}: {
+  projects: Project[]
+  value: string
+  onValueChange?: (value: string) => void
+}) {
   const tabs = [{ value: ALL, label: 'All' }, ...projectCategories.map((c) => ({ value: c as string, label: c as string }))]
 
   return (
-    <Tabs value={value} onValueChange={(v) => setValue(String(v))} className="mt-10 gap-8 md:mt-12">
+    <Tabs value={value} onValueChange={(v) => onValueChange?.(String(v))} className="mt-10 gap-8 md:mt-12">
       <TabsList aria-label="Project categories" className="rounded-xl bg-card p-1.5">
         {tabs.map((t) => (
           <TabsTrigger key={t.value} value={t.value} className="h-9 rounded-lg px-4 data-[active]:bg-[#1f1f1f]">
@@ -58,4 +65,17 @@ export function ProjectsBrowser({ projects }: { projects: Project[] }) {
       })}
     </Tabs>
   )
+}
+
+export function ProjectsBrowser({ projects }: { projects: Project[] }) {
+  const [value, setValue] = useCategoryParam()
+  return <ProjectTabs projects={projects} value={value} onValueChange={setValue} />
+}
+
+/**
+ * Server-rendered "All" view, used as the Suspense fallback. Reading the URL makes Next skip the browser
+ * during prerendering, so without this the static HTML (what crawlers and no-JS visitors get) had no projects.
+ */
+export function ProjectsBrowserFallback({ projects }: { projects: Project[] }) {
+  return <ProjectTabs projects={projects} value={ALL} />
 }

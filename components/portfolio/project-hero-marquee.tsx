@@ -32,7 +32,15 @@ function MarqueeColumn({ images, column, direction }: { images: string[]; column
               key={`${copy}-${src}-${i}`}
               className={cn('relative overflow-hidden rounded-lg', (i + column) % 2 ? 'aspect-[4/5]' : 'aspect-[5/4]')}
             >
-              <Image src={src} alt="" fill loading="eager" sizes="25vw" className="object-cover grayscale" />
+              {/* Only the first copy is on screen at load; the looping copy can wait. Columns are half the frame width. */}
+              <Image
+                src={src}
+                alt=""
+                fill
+                loading={copy === 'first' ? 'eager' : 'lazy'}
+                sizes="(min-width: 1024px) 25vw, 50vw"
+                className="object-cover grayscale"
+              />
             </div>
           ))}
         </div>
