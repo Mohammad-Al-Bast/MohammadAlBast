@@ -502,9 +502,15 @@ export const testimonials = {
 	intro: "What clients and colleagues say about working together.",
 	items: [
 		{
-			name: "Hussein Badran",
+			name: "Hussein B.",
 			role: "Digital Strategy & Organic Growth Leader · SEO, AEO, Search & Experience Design",
 			quote: "It’s been a pleasure working with Mohammad across multiple web development projects. He’s highly responsive, reliable, and always willing to go the extra mile to deliver quality work. What stands out most is his ability to leverage AI tools and modern technologies to streamline development, solve problems efficiently, and deliver creative solutions.",
+			image: "",
+		},
+		{
+			name: "Ali J.",
+			role: "Owner",
+			quote: "Mohammad gave Reactive Store a website that finally looks as professional as the equipment we sell. Customers can browse our medical and rehabilitation products easily and order straight through WhatsApp, which fits how people here actually buy. He understood our business from day one.",
 			image: "",
 		},
 	],
