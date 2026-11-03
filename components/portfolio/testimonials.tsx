@@ -53,8 +53,8 @@ export function Testimonials() {
           <div className="mt-8 flex items-center justify-between md:mt-12">
             <CarouselDots />
             <div className="flex gap-2">
-              <CarouselPrevious className="size-12 bg-background md:size-16" />
-              <CarouselNext className="size-12 bg-background md:size-16" />
+              <CarouselPrevious />
+              <CarouselNext />
             </div>
           </div>
         </Carousel>

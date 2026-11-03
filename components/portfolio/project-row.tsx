@@ -49,8 +49,8 @@ export function ProjectRow({
         <div className="absolute inset-x-6 bottom-4 flex items-center justify-between">
           <CarouselDots className="rounded-full bg-background px-1.5" />
           <div className="flex gap-2">
-            <CarouselPrevious className="bg-background text-foreground hover:bg-card" />
-            <CarouselNext className="bg-background text-foreground hover:bg-card" />
+            <CarouselPrevious />
+            <CarouselNext />
           </div>
         </div>
       </Carousel>

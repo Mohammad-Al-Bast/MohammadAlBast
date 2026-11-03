@@ -178,9 +178,11 @@ function CarouselItem({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
+// The one arrow style for every slider (44px, page-dark circle, raised-grey hover). Override per use only when the
+// button sits on an image that needs more contrast (the project gallery).
 // aria-disabled rather than disabled: a disabled button drops keyboard focus on the last slide
 const navButton =
-  'flex size-11 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white backdrop-blur transition-colors hover:bg-black/80 aria-disabled:cursor-default aria-disabled:opacity-40'
+  'flex size-11 cursor-pointer items-center justify-center rounded-full bg-background text-foreground transition-colors hover:bg-card aria-disabled:cursor-default aria-disabled:opacity-40'
 
 function CarouselPrevious({ className, ...props }: React.ComponentProps<'button'>) {
   const { label, scrollPrev, canScrollPrev } = useCarousel()
