@@ -19,7 +19,7 @@ export default function PrivacyPolicyPage() {
   return (
     <section className="section-y pt-10 md:pt-16">
       <div className="container-page">
-        <div className="max-w-3xl">
+        <div>
           <CodeHeading as="h1">{privacyPolicy.title}</CodeHeading>
           <p className="mt-6 font-mono text-sm text-foreground/80">
             Effective <time dateTime={privacyPolicy.effectiveDate}>{effectiveDate}</time>
