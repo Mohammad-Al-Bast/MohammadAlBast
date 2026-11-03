@@ -17,6 +17,9 @@ export function HeroIntro() {
     <div className="flex flex-col justify-between gap-12 rounded-lg bg-card px-5 py-10 md:min-h-[560px] md:px-12 md:py-14 lg:min-h-[770px] lg:py-16">
       <div className="flex flex-col items-start gap-6">
         <h1 className="max-w-[640px] text-[40px] leading-[1.1] text-balance md:text-[56px] lg:text-[60px]">
+          <span className="mb-5 block font-mono text-xs leading-relaxed tracking-wide text-primary uppercase md:text-sm">
+            {hero.eyebrow}
+          </span>
           {hero.titleStart}
           <span className="text-[#d6ffcc]">{hero.titleHighlight}</span>
           <span className="block">{hero.titleEnd.trim()}</span>

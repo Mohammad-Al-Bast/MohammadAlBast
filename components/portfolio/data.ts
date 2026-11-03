@@ -31,9 +31,11 @@ export const site = {
 // Search and social-share copy. Keep titles under 60 characters and descriptions around 150–160.
 export const seo = {
 	// Home page <title>. Other pages use "<page> — Mohammad Al Bast".
-	title: "Mohammad Al Bast — Full-Stack Developer & Webflow Expert",
+	title: "Mohammad Al Bast — Webflow Developer & Full-Stack Engineer",
 	description:
-		"Full-stack web developer and Webflow expert in Lebanon. I build Webflow sites your team can run and TypeScript web apps with React, Next.js and NestJS.",
+		"Freelance Webflow developer and full-stack engineer in Lebanon, building Webflow sites and Next.js, React and NestJS apps for clients in the Gulf and worldwide.",
+	// Where you take work; used in structured data so search engines can match regional searches.
+	areaServed: ["Lebanon", "United Arab Emirates", "Saudi Arabia", "Qatar", "Kuwait", "Worldwide (remote)"],
 	projectsTitle: "Projects",
 	projectsDescription:
 		"Webflow builds, Next.js and React apps, NestJS APIs and Laravel projects by Mohammad Al Bast, with the challenges, solutions and stack behind each one.",
@@ -139,10 +141,12 @@ export const privacyPolicy = {
 };
 
 export const hero = {
+	// Small line above the headline, inside the page's <h1>: carries the role and place search engines weigh most.
+	eyebrow: "Freelance Webflow Developer & Full-Stack Engineer · Lebanon",
 	titleStart: "Webflow sites ",
 	titleHighlight: "your team can run.",
 	titleEnd: " Web apps that hold up.",
-	intro: "Freelance full-stack developer and Webflow specialist based in Lebanon. I work in TypeScript, React, Next.js and NestJS.",
+	intro: "Freelance Webflow developer and full-stack engineer based in Lebanon, building for businesses and agencies across the Gulf, Europe and beyond. I work in TypeScript, React, Next.js and NestJS.",
 	primaryCta: { label: "View My Work", href: "/projects" },
 	secondaryCta: { label: "Contact Me", href: "#contact" },
 	// Shown by the terminal `status` command.
@@ -222,8 +226,8 @@ export const stack = {
 };
 
 export const services = {
-	title: "Services I Offer",
-	intro: "From Webflow builds to full-stack web applications, I take projects from design to deployment and keep them maintainable after launch.",
+	title: "Webflow & Web Development Services",
+	intro: "From Webflow builds to full-stack web applications, I work with businesses and agencies to take projects from design to deployment, and keep them maintainable after launch.",
 	bilingualLabel: "EN / AR ready",
 	items: [
 		{
@@ -233,8 +237,8 @@ export const services = {
 			highlight: "Webflow",
 			titleAfter: " Implementation",
 			description:
-				"Client-First Webflow builds with structured CMS collections, reusable components, interactions and custom code, handed off so your team can edit content without breaking the layout.",
-			builds: ["Marketing and portfolio sites", "Landing pages built to convert", "Client sites your team edits in the CMS"],
+				"As your Webflow developer, I build Client-First sites with structured CMS collections, reusable components, interactions and custom code, handed off so your team can edit content without breaking the layout.",
+			builds: ["Marketing and portfolio sites", "Landing pages built to convert", "White-label builds for agencies"],
 			cta: "Start a Webflow Project",
 			visual: "cms" as const,
 			contactType: "Webflow site",
@@ -247,7 +251,7 @@ export const services = {
 			highlight: "Web Application",
 			titleAfter: " Development",
 			description:
-				"Full-stack TypeScript apps with React or Next.js on the front and NestJS or Laravel behind them: authentication, role-based access, PostgreSQL and clean APIs, from schema to deployment.",
+				"As a Next.js and NestJS developer, I build full-stack TypeScript apps with React or Next.js on the front and NestJS or Laravel behind them: authentication, role-based access, PostgreSQL and clean APIs, from schema to deployment.",
 			builds: ["Learning platforms and admin suites", "Dashboards with server-driven tables", "Bilingual EN and AR interfaces"],
 			cta: "Build a Web App",
 			visual: "code" as const,
@@ -413,6 +417,11 @@ export const projects: Project[] = [
 		],
 	},
 ];
+
+export const latestProjects = {
+	title: "Webflow & Web App Projects",
+	cta: "View All Projects",
+};
 
 export const projectsPage = {
 	// PLACEHOLDER — Figma says "<Heading Here>"

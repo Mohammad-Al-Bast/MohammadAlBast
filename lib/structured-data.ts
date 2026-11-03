@@ -1,11 +1,11 @@
-import { seo, site, socialLinks, stack } from '@/components/portfolio/data'
+import { seo, services, site, socialLinks, stack } from '@/components/portfolio/data'
 import type { Project } from '@/components/portfolio/data'
 import { absoluteUrl, siteUrl } from '@/lib/seo'
 
 const personId = `${siteUrl}/#person`
 const websiteId = `${siteUrl}/#website`
 
-/** Person + WebSite for the home page. */
+/** Person + ProfessionalService (services and areas served) + WebSite for the home page. */
 export function homeStructuredData() {
   return [
     {
@@ -25,6 +25,37 @@ export function homeStructuredData() {
       },
       sameAs: socialLinks.map((l) => l.href),
       knowsAbout: stack.columns.flatMap((c) => c.tags),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ProfessionalService',
+      '@id': `${siteUrl}/#service`,
+      name: `${site.name} — ${site.role}`,
+      url: siteUrl,
+      image: absoluteUrl(site.portrait),
+      description: seo.description,
+      email: site.email.label,
+      telephone: site.phone.label.replace(/\s+/g, ''),
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: site.location.split(',')[0].trim(),
+        addressCountry: 'LB',
+      },
+      areaServed: seo.areaServed,
+      founder: { '@id': personId },
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: services.title,
+        itemListElement: services.items.map((s) => ({
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: `${s.titleBefore}${s.highlight}${s.titleAfter}`.trim(),
+            description: s.description,
+            provider: { '@id': personId },
+          },
+        })),
+      },
     },
     {
       '@context': 'https://schema.org',

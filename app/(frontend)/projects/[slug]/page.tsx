@@ -24,7 +24,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const project = await getProject(slug)
   if (!project) return {}
   return pageMetadata({
-    title: project.name,
+    // e.g. "EDUadmin — Laravel Case Study — Mohammad Al Bast": the category adds a search term to the result title.
+    title: `${project.name} — ${project.category} Case Study`,
     description: project.description,
     path: `/projects/${project.slug}`,
     type: 'article',
