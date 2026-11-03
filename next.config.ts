@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  // Keep the CMS admin and API out of search results (robots.txt only stops crawling, not indexing of linked URLs).
+  async headers() {
+    const noindex = [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }]
+    return [
+      { source: '/admin/:path*', headers: noindex },
+      { source: '/api/:path*', headers: noindex },
+    ]
+  },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],

@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google'
 
 import { ContactProvider } from '@/components/portfolio/contact-dialog'
+import { seo, site } from '@/components/portfolio/data'
+import { siteUrl } from '@/lib/seo'
 import { CTA } from '@/components/portfolio/cta'
 import { RouteFocus } from '@/components/portfolio/route-focus'
 import { SiteFooter } from '@/components/portfolio/site-footer'
@@ -21,13 +23,20 @@ const ibmPlexMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: 'Mohammad Al Bast — Full-Stack Web Developer & Webflow Expert',
-    template: '%s — Mohammad Al Bast',
+    default: seo.title,
+    template: `%s — ${site.name}`,
   },
-  description:
-    'Mohammad Al Bast is a full-stack web developer and Webflow expert in Lebanon, building Webflow sites and TypeScript web applications with React, Next.js, NestJS and Laravel for clients worldwide.',
-  icons: { icon: { url: '/images/favicon.svg', type: 'image/svg+xml' } },
+  description: seo.description,
+  applicationName: site.name,
+  authors: [{ name: site.name, url: siteUrl }],
+  creator: site.name,
+  // /favicon.ico and /apple-icon.png are generated files in app/; the SVG is the sharp version for modern browsers.
+  icons: {
+    icon: { url: '/images/favicon.svg', type: 'image/svg+xml' },
+    apple: { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+  },
 }
 
 export const viewport: Viewport = {

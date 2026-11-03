@@ -1,12 +1,12 @@
-import type { Metadata } from 'next'
-
 import { CodeHeading } from '@/components/code-heading'
 import { privacyPolicy } from '@/components/portfolio/data'
+import { pageMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: privacyPolicy.title,
-  description: 'How the portfolio website of Mohammad Al Bast handles visitor data, analytics and contact details.',
-}
+  description: privacyPolicy.description,
+  path: '/privacy-policy',
+})
 
 const effectiveDate = new Intl.DateTimeFormat('en-US', {
   dateStyle: 'long',

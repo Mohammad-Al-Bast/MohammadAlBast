@@ -7,7 +7,10 @@ import { ArrowLink, GithubLink } from '@/components/primitives'
 import { ProjectGallery } from '@/components/portfolio/project-gallery'
 import { ProjectHeroMarquee } from '@/components/portfolio/project-hero-marquee'
 import { ProjectShowcase } from '@/components/portfolio/project-showcase'
+import { JsonLd } from '@/components/json-ld'
 import { getProject, getProjects } from '@/lib/projects'
+import { pageMetadata } from '@/lib/seo'
+import { projectStructuredData } from '@/lib/structured-data'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 
@@ -19,7 +22,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const project = await getProject(slug)
-  return project ? { title: project.name, description: project.description } : {}
+  if (!project) return {}
+  return pageMetadata({
+    title: project.name,
+    description: project.description,
+    path: `/projects/${project.slug}`,
+    type: 'article',
+  })
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -37,6 +46,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
+      <JsonLd data={projectStructuredData(project)} />
       {/* Hero */}
       <section className="container-page pt-6 md:pt-10">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-8">

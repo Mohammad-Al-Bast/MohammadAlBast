@@ -28,6 +28,23 @@ export const site = {
 	cv: "/cv/Mohammad-Al-Bast-CV.pdf",
 };
 
+// Search and social-share copy. Keep titles under 60 characters and descriptions around 150–160.
+export const seo = {
+	// Home page <title>. Other pages use "<page> — Mohammad Al Bast".
+	title: "Mohammad Al Bast — Full-Stack Developer & Webflow Expert",
+	description:
+		"Full-stack web developer and Webflow expert in Lebanon. I build Webflow sites your team can run and TypeScript web apps with React, Next.js and NestJS.",
+	projectsTitle: "Projects",
+	projectsDescription:
+		"Webflow builds, Next.js and React apps, NestJS APIs and Laravel projects by Mohammad Al Bast, with the challenges, solutions and stack behind each one.",
+	// Text on the generated share image (1200×630) used when a page is posted on LinkedIn, X, Slack or WhatsApp.
+	shareImage: {
+		eyebrow: "FULL-STACK DEVELOPER & WEBFLOW EXPERT",
+		headline: "Webflow sites your team can run. Web apps that hold up.",
+		footer: "TypeScript · React · Next.js · NestJS · Webflow",
+	},
+};
+
 // Shown as icons in the hero and the footer. To add a platform, put its SVG in /public/logos and add a line here.
 export const socialLinks = [
 	{ label: "GitHub", href: site.github, icon: "/logos/github.svg" },
@@ -63,6 +80,8 @@ export const legalLinks = [{ label: "Privacy Policy", href: "/privacy-policy" }]
 
 export const privacyPolicy = {
 	title: "Privacy Policy",
+	// Search result snippet for /privacy-policy.
+	description: "How the portfolio website of Mohammad Al Bast handles visitor data, analytics and contact details.",
 	effectiveDate: "2026-11-01",
 	intro: "This policy explains what happens to your information when you visit this portfolio website, which is run by Mohammad Al Bast. The site has no public accounts or newsletter, so it collects very little.",
 	sections: [
@@ -308,6 +327,8 @@ export type Project = {
 	challenges: string;
 	solutions: string;
 	technologies: string[];
+	/** ISO date of the last CMS edit; used for the sitemap and structured data. */
+	updatedAt?: string;
 	testimonial?: {
 		quote: string;
 		name: string;

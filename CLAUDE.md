@@ -25,6 +25,7 @@ The design source is the Figma file "Hamada's portfolio (Copy)", Page 1.
 - `lib/projects.ts` — the only place pages read projects from; falls back to `data.ts` placeholders when `DATABASE_URL` is unset
 - `app/(frontend)/globals.css` — Tailwind v4 theme; all design tokens are CSS custom properties defined here
 - `app/(frontend)/style-guide/page.tsx` — living style guide at `/style-guide` (dev only: noindex, 404 in production); update this when adding new primitives
+- SEO — `lib/seo.ts` (`siteUrl` from `NEXT_PUBLIC_SITE_URL` or Vercel's production URL; `pageMetadata()` gives every page its canonical, Open Graph and Twitter tags, so new pages must use it), `lib/structured-data.ts` + `components/json-ld.tsx` (schema.org JSON-LD), `app/robots.ts` (crawling allowed only when `VERCEL_ENV=production`), `app/sitemap.ts` (pages + Payload projects), `app/manifest.ts`, and generated share images in `opengraph-image.tsx` files (nested routes don't inherit them, so each top-level page segment re-exports the root one). SEO copy lives in `seo` in `data.ts`
 - `app/actions/contact.ts` + `lib/contact-schema.ts` — contact form server action (zod validation, honeypot) sending through the Resend REST API; env vars in `.env.example`
 
 ### Component layers

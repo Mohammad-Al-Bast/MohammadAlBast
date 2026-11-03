@@ -31,6 +31,7 @@ function toProject(doc: ProjectDoc): Project {
     challenges: doc.challenges,
     solutions: doc.solutions,
     technologies: doc.technologies ?? [],
+    updatedAt: doc.updatedAt,
     testimonial:
       t?.quote && t?.name
         ? { quote: t.quote, name: t.name, handle: t.handle ?? '', image: mediaUrl(t.image) ?? '' }
