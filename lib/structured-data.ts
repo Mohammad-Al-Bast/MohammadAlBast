@@ -1,11 +1,11 @@
-import { seo, services, site, socialLinks, stack } from '@/components/portfolio/data'
+import { faq, seo, services, site, socialLinks, stack } from '@/components/portfolio/data'
 import type { Project } from '@/components/portfolio/data'
 import { absoluteUrl, siteUrl } from '@/lib/seo'
 
 const personId = `${siteUrl}/#person`
 const websiteId = `${siteUrl}/#website`
 
-/** Person + ProfessionalService (services and areas served) + WebSite for the home page. */
+/** Person + ProfessionalService (services and areas served) + WebSite + FAQPage for the home page. */
 export function homeStructuredData() {
   return [
     {
@@ -67,6 +67,19 @@ export function homeStructuredData() {
       inLanguage: 'en',
       author: { '@id': personId },
       publisher: { '@id': personId },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      '@id': `${siteUrl}/#faq`,
+      url: `${siteUrl}/#faq`,
+      inLanguage: 'en',
+      isPartOf: { '@id': websiteId },
+      mainEntity: faq.items.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
     },
   ]
 }

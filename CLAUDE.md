@@ -34,7 +34,7 @@ The design source is the Figma file "Hamada's portfolio (Copy)", Page 1.
 
 | Layer | Path | Role |
 |---|---|---|
-| shadcn/ui | `components/ui/` | `button`, `badge`, `card`, `carousel` (Embla), `dialog`, `separator`, `sheet`, `tabs`, `avatar`. Re-skinned to the Figma — edit variants here, not per-use |
+| shadcn/ui | `components/ui/` | `accordion`, `button`, `badge`, `card`, `carousel` (Embla), `dialog`, `separator`, `sheet`, `tabs`, `avatar`. Re-skinned to the Figma — edit variants here, not per-use |
 | Primitives | `components/primitives.tsx` | Composites on top of shadcn: `ArrowButton`, `ButtonLink`, `ArrowLink`, `GithubLink` |
 | Headings | `components/code-heading.tsx` | `<Title/>` display heading with mint brackets |
 | Brand | `components/brand-glyph.tsx` | CSS-mask trick for tintable SVG brand icons |

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { CodeHeading } from '@/components/code-heading'
 import { Logo } from '@/components/logo'
 import { ArrowButton, ArrowLink, ButtonLink, GithubLink } from '@/components/primitives'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
@@ -159,6 +160,24 @@ export default function StyleGuidePage() {
             </p>
           </article>
         </div>
+      </Section>
+
+      {/* Accordion */}
+      <Section label="Components" title="Accordion">
+        <Accordion multiple hiddenUntilFound className="max-w-2xl border-t border-border">
+          <AccordionItem>
+            <AccordionTrigger>Hairline rows with a mint plus</AccordionTrigger>
+            <AccordionContent>
+              <p>Used by the FAQ. The plus turns into a cross when open; closed panels stay in the HTML via hiddenUntilFound.</p>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem>
+            <AccordionTrigger>Several can be open at once</AccordionTrigger>
+            <AccordionContent>
+              <p>Pass multiple on the root. Height animates and respects reduced motion.</p>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </Section>
 
       {/* Logo */}

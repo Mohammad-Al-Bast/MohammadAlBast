@@ -1,5 +1,6 @@
 import { JsonLd } from '@/components/json-ld'
 import { About } from '@/components/portfolio/about'
+import { Faq } from '@/components/portfolio/faq'
 import { Hero, LogoStrip } from '@/components/portfolio/hero'
 import { LatestProjects } from '@/components/portfolio/latest-projects'
 import { Services } from '@/components/portfolio/services'
@@ -22,6 +23,7 @@ export default function Page() {
       <LatestProjects />
       <About />
       {testimonials.enabled && <Testimonials />}
+      <Faq />
     </>
   )
 }
