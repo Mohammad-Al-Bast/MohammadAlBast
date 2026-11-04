@@ -35,7 +35,7 @@ export const seo = {
 	description:
 		"Freelance Webflow developer and full-stack engineer in Lebanon: Webflow sites and Next.js, Node.js, NestJS and PostgreSQL apps for clients in the Gulf and worldwide.",
 	// Where you take work; used in structured data so search engines can match regional searches.
-	areaServed: ["Lebanon", "United Arab Emirates", "Saudi Arabia", "Qatar", "Kuwait", "Worldwide (remote)"],
+	areaServed: ["Beirut", "Zahlé", "Beqaa", "Lebanon", "United Arab Emirates", "Saudi Arabia", "Qatar", "Kuwait", "Worldwide (remote)"],
 	projectsTitle: "Projects",
 	projectsDescription:
 		"Webflow builds, Next.js and React apps and Node.js / NestJS APIs on PostgreSQL by Mohammad Al Bast, with the challenges, solutions and stack behind each one.",
@@ -515,6 +515,64 @@ export const testimonials = {
 			role: "Owner",
 			quote: "Mohammad gave Reactive Store a website that finally looks as professional as the equipment we sell. Customers can browse our medical and rehabilitation products easily and order straight through WhatsApp, which fits how people here actually buy. He understood our business from day one.",
 			image: "",
+		},
+	],
+};
+
+/**
+ * Home page FAQ. Also published as FAQPage structured data (lib/structured-data.ts),
+ * so every answer must match what the page shows. Plain text only.
+ * Write questions the way people search them; keep answers to two or three sentences.
+ */
+export const faq = {
+	title: "Frequently Asked Questions",
+	intro: "Straight answers about hiring a freelance Webflow developer and full-stack engineer. Don't see your question? Ask me directly.",
+	askLabel: "Ask a Question",
+	items: [
+		{
+			question: "Are you a freelance web developer in Beirut?",
+			answer:
+				"I'm based in Zahlé, about an hour from Beirut, and work with businesses and agencies in Beirut, the Beqaa and across Lebanon. I'm happy to meet in person in Beirut for kickoffs and reviews, and the day-to-day work runs remotely, so you get Webflow and full-stack development without the agency overhead.",
+		},
+		{
+			question: "Do you work with clients outside Lebanon?",
+			answer:
+				"Yes. From Zahlé, I work remotely with businesses and agencies in the UAE, Saudi Arabia, Qatar, Kuwait, Europe and beyond. Lebanon's time zone overlaps most of the working day with the Gulf, so calls and quick fixes happen in your hours.",
+		},
+		{
+			question: "Should my project use Webflow or a custom Next.js build?",
+			answer:
+				"Webflow is the right fit for marketing sites, landing pages and CMS-driven catalogs that your team wants to edit without a developer. A custom Next.js app with a Node.js or NestJS back end makes sense when you need user accounts, dashboards, complex business logic or your own database. I build both, so I'll recommend whichever suits the project rather than the one I prefer.",
+		},
+		{
+			question: "What technologies do you use for full-stack web applications?",
+			answer:
+				"TypeScript end to end: React and Next.js on the front, Node.js APIs built with NestJS or Express, and PostgreSQL with Prisma underneath. I add authentication, multi-factor login and role-based access where needed, document APIs with Swagger / OpenAPI, and use Laravel and PHP when an existing project calls for it.",
+		},
+		{
+			question: "Can you build bilingual Arabic and English websites?",
+			answer:
+				"Yes. Arabic is my native language, and I build bilingual EN / AR sites and apps with proper right-to-left layouts, in both Webflow and Next.js, so the Arabic version reads as naturally as the English one.",
+		},
+		{
+			question: "Do you work with agencies as a white-label Webflow developer?",
+			answer:
+				"Yes. I build Webflow sites and web apps under your agency's brand, from your Figma or Adobe XD designs, using Client-First structure so your team and your clients can manage the site after handoff.",
+		},
+		{
+			question: "Can you connect my Webflow site to a POS, inventory system or other API?",
+			answer:
+				"Yes. I build integrations that sync POS and inventory data into Webflow CMS, connect third-party APIs, run bulk CMS imports and automate manual updates, including catalogs with more than 100,000 products.",
+		},
+		{
+			question: "How do pricing and timelines work?",
+			answer:
+				"Every project is quoted on its scope. Send a few lines about what you need or book a 20-minute call, and I'll come back with a clear quote and an honest timeline before any work starts. I reply within one working day.",
+		},
+		{
+			question: "Do you offer website maintenance after launch?",
+			answer:
+				"Yes. Monthly care plans cover content and CMS updates, fixes, small features, performance checks and a short report, so you always have a developer on call. I can also take over an existing Webflow site or codebase built by someone else.",
 		},
 	],
 };
