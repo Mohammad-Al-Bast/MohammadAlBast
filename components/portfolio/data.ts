@@ -16,8 +16,8 @@ export const site = {
 	location: "Zahlé, Lebanon",
 	phone: { label: "+961 3 279 355", href: "tel:+9613279355" },
 	email: {
-		label: "mohammadbast4@gmail.com",
-		href: "mailto:mohammadbast4@gmail.com",
+		label: "contact@mohammadalbast.com",
+		href: "mailto:contact@mohammadalbast.com",
 	},
 	github: "https://github.com/Mohammad-Al-Bast",
 	linkedin: "https://www.linkedin.com/in/mohammad-al-bast",
@@ -582,6 +582,6 @@ export const cta = {
 	body: "Whether you need a Webflow site your team can run, a full-stack web app, or a second pair of hands on an existing codebase, I'm open to freelance projects and full-time roles. Agencies: I also build white-label, under your brand.",
 	button: {
 		label: "LET\u2019S TALK",
-		href: "mailto:mohammadbast4@gmail.com",
+		href: "mailto:contact@mohammadalbast.com",
 	},
 };
