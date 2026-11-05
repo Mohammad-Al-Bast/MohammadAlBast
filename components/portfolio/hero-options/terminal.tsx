@@ -51,7 +51,7 @@ function respond(cmd: string, openContact: () => void, projects: TerminalProject
           {'  '}projects{'  '}see my work{'\n'}
           {site.cv && (
             <>
-              {'  '}cv{'        '}download my CV{'\n'}
+              {'  '}cv{'        '}view my CV{'\n'}
             </>
           )}
           {site.booking && (
@@ -116,8 +116,9 @@ function respond(cmd: string, openContact: () => void, projects: TerminalProject
     case 'cv':
       return site.cv ? (
         <>
-          <a href={site.cv} download className={linkClass}>
+          <a href={site.cv} target="_blank" rel="noopener noreferrer" className={linkClass}>
             {contact.cvLabel}
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>{' '}
           (PDF)
         </>

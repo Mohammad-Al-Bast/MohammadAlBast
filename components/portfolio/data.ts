@@ -68,7 +68,7 @@ export const contact = {
 	],
 	success: "Thanks, your message is on its way. I'll reply within one working day.",
 	bookingLabel: "Book a 20-min call",
-	cvLabel: "Download CV",
+	cvLabel: "View CV",
 };
 
 export const navLinks = [
