@@ -2,7 +2,7 @@ import { CodeHeading } from '@/components/code-heading'
 import { GithubLink } from '@/components/primitives'
 import { ContactButton } from './contact-trigger'
 import { Separator } from '@/components/ui/separator'
-import { Download } from 'lucide-react'
+import { FileText } from 'lucide-react'
 
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -71,8 +71,14 @@ export function About() {
                 Contact Me
               </ContactButton>
               {site.cv && (
-                <a href={site.cv} download className={cn(buttonVariants({ variant: 'outline-light' }), 'w-full sm:w-auto')}>
-                  <Download aria-hidden /> {contact.cvLabel}
+                <a
+                  href={site.cv}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(buttonVariants({ variant: 'outline-light' }), 'w-full sm:w-auto')}
+                >
+                  <FileText aria-hidden /> {contact.cvLabel}
+                  <span className="sr-only"> (PDF, opens in a new tab)</span>
                 </a>
               )}
             </div>

@@ -65,7 +65,7 @@ Without the R2 variables, uploads are stored in `./media` (local development onl
 | Contact form, dialog, server action | `components/portfolio/contact-*.tsx`, `app/actions/contact.ts`, `lib/contact-schema.ts` |
 | shadcn components (re-skinned) | `components/ui/` |
 | Design tokens | `app/globals.css` |
-| CV download | `public/cv/Mohammad-Al-Bast-CV.pdf` |
+| CV (opens in a new tab) | `public/cv/Mohammad-Al-Bast-CV.pdf` |
 | Style guide (dev only) | `/style-guide`, returns 404 in production |
 | Site pages vs admin | `app/(frontend)/` for the site, `app/(payload)/` for Payload (generated, don't edit) |
 
