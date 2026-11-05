@@ -164,15 +164,16 @@ export const hero = {
 	],
 };
 
+// `color` is the brand color each logo turns on hover (Simple Icons hex; Next.js uses white because its black would vanish on the dark page).
 export const techLogos = [
-	{ src: "/logos/typescript.svg", name: "TypeScript" },
-	{ src: "/logos/react.svg", name: "React" },
-	{ src: "/logos/nextjs.svg", name: "Next.js" },
-	{ src: "/logos/nodejs.svg", name: "Node.js" },
-	{ src: "/logos/nestjs.svg", name: "NestJS" },
-	{ src: "/logos/postgresql.svg", name: "PostgreSQL" },
-	{ src: "/logos/webflow.svg", name: "Webflow" },
-	{ src: "/logos/laravel.svg", name: "Laravel" },
+	{ src: "/logos/typescript.svg", name: "TypeScript", color: "#3178C6" },
+	{ src: "/logos/react.svg", name: "React", color: "#61DAFB" },
+	{ src: "/logos/nextjs.svg", name: "Next.js", color: "#FFFFFF" },
+	{ src: "/logos/nodejs.svg", name: "Node.js", color: "#5FA04E" },
+	{ src: "/logos/nestjs.svg", name: "NestJS", color: "#E0234E" },
+	{ src: "/logos/postgresql.svg", name: "PostgreSQL", color: "#4169E1" },
+	{ src: "/logos/webflow.svg", name: "Webflow", color: "#146EF5" },
+	{ src: "/logos/laravel.svg", name: "Laravel", color: "#FF2D20" },
 ];
 
 export const stack = {

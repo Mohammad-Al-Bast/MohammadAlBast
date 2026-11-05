@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import Image from 'next/image'
 
 import { BrandGlyph } from '@/components/brand-glyph'
@@ -89,9 +90,19 @@ export function LogoStrip() {
         {[0, 1].map((copy) => (
           <ul key={copy} className="flex shrink-0 items-center gap-24 pr-24">
             {row.map((logo, i) => (
-              <li key={i} className="flex items-center gap-3 text-foreground/55">
-                <BrandGlyph src={logo.src} className="size-7" />
-                <span className="font-sans text-xl">{logo.name}</span>
+              <li
+                key={i}
+                // the logo's brand color, shown on hover (CSS variables need an inline style)
+                style={{ '--brand': logo.color } as CSSProperties}
+                className="group/logo flex items-center gap-3 text-foreground/55"
+              >
+                <BrandGlyph
+                  src={logo.src}
+                  className="size-7 transition-colors duration-300 group-hover/logo:text-(--brand)"
+                />
+                <span className="font-sans text-xl transition-colors duration-300 group-hover/logo:text-foreground">
+                  {logo.name}
+                </span>
               </li>
             ))}
           </ul>
