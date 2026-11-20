@@ -517,6 +517,12 @@ export const testimonials = {
 			quote: "Mohammad gave Reactive Store a website that finally looks as professional as the equipment we sell. Customers can browse our medical and rehabilitation products easily and order straight through WhatsApp, which fits how people here actually buy. He understood our business from day one.",
 			image: "",
 		},
+		{
+			name: "Tania I.",
+			role: "Graphic Designer · UX/UI Designer",
+			quote: "I had the pleasure of collaborating with Mohammad on five projects, and he has consistently proven to be an excellent developer and a great team player. He understands design requirements, responds constructively to feedback, and makes the design-to-development process smooth and efficient. Even under pressure and with tight deadlines, he stays calm, flexible, and solution-oriented.",
+			image: "",
+		},
 	],
 };
 
