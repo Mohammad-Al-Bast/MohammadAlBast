@@ -318,6 +318,8 @@ export type CodeSnippet = {
 	code: string;
 };
 
+export type ImageOrientation = 'portrait' | 'landscape';
+
 export type Project = {
 	slug: string;
 	name: string;
@@ -326,6 +328,8 @@ export type Project = {
 	tags: string[];
 	images: string[];
 	imageAlts?: string[];
+    /** Same order as `images`: phone screenshots are portrait, desktop ones landscape. */
+    imageOrientations?: ImageOrientation[];
 	snippet?: CodeSnippet;
 	liveUrl: string;
 	codeUrl: string;

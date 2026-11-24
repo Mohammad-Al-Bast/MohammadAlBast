@@ -34,13 +34,14 @@ export function ProjectRow({
           {project.images.map((src, i) => (
             <CarouselItem key={src + i} className="pl-0">
               <div className="relative aspect-[4/3] w-full sm:aspect-[16/10] lg:aspect-auto lg:h-[500px]">
+                {/* Phone screenshots sit whole in the wide frame instead of being cropped to a strip. */}
                 <Image
                   src={src}
                   alt={project.imageAlts?.[i] ?? `${project.name} screenshot ${i + 1}`}
                   fill
                   priority={priority && i === 0}
                   sizes="(min-width: 1024px) 64vw, 100vw"
-                  className="object-cover"
+                  className={project.imageOrientations?.[i] === 'portrait' ? 'object-contain' : 'object-cover object-top'}
                 />
               </div>
             </CarouselItem>
