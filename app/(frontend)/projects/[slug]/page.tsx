@@ -67,7 +67,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
 
-          <ProjectHeroMarquee images={project.images} />
+          <ProjectHeroMarquee images={project.images} orientations={project.imageOrientations} />
         </div>
       </section>
 
@@ -123,7 +123,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </section>
       )}
 
-      <ProjectGallery images={project.images} name={project.name} />
+      <ProjectGallery
+        images={project.images}
+        name={project.name}
+        alts={project.imageAlts}
+        orientations={project.imageOrientations}
+      />
     </>
   )
 }

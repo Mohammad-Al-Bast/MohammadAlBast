@@ -1,7 +1,7 @@
 import config from '@payload-config'
 import { getPayload, type Where } from 'payload'
 
-import { projects as placeholderProjects, type Project } from '@/components/portfolio/data'
+import { projects as placeholderProjects, type ImageOrientation, type Project } from '@/components/portfolio/data'
 import type { Media, Project as ProjectDoc } from '@/payload-types'
 
 /** True once a database is configured; until then the site shows the placeholder projects from data.ts. */
@@ -12,8 +12,22 @@ function mediaUrl(m: number | Media | null | undefined, size: 'card' | 'full' = 
   return m.sizes?.[size]?.url ?? m.url ?? null
 }
 
+/**
+ * Phone screenshots are about twice as tall as they are wide (375×812, 342×741). Desktop screenshots are
+ * close to square or wider (800×896 stitched captures, 1920×1080), so only clearly tall images count as
+ * phone shots; desktop ones are shown in a 16:9 frame cropped from the top.
+ */
+const PHONE_MIN_RATIO = 1.6
+
+function orientation(m: Media): ImageOrientation {
+  return m.width && m.height && m.height / m.width >= PHONE_MIN_RATIO ? 'portrait' : 'landscape'
+}
+
 function toProject(doc: ProjectDoc): Project {
-  const images = (doc.images ?? []).filter((m): m is Media => typeof m === 'object' && m !== null)
+  // Keep only images that resolve to a URL, so urls, alts and orientations stay index-aligned.
+  const images = (doc.images ?? []).filter(
+    (m): m is Media => typeof m === 'object' && m !== null && Boolean(mediaUrl(m, 'full')),
+  )
   const t = doc.testimonial
   const s = doc.codeSnippet
   return {
@@ -22,8 +36,9 @@ function toProject(doc: ProjectDoc): Project {
     description: doc.description,
     category: doc.category,
     tags: doc.tags ?? [],
-    images: images.map((m) => mediaUrl(m, 'full')).filter((u): u is string => Boolean(u)),
+    images: images.map((m) => mediaUrl(m, 'full') as string),
     imageAlts: images.map((m) => m.alt),
+    imageOrientations: images.map(orientation),
     snippet: s?.code && s?.language ? { filename: s.filename ?? '', language: s.language, code: s.code } : undefined,
     liveUrl: doc.liveUrl ?? '',
     codeUrl: doc.codeUrl ?? '',

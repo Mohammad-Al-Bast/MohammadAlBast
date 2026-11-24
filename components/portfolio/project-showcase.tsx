@@ -15,7 +15,7 @@ export function ProjectShowcase({ project }: { project: Project }) {
         ) : (
           <div className="relative aspect-[16/9] overflow-hidden rounded-md bg-inset">
             {cover ? (
-              <Image src={cover} alt={project.imageAlts?.[0] ?? `${project.name} showcase`} fill sizes="90vw" className="object-cover" />
+              <Image src={cover} alt={project.imageAlts?.[0] ?? `${project.name} showcase`} fill sizes="90vw" className="object-cover object-top" />
             ) : null}
           </div>
         )}
