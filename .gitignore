@@ -32,3 +32,6 @@ yarn.lock
 
 # Claude Code session worktrees (local only)
 .claude/worktrees/
+
+# brag launch videos
+brag-output*/
